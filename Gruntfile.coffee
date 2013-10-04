@@ -48,13 +48,13 @@ module.exports = (grunt) ->
             .replace('node_modules/seasketch-reporting-api/templates/', '')
             .replace('.mustache', '')
     less:
-      report:
+      protectionZone:
         files:
-          'dist/report.css': 'stylesheets/report.less'
+          'dist/protectionZone.css': 'stylesheets/protectionZone.less'
     browserify:
-      report:
-        src: 'scripts/report.coffee'
-        dest: 'dist/report.js'
+      protectionZone:
+        src: 'scripts/protectionZone.coffee'
+        dest: 'dist/protectionZone.js'
       options:
         transform: ['coffeeify']
         debug: true

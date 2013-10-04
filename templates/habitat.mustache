@@ -1,0 +1,30 @@
+<div class="reportSection tableContainer">
+  <h4>Habitat Representation</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Habitat</th>
+        <th>New</th>
+        <th>Existing</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#habitats}}
+      <tr>
+        <td>{{HAB_NAME}}</td>
+        <td>{{NEW_AREA}}</td>
+        <td>{{EXISTING_AREA}}</td>
+        <td>{{TOTAL_AREA}}</td>
+      </tr>
+      {{/habitats}}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4" class="paragraph" style="text-align:left;">
+          A measure of the portion of each habitat type that has been protected in this zone.
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
