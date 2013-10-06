@@ -11,12 +11,11 @@ class OverviewTab extends ReportTab
   name: 'Overview'
   className: 'overview'
   template: templates.overview
-  dependencies: []
+  dependencies: ['TargetSize']
   timeout: 120000
 
   render: () ->
-    HECTARES = 21000
-
+    HECTARES = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
     context =
       sketch: @model.forTemplate()
       sketchClass: @sketchClass.forTemplate()
