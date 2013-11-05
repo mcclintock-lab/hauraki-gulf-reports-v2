@@ -9,7 +9,7 @@ class EnvironmentTab extends ReportTab
   timeout: 120000
 
   render: () ->
-    console.log @recordSet('Habitat', 'Habitats').toArray()
+    console.log 'habitats', @recordSet('Habitat', 'Habitats').toArray()
     context =
       sketch: @model.forTemplate()
       sketchClass: @sketchClass.forTemplate()

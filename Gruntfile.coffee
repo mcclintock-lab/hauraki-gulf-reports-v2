@@ -60,7 +60,10 @@ module.exports = (grunt) ->
         debug: true
         alias: [
           'node_modules/seasketch-reporting-api/scripts/reportTab.coffee:reportTab'
+          'node_modules/seasketch-reporting-api/scripts/utils.coffee:api/utils'
+          'node_modules/seasketch-reporting-api/templates/templates.js:api/templates'
         ]
+        ignore: ['views/collectionView']
 
   grunt.loadNpmTasks('grunt-contrib-connect')
   grunt.loadNpmTasks('grunt-contrib-watch')

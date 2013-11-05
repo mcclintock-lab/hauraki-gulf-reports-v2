@@ -25,6 +25,64 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.reportView .reportLoading {
+  margin-top: 24px;
+}
+.reportView .reportLoading h4 {
+  margin-top: 24px;
+}
+.reportView .reportLoading .progress {
+  width: 400px;
+  margin: 0px auto;
+  margin-top: 20px;
+  border: 1px solid #e2e1e2;
+  background: white;
+}
+.reportView .reportLoading .progress .bar {
+  -webkit-transition-duration: 0s;
+  -moz-transition-duration: 0s;
+  -o-transition-duration: 0s;
+  transition-duration: 0s;
+  background-color: #83abc5;
+  background-image: -moz-linear-gradient(top, #98b9cf, #6496b7);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#98b9cf), to(#6496b7));
+  background-image: -webkit-linear-gradient(top, #98b9cf, #6496b7);
+  background-image: -o-linear-gradient(top, #98b9cf, #6496b7);
+  background-image: linear-gradient(to bottom, #98b9cf, #6496b7);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff98b9cf', endColorstr='#ff6496b7', GradientType=0);
+  background-color: #98b9cf;
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.reportView .reportLoading [rel=details] {
+  width: 100%;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+  display: none;
+}
+.reportView .reportLoading .details {
+  display: none;
+  margin-top: 10px;
+}
+.reportView .reportLoading .details .reportResult {
+  padding: 5px 10px;
+  border: 1px solid #efefef;
+  background: #fcfcfc;
+}
+.reportView .reportLoading .details .reportResult h6 {
+  font-size: 14px;
+}
+.reportView .reportLoading .details .reportResult h6 a {
+  margin-right: 10px;
+}
+.reportView .reportLoading .details .reportResult h6 span {
+  font-style: italic;
+}
 .reportView div.reportSection {
   background: white;
   padding: 10px;
