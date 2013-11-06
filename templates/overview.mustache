@@ -9,7 +9,15 @@
 <div class="reportSection size">
   <h4>Size</h4>
   <p class="large {{#SIZE_OK}}green-check{{/SIZE_OK}}">
+    <!-- Notice, using mustache tags here to test whether we're rendering a 
+    collection or a single zone -->
+    {{#isCollection}}
+    The average size of the <strong>{{NUM_PROTECTED}}</strong> protected 
+    areas is <strong>{{SIZE}} ha</strong>,
+    {{/isCollection}}
+    {{^isCollection}}
     This protected area is <strong>{{SIZE}} ha</strong>,
+    {{/isCollection}}
     {{#SIZE_OK}}
     meeting the target of {{MIN_SIZE}} ha.
     {{/SIZE_OK}}
@@ -18,7 +26,31 @@
     {{/SIZE_OK}}
   </p>
   <div class="viz"></div>
+  <p style="font-size:11px;padding:11px;text-align:left;margin-top:-10px;">For the same amount of area to be protected, it is desirable to protect fewer, larger areas rather than numerous smaller ones.</p>
+  {{#isCollection}}
+    <p class="large" style="padding:0px 10px;padding-bottom:10px;">
+      The selected network contains <strong>{{TYPE_TWO_MPAS}} Habitat 
+      Protection Zone{{#TYPE_TWO_MPAS_PLURAL}}s{{/TYPE_TWO_MPAS_PLURAL}} and 
+      {{MARINE_RESERVES}} Marine
+      Reserve{{#MARINE_RESERVES_PLURAL}}s{{/MARINE_RESERVES_PLURAL}}</strong>.
+    </p>
+  {{/isCollection}}
 </div>
+
+<!-- 
+I'm leaving these items commented out because they seem hard to implement
+and duplicative. It's also not clear how they would look at the zone-level.
+
+<div class="reportSection representation">
+  <h4>Representation of Habitats</h4>
+  <p>The proposed protection areas and existing reserves protect a sample of the following number of habitats:</p>
+</div>
+
+<div class="reportSection percent">
+  <h4>Percent of Hauraki Gulf Marine Park Protected</h4>
+  <p>The graph belows shows how ‘comprehensive’ the proposed protection is. The proposed plan includes the following protection types:</p>
+</div>
+ -->
 
 {{#anyAttributes}}
 <div class="reportSection">

@@ -55,6 +55,9 @@ module.exports = (grunt) ->
       protectionZone:
         src: 'scripts/protectionZone.coffee'
         dest: 'dist/protectionZone.js'
+      array:
+        src: 'scripts/array.coffee'
+        dest: 'dist/array.js'
       options:
         transform: ['coffeeify']
         debug: true

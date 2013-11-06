@@ -1,30 +1,144 @@
+{{#isCollection}}
+<p>
+  The collection of marine protected areas will protect the full range of 
+  natural marine habitats and ecosystems. These reports show the proportion 
+  of the gulf protected for each habitat type in Marine Reserves and Type-2 
+  Protected Areas, for both existing protected areas and sketches.
+</p>
+{{/isCollection}}
+
+{{#reserveData}}
 <div class="reportSection tableContainer">
-  <h4>Habitat Representation</h4>
-  <table data-paging="10">
+  <h4>Habitats Protected in Marine Reserves</h4>
+  <table data-paging="10"> <!-- data-paging... activates paging  -->
     <thead>
       <tr>
-        <th>Habitat</th>
-        <th>New</th>
-        <th>Existing</th>
-        <th>Total</th>
+        <th style="width:180px;">Habitats</th>
+        <th>Existing Marine Reserves</th>
+        <th>New Marine Reserves</th>
+        <th style="width:50px;">Total</th>
       </tr>
     </thead>
     <tbody>
-      {{#habitats}}
+      {{#habitatsInReserves}}
       <tr>
         <td>{{HabType}}</td>
         <td>{{NewPerc}}</td>
         <td>{{ExistPerc}}</td>
         <td>{{Total}}</td>
       </tr>
-      {{/habitats}}
+      {{/habitatsInReserves}}
     </tbody>
     <tfoot>
       <tr>
         <td colspan="4" class="paragraph" style="text-align:left;">
-          A measure of the portion of each habitat type that has been protected in this zone.
+          <p class="large">
+            {{#isCollection}}
+            Marine Reserves protect
+            {{/isCollection}}
+            {{^isCollection}}
+            This Marine Reserve protects
+            {{/isCollection}}
+            <strong>{{habitatsInReservesCount}}</strong>
+            of <strong>{{habitatsCount}}</strong> habitat types.
+          </p>
         </td>
       </tr>
     </tfoot>
   </table>
 </div>
+{{/reserveData}}
+
+{{#typeTwoData}}
+<div class="reportSection tableContainer">
+  <h4>Habitats Protected in Type-2 Protected Areas</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th style="width:180px;">Habitats</th>
+        <th>Existing Type-2 Protected Areas</th>
+        <th>New Type-2 Protected Areas</th>
+        <th style="width:50px;">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#habitatsInTypeTwos}}
+      <tr>
+        <td>{{HabType}}</td>
+        <td>{{NewPerc}}</td>
+        <td>{{ExistPerc}}</td>
+        <td>{{Total}}</td>
+      </tr>
+      {{/habitatsInTypeTwos}}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4" class="paragraph" style="text-align:left;">
+          <p class="large">
+            {{#isCollection}}
+            Type-2 Reserves protect 
+            {{/isCollection}}
+            {{^isCollection}}
+            This Type-2 Protected Area protects
+            {{/isCollection}}
+            <strong>{{habitatsInTypeTwosCount}}</strong>
+            of <strong>{{habitatsCount}}</strong> habitat types.
+          </p>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+{{/typeTwoData}}
+
+<!-- 
+PDF says for both zones and collections. 
+I just included collections for now  
+-->
+{{#isCollection}}
+<div class="reportSection tableContainer">
+  <h4>Habitat Representation</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Habitats</th>
+        <th>Total Protected in Marine Reserves and Type-2 Areas Combined</th>
+        <th>Number of Sites Protected</th>
+        <th>Adequately Represented?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#representationData}}
+      <tr>
+        <td>{{HabType}}</td>
+        <td>{{Total}}</td>
+        <td>{{NumSites}}</td>
+        <td>{{Protected}}</td>
+      </tr>
+      {{/representationData}}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4" class="paragraph" style="text-align:left;">
+          <p class="large">
+            <strong>{{representedCount}}</strong>
+            of <strong>{{habitatsCount}}</strong> habitats are adequately 
+            protected.
+          </p>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+{{/isCollection}}
+
+{{^isCollection}}
+{{#adjacentProtectedAreas}}
+<div class="reportSection">
+  <h4>Adjacent Terrestrial Protected Area</h4>
+  <p class="large green-check">
+    This zone is adjacent to a <strong>Terrestrial Protected Area</strong>.
+  </p>
+</div>
+{{/adjacentProtectedAreas}}
+{{/isCollection}}

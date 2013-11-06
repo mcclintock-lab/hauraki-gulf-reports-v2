@@ -1,0 +1,141 @@
+<div class="reportSection tableContainer">
+  <h4>Commercial Fishing</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Affected Area (%)</th>
+        <th>Level of Fishing Displaced (%)</th>
+        <th>Economic Value</th>
+        <th>Number of Affected Fishers</th>
+        <th>Fishers in Gulf Fishery</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#commercialFishing}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{Affected}}</td>
+        <td>{{Level}}</td>
+        <td>{{Value}}</td>
+        <td>{{Num}}</td>
+        <td>{{Fishers}}</td>
+      </tr>
+      {{/commercialFishing}}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+          Note: as not all areas fished have the same fishing effort or catch, the “Level of Fishing Displaced” is a combination of the area being restricted and the catch that would normally be caught in that area.
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="reportSection tableContainer">
+  <h4>Recreational Fishing</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Affected Area (%)</th>
+        <th>Level of Fishing Displaced (%)</th>
+        <th>Economic Value</th>
+        <th>Number of Affected Fishers</th>
+        <th>Fishers in Gulf Fishery</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#recreationalFishing}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{Affected}}</td>
+        <td>{{Level}}</td>
+        <td>{{Value}}</td>
+        <td>{{Num}}</td>
+        <td>{{Fishers}}</td>
+      </tr>
+      {{/recreationalFishing}}
+    </tbody>
+<!-- 
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+        </td>
+      </tr>
+    </tfoot>
+ -->
+  </table>
+</div>
+
+<div class="reportSection tableContainer">
+  <h4>Customary Fishing</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Affected Area (%)</th>
+        <th>Level of Fishing Displaced (%)</th>
+        <th>Economic Value</th>
+        <th>Number of Affected Fishers</th>
+        <th>Fishers in Gulf Fishery</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#customaryFishing}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{Affected}}</td>
+        <td>{{Level}}</td>
+        <td>{{Value}}</td>
+        <td>{{Num}}</td>
+        <td>{{Fishers}}</td>
+      </tr>
+      {{/customaryFishing}}
+    </tbody> 
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+          Important customary fishing locations have not been identified yet. Information on the whereabouts of these activities may be added during planning process.
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="reportSection tableContainer">
+  <h4>Total Food Provision</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Fish Stock</th>
+        <th>Catch Displaced (tonnss)</th>
+        <th>Percent from Gulf</th>
+        <th>Percent of TAC</th>
+        <th>Value of Fish</th>
+        <th>Value to NZ Economy</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#totalFood}}
+      <tr>
+        <td>{{fish}}</td>
+        <td>{{catch}}</td>
+        <td>{{gulf}}</td>
+        <td>{{tac}}</td>
+        <td>{{value}}</td>
+        <td>{{value_to_nz}}</td>
+      </tr>
+      {{/totalFood}}
+    </tbody> 
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+          The total food provision includes commercial, recreational, and
+          customary catch.
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
