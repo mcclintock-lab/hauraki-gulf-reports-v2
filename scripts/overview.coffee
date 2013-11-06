@@ -9,7 +9,7 @@ MIN_SIZE = 10000
 
 class OverviewTab extends ReportTab
   # this is the name that will be displayed in the Tab
-  name: 'Overview'
+  name: 'Dans Overview'
   className: 'overview'
   timeout: 120000
   template: templates.overview
