@@ -6,7 +6,7 @@ class EnvironmentTab extends ReportTab
   className: 'environment'
   timeout: 120000
   template: templates.habitat
-  dependencies: ['Habitat']
+  dependencies: ['HabitatComprehensiveness', 'NearTerrestrialProtected']
   # Will likely be extended in the future to something like this:
   # dependencies: [
   #   'Habitat'
@@ -16,9 +16,15 @@ class EnvironmentTab extends ReportTab
 
   render: () ->
     isCollection = @model.isCollection()
-    habitats = @recordSet('Habitat', 'Habitats').toArray()
-    habitatsInReserves = habitats
-    habitatsInTypeTwos = habitats
+    habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
+    near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
+    habitatsInReserves = _.filter habitats, (row) ->
+      row.MPA_TYPE is 'MPA1' 
+    habitatsInTypeTwos = _.filter habitats, (row) ->
+      row.MPA_TYPE is 'MPA2' 
+    representationData = _.filter habitats, (row) ->
+      row.MPA_TYPE is 'ALL_TYPES' 
+
     # The preceeding is of course, the wrong way to do this. I have no idea
     # how Dan intends to represent the habitat numbers for each of these. 
     # Lets say there is an attribute for each feature in the set that is
@@ -50,36 +56,37 @@ class EnvironmentTab extends ReportTab
       sketchClass: @sketchClass.forTemplate()
       attributes: @model.getAttributes()
       admin: @project.isAdmin window.user
-      habitatsCount: @recordSet('Habitat', 'Habitats').toArray().length
-      reserveData: habitatsInReserves?.length > 0
+      #fix this to get rid of hardcoded value
+      habitatsCount: 62
+      hasReserveData: habitatsInReserves?.length > 0
       habitatsInReserves: habitatsInReserves
-      habitatsInReservesCount: _.filter(habitatsInReserves, (row) -> 
-        # Need to come up with some other standard that just presence?
-        row.Total > 0
-      ).length
-      typeTwoData: habitatsInTypeTwos?.length > 0
+      habitatsInReservesCount: habitatsInReserves?.length
+      #habitatsInReservesCount: _.filter(habitatsInReserves, (row) -> 
+      #  # Need to come up with some other standard that just presence?
+      #  row.CB_PERC > 0
+      #).length
+      hasTypeTwoData: habitatsInTypeTwos?.length > 0
+      habitatsInTypeTwoCount: habitatsInTypeTwos?.length
       habitatsInTypeTwos: habitatsInTypeTwos
-      habitatsInTypeTwosCount: _.filter(habitatsInTypeTwos, (row) -> 
+      #habitatsInTypeTwosCount: _.filter(habitatsInTypeTwos, (row) -> 
         # Need to come up with some other standard that just presence?
-        row.Total > 0
-      ).length
+      #  row.CB_PERC > 0
+      #).length
       # representationData: @recordSet('Representation', 'Representation')
       #   .toArray()
-      representationData: [{ # Placeholder, see above
-        HabType: 'Moderate Rocky Shore'
-        Total: "12% / 25 ha"
-        NumSites: 3
-        Protected: 'Yes'
-        # It's also possible to assign "Protected" on the client, as I did 
-        # in Barbuda:
-        # https://github.com/mcclintock-lab/barbuda-reports-v2/blob/master/scripts/arrayHabitatTab.coffee#L21
-      }]
-      representedCount: 3
+      representationData:representationData
+      hasRepresentationData:representationData?.length > 0
+      representedCount:representationData?.length
+      #representedCount:_.filter(representationData, (row) -> 
+        # Need to come up with some other standard that just presence?
+      #  row.CB_PERC > 0
+      #).length
+
       # Use something like this for representedCount when you have real data:
       # _.filter(representationData, (row) ->
       #   row.Protected is 'Yes'
       # ).length
-      adjacentProtectedAreas: true # Placeholder
+      adjacentProtectedAreas: near_terrestrial_protected # Placeholder
       # Would need to be changed in the future to something like this:
       # adjacentProtectedAreas: @recordSet('AdjacentProtectedAreas', 
       #   'adjacent').bool('ANY_ADJACENT')
