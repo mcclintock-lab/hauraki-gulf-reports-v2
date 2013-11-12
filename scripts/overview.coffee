@@ -63,7 +63,8 @@ class OverviewTab extends ReportTab
       children = @model.getChildren()
       # NOTE: I'm dividing by all children here. Should this be filtered to
       # exclude Aquaculture and Mooring areas??
-      HECTARES = HECTARES / children.length
+      HECTARES = (HECTARES / children.length).toFixed(1)
+      
       marineReserves = _.filter children, (child) -> 
         child.getAttribute('MPA_TYPE') is 'MPA1'
       type2MPAs = _.filter children, (child) -> 
