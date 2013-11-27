@@ -6,7 +6,7 @@ class EnvironmentTab extends ReportTab
   className: 'environment'
   timeout: 120000
   template: templates.habitat
-  dependencies: ['HabitatComprehensiveness', 'NearTerrestrialProtected']
+  dependencies: ['HabitatComprehensiveness', 'NearTerrestrialProtected', 'EcosystemServices']
   # Will likely be extended in the future to something like this:
   # dependencies: [
   #   'Habitat'
@@ -17,6 +17,9 @@ class EnvironmentTab extends ReportTab
   render: () ->
     isCollection = @model.isCollection()
     habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
+    ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
+    nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
+    biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
     near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
@@ -91,6 +94,10 @@ class EnvironmentTab extends ReportTab
       # adjacentProtectedAreas: @recordSet('AdjacentProtectedAreas', 
       #   'adjacent').bool('ANY_ADJACENT')
 
+      nutrientRecycling: nutrient_recycling
+      biogenicHabitat: biogenic_habitat
+
+      ecosystemProductivity: ecosystem_productivity
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()
