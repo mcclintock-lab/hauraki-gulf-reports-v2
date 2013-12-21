@@ -45,13 +45,6 @@ class OverviewTab extends ReportTab
     HAB_PERC_T2_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_HPA_PRC')
     HAB_PERC_T2_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_HPA_PRC')
 
-    #hp_mr_new = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_RES_PRC')
-    #hp_mr_existing = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_RES_PRC')
-    #hp_mr_combined = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_RES_PRC')
-
-    #hp_type2_new = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_HPA_PRC')
-    #hp_type2_existing = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_HPA_PRC')
-    #hp_type2_combined = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_HPA_PRC')
 
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 

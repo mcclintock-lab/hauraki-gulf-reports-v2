@@ -6,7 +6,7 @@ class EnvironmentTab extends ReportTab
   className: 'environment'
   timeout: 120000
   template: templates.habitat
-  dependencies: ['HabitatComprehensiveness', 'NearTerrestrialProtected', 'EcosystemServices']
+  dependencies: ['HabitatComprehensiveness', 'NearTerrestrialProtected', 'EcosystemServices', 'SensitiveAreas']
   # Will likely be extended in the future to something like this:
   # dependencies: [
   #   'Habitat'
@@ -20,6 +20,8 @@ class EnvironmentTab extends ReportTab
     ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
+    sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
+    console.log("sensitive areas: ", sensitiveAreas)
     near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
@@ -53,6 +55,8 @@ class EnvironmentTab extends ReportTab
     #   habitatsInReserves = _.map featureSet.features, (f) -> f.attributes
     #   ... and repeat for Type-II MPAs
     # 
+    hasTypeTwoData = habitatsInTypeTwos.length > 0
+
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -68,9 +72,10 @@ class EnvironmentTab extends ReportTab
       #  # Need to come up with some other standard that just presence?
       #  row.CB_PERC > 0
       #).length
-      hasTypeTwoData: habitatsInTypeTwos?.length > 0
+      hasTypeTwoData: hasTypeTwoData
       habitatsInTypeTwoCount: habitatsInTypeTwos?.length
       habitatsInTypeTwos: habitatsInTypeTwos
+
       #habitatsInTypeTwosCount: _.filter(habitatsInTypeTwos, (row) -> 
         # Need to come up with some other standard that just presence?
       #  row.CB_PERC > 0
@@ -98,6 +103,8 @@ class EnvironmentTab extends ReportTab
       biogenicHabitat: biogenic_habitat
 
       ecosystemProductivity: ecosystem_productivity
+      sensitiveAreas: sensitiveAreas 
+      hasSensitiveAreas: sensitiveAreas?.length > 0
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()
