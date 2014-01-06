@@ -6,7 +6,7 @@ class EnvironmentTab extends ReportTab
   className: 'environment'
   timeout: 120000
   template: templates.habitat
-  dependencies: ['HabitatComprehensiveness', 'NearTerrestrialProtected', 'EcosystemServices', 'SensitiveAreas']
+  dependencies: ['HabitatComprehensiveness', 'NearTerrestrialProtected', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies']
   # Will likely be extended in the future to something like this:
   # dependencies: [
   #   'Habitat'
@@ -21,6 +21,10 @@ class EnvironmentTab extends ReportTab
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
     sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
+    protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
+    shorebirdSites = @recordSet('ProtectedAndThreatenedSpecies', 'ShorebirdPoints').toArray()
+    seabirdBreedingSites = @recordSet('ProtectedAndThreatenedSpecies', 'SeabirdBreedingSites').toArray()
+
     console.log("sensitive areas: ", sensitiveAreas)
     near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
     habitatsInReserves = _.filter habitats, (row) ->
@@ -85,15 +89,7 @@ class EnvironmentTab extends ReportTab
       representationData:representationData
       hasRepresentationData:representationData?.length > 0
       representedCount:representationData?.length
-      #representedCount:_.filter(representationData, (row) -> 
-        # Need to come up with some other standard that just presence?
-      #  row.CB_PERC > 0
-      #).length
 
-      # Use something like this for representedCount when you have real data:
-      # _.filter(representationData, (row) ->
-      #   row.Protected is 'Yes'
-      # ).length
       adjacentProtectedAreas: near_terrestrial_protected # Placeholder
       # Would need to be changed in the future to something like this:
       # adjacentProtectedAreas: @recordSet('AdjacentProtectedAreas', 
@@ -105,6 +101,16 @@ class EnvironmentTab extends ReportTab
       ecosystemProductivity: ecosystem_productivity
       sensitiveAreas: sensitiveAreas 
       hasSensitiveAreas: sensitiveAreas?.length > 0
+
+      protectedMammals: protectedMammals
+      hasProtectedMammals: protectedMammals?.length > 0
+
+      shorebirdSites: shorebirdSites
+      hasShorebirdSites: shorebirdSites?.length > 0
+
+      seabirdBreedingSites: seabirdBreedingSites
+      hasSeabirdBreedingSites: seabirdBreedingSites?.length > 0
+
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()

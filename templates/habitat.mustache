@@ -92,10 +92,7 @@
 </div>
 {{/hasTypeTwoData}}
 
-<!-- 
-PDF says for both zones and collections. 
-I just included collections for now  
--->
+
 {{#hasRepresentationData}}
 <div class="reportSection tableContainer">
   <h4>Habitat Representation</h4>
@@ -162,6 +159,78 @@ I just included collections for now
 </div>
 {{/hasSensitiveAreas}}
 
+{{#hasProtectedMammals}}
+<div class="reportSection tableContainer">
+  <h4>Protected Mammals</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Threat Status</th>
+        <th>Number of Areas with Overlap</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#protectedMammals}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>--</td>
+        <td>{{Count}}</td>
+      </tr>
+      {{/protectedMammals}}
+    </tbody>
+  </table>
+</div>
+{{/hasProtectedMammals}}
+
+{{#hasSeabirdBreedingSites}}
+<div class="reportSection tableContainer">
+  <h4>Seabird Breeding Sites</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Threat Status</th>
+        <th>Number of Breeding Sites</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#seabirdBreedingSites}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>--</td>
+        <td>{{Count}}</td>
+      </tr>
+      {{/seabirdBreedingSites}}
+    </tbody>
+  </table>
+</div>
+{{/hasSeabirdBreedingSites}}
+
+{{#hasShorebirdSites}}
+<div class="reportSection tableContainer">
+  <h4>Shorebird Sites</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Threat Status</th>
+        <th>Number Of Sites</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#shorebirdSites}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>--</td>
+        <td>{{Count}}</td>
+      </tr>
+      {{/shorebirdSites}}
+    </tbody>
+  </table>
+</div>
+{{/hasShorebirdSites}}
+
 {{^isCollection}}
 {{#adjacentProtectedAreas}}
 <div class="reportSection">
@@ -172,6 +241,7 @@ I just included collections for now
 </div>
 {{/adjacentProtectedAreas}}
 {{/isCollection}}
+
 
 
 <div class="reportSection tableContainer">
