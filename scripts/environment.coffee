@@ -21,23 +21,23 @@ class EnvironmentTab extends ReportTab
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
     sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
-    protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
-    shorebirdSites = @recordSet('ProtectedAndThreatenedSpecies', 'ShorebirdPoints').toArray()
-    seabirdBreedingSites = @recordSet('ProtectedAndThreatenedSpecies', 'SeabirdBreedingSites').toArray()
 
-    console.log("sensitive areas: ", sensitiveAreas)
     near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
+
+    sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
+    sensitiveAreas.reverse()
+    
+
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
     habitatsInTypeTwos = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA2' 
     representationData = _.filter habitats, (row) ->
       row.MPA_TYPE is 'ALL_TYPES' 
-<<<<<<< HEAD
-=======
+
     representationData = _.sortBy representationData, (row) -> parseFloat(row.CB_PERC)
     representationData.reverse()
->>>>>>> master
+
 
     protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
     protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
@@ -119,16 +119,7 @@ class EnvironmentTab extends ReportTab
       sensitiveAreas: sensitiveAreas 
       hasSensitiveAreas: sensitiveAreas?.length > 0
 
-<<<<<<< HEAD
-      protectedMammals: protectedMammals
-      hasProtectedMammals: protectedMammals?.length > 0
 
-      shorebirdSites: shorebirdSites
-      hasShorebirdSites: shorebirdSites?.length > 0
-
-      seabirdBreedingSites: seabirdBreedingSites
-      hasSeabirdBreedingSites: seabirdBreedingSites?.length > 0
-=======
       protectedMammals:protectedMammals
       hasProtectedMammals:protectedMammals?.length > 0
 
@@ -137,7 +128,6 @@ class EnvironmentTab extends ReportTab
 
       shorebirdSites:shorebirdSites
       hasShorebirdSites:shorebirdSites?.length > 0
->>>>>>> master
 
 
     @$el.html @template.render(context, templates)
