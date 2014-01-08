@@ -26,6 +26,7 @@ class EnvironmentTab extends ReportTab
     sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
     sensitiveAreas.reverse()
     
+    
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
     habitatsInReserves = _.sortBy habitatsInReserves, (row) -> parseFloat(row.NEW_PERC)
