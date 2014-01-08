@@ -162,6 +162,79 @@ I just included collections for now
 </div>
 {{/hasSensitiveAreas}}
 
+{{#hasProtectedMammals}}
+<div class="reportSection tableContainer">
+  <h4>Protected Mammals</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Number of Overlapping Areas</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#protectedMammals}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>--</td>
+        <td>{{Count}}</td>
+      </tr>
+      {{/protectedMammals}}
+    </tbody>
+  </table>
+</div>
+{{/hasProtectedMammals}}
+
+{{#hasSeabirdBreedingSites}}
+<div class="reportSection tableContainer">
+  <h4>Seabirds</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Number of Breeding Sites</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#seabirdBreedingSites}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>--</td>
+        <td>{{Count}}</td>
+      </tr>
+      {{/seabirdBreedingSites}}
+    </tbody>
+  </table>
+</div>
+{{/hasSeabirdBreedingSites}}
+
+
+{{#hasShorebirdSites}}
+<div class="reportSection tableContainer">
+  <h4>Seabirds</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Number of Shorebird Sites</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#shorebirdSites}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>--</td>
+        <td>{{Count}}</td>
+      </tr>
+      {{/shorebirdSites}}
+    </tbody>
+  </table>
+</div>
+{{/hasShorebirdSites}}
+
 {{^isCollection}}
 {{#adjacentProtectedAreas}}
 <div class="reportSection">
@@ -243,4 +316,6 @@ I just included collections for now
     </tbody>
   </table>
 </div>
+
+
 

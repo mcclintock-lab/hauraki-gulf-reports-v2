@@ -6,7 +6,7 @@ class EnvironmentTab extends ReportTab
   className: 'environment'
   timeout: 120000
   template: templates.habitat
-  dependencies: ['HabitatComprehensiveness', 'NearTerrestrialProtected', 'EcosystemServices', 'SensitiveAreas']
+  dependencies: ['HabitatComprehensiveness', 'NearTerrestrialProtected', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies']
   # Will likely be extended in the future to something like this:
   # dependencies: [
   #   'Habitat'
@@ -38,8 +38,20 @@ class EnvironmentTab extends ReportTab
 
     representationData = _.filter habitats, (row) ->
       row.MPA_TYPE is 'ALL_TYPES' 
-    representationData = _.sortBy representationData, (row) -> parseFloat(row.NEW_PERC)
+    representationData = _.sortBy representationData, (row) -> parseFloat(row.CB_PERC)
     representationData.reverse()
+
+    protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
+    protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
+    protectedMammals.reverse()
+
+    seabirdBreedingSites = @recordSet('ProtectedAndThreatenedSpecies', 'SeabirdBreedingSites').toArray()
+    seabirdBreedingSites = _.sortBy seabirdBreedingSites, (row) -> parseInt(row.Count)
+    seabirdBreedingSites.reverse()
+
+    shorebirdSites = @recordSet('ProtectedAndThreatenedSpecies', 'ShorebirdPoints').toArray()
+    shorebirdSites = _.sortBy shorebirdSites, (row) -> parseInt(row.Count)
+    shorebirdSites.reverse()
 
     # The preceeding is of course, the wrong way to do this. I have no idea
     # how Dan intends to represent the habitat numbers for each of these. 
@@ -117,6 +129,16 @@ class EnvironmentTab extends ReportTab
       ecosystemProductivity: ecosystem_productivity
       sensitiveAreas: sensitiveAreas 
       hasSensitiveAreas: sensitiveAreas?.length > 0
+
+      protectedMammals:protectedMammals
+      hasProtectedMammals:protectedMammals?.length > 0
+
+      seabirdBreedingSites:seabirdBreedingSites
+      hasSeabirdBreedingSites:seabirdBreedingSites?.length > 0
+
+      shorebirdSites:shorebirdSites
+      hasShorebirdSites:shorebirdSites?.length > 0
+
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()
