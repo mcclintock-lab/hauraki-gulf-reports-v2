@@ -20,15 +20,26 @@ class EnvironmentTab extends ReportTab
     ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
-    sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
-    console.log("sensitive areas: ", sensitiveAreas)
     near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
+
+    sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
+    sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
+    sensitiveAreas.reverse()
+    
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
+    habitatsInReserves = _.sortBy habitatsInReserves, (row) -> parseFloat(row.NEW_PERC)
+    habitatsInReserves.reverse()
+
     habitatsInTypeTwos = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA2' 
+    habitatsInTypeTwos = _.sortBy habitatsInTypeTwos, (row) -> parseFloat(row.NEW_PERC)
+    habitatsInTypeTwos.reverse()
+
     representationData = _.filter habitats, (row) ->
       row.MPA_TYPE is 'ALL_TYPES' 
+    representationData = _.sortBy representationData, (row) -> parseFloat(row.NEW_PERC)
+    representationData.reverse()
 
     # The preceeding is of course, the wrong way to do this. I have no idea
     # how Dan intends to represent the habitat numbers for each of these. 
@@ -72,6 +83,7 @@ class EnvironmentTab extends ReportTab
       #  # Need to come up with some other standard that just presence?
       #  row.CB_PERC > 0
       #).length
+
       hasTypeTwoData: hasTypeTwoData
       habitatsInTypeTwoCount: habitatsInTypeTwos?.length
       habitatsInTypeTwos: habitatsInTypeTwos
