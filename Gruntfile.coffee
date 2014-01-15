@@ -51,10 +51,16 @@ module.exports = (grunt) ->
       protectionZone:
         files:
           'dist/protectionZone.css': 'stylesheets/protectionZone.less'
+      aquacultureZone:
+        files:
+          'dist/aquacultureZone.css': 'stylesheets/aquacultureZone.less'
     browserify:
       protectionZone:
         src: 'scripts/protectionZone.coffee'
         dest: 'dist/protectionZone.js'
+      aquacultureZone:
+        src: 'scripts/aquacultureZone.coffee'
+        dest: 'dist/aquacultureZone.js'
       array:
         src: 'scripts/array.coffee'
         dest: 'dist/array.js'
