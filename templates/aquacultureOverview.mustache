@@ -27,7 +27,6 @@
           <td>{{PERCINGULF}}</td>
         </tr>
       {{/aquacultureSizes}}
-      
     </tbody>
     <tfoot>
       <tr>
@@ -46,7 +45,36 @@
     </tfoot>
   </table>
 </div>
-
+{{#hasProximity}}
+<div class="reportSection tableContainer">
+  <h4>Proximity to Existing Aquaculture</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Aquaculture Zone Name</th>
+        <th>Distance to Nearest Existing Aquaculture Area</th>
+        <th>Potential Effect</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#aquacultureProximity}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>{{DistInM}}</td>
+          <td>--</td>
+        </tr>
+      {{/aquacultureProximity}}
+    </tbody>
+  </table>
+</div>
+{{/hasProximity}}
+{{^hasProximity}}
+<div class="reportSection">
+  <p class="large">
+    This zone is <strong>not</strong> within 100 meters of any existing aquaculture areas.
+  </p>
+</div>
+{{/hasProximity}}
 {{#anyAttributes}}
 <div class="reportSection">
   <h4>{{sketchClass.name}} Attributes</h4>

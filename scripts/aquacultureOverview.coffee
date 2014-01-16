@@ -14,7 +14,8 @@ class AquacultureOverviewTab extends ReportTab
   timeout: 120000
   template: templates.aquacultureOverview
   dependencies: [
-    'AquacultureSize'
+    'AquacultureSize',
+    'ProximityToExistingAquaculture'
   ]
   # Dependencies will likely need to be changed to something like this to
   # support more GP services:
@@ -30,8 +31,9 @@ class AquacultureOverviewTab extends ReportTab
     # documentation for more info.
     
     aquacultureSizes = @recordSet('AquacultureSize', 'AquacultureSize').toArray()
+    aquacultureProximity = @recordSet('ProximityToExistingAquaculture', 'ProximityToExistingAquaculture').toArray()
     totalSize = @recordSet('AquacultureSize', 'TotalSize').float('TOTAL_HA')
-    console.log("total size is ", totalSize)
+
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 
     # collections. I didn't do that here since they are so similar.
@@ -55,6 +57,9 @@ class AquacultureOverviewTab extends ReportTab
       admin: @project.isAdmin window.user
       aquacultureSizes: aquacultureSizes
       totalSize: totalSize
+      hasProximity: aquacultureProximity?.length > 0
+      aquacultureProximity: aquacultureProximity
+
 
 
     # @template is /templates/overview.mustache
