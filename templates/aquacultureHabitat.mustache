@@ -1,0 +1,40 @@
+{{#sketchClass.deleted}}
+<div class="alert alert-warn" style="margin-bottom:10px;">
+  This sketch was created using the "{{sketchClass.name}}" template, which is
+  no longer available. You will not be able to copy this sketch or make new
+  sketches of this type.
+</div>
+{{/sketchClass.deleted}}
+
+{{#isCloseToProtectedAreas}}
+<div class="reportSection tableContainer">
+  <h4>Proximity to Existing Protected Areas</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Aquaculture Zone Name</th>
+        <th>Type of Protected Area Impacted</th>
+        <th>Likelihood of Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#proximityToProtectedAreas}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>{{NEAR_TYPE}}</td>
+          <td>{{THRESHOLD}}</td>
+        </tr>
+      {{/proximityToProtectedAreas}}
+    </tbody>
+  </table>
+</div>
+{{/isCloseToProtectedAreas}}
+
+{{^isCloseToProtectedAreas}}
+<div class="reportSection">
+  <h4>Proximity to Existing Protected Areas</h4>
+  <p class="large">
+    This zone is <strong>not</strong> within 1 kilometer of any existing protected areas.
+  </p>
+</div>
+{{/isCloseToProtectedAreas}}
