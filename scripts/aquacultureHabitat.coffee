@@ -16,7 +16,6 @@ class AquacultureHabitatTab extends ReportTab
     'ProximityToExistingProtectedAreas'
   ]
 
-
   render: () ->
     # The @recordSet method contains some useful means to get data out of 
     # the monsterous RecordSet json. Checkout the seasketch-reporting-template
