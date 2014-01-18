@@ -13,7 +13,9 @@ class AquacultureHabitatTab extends ReportTab
   timeout: 120000
   template: templates.aquacultureHabitat
   dependencies: [
-    'ProximityToExistingProtectedAreas'
+    'ProximityToExistingProtectedAreas',
+    'EcosystemServices', 'SensitiveAreas', 
+    'ProtectedAndThreatenedSpecies'
   ]
 
   render: () ->
@@ -21,9 +23,28 @@ class AquacultureHabitatTab extends ReportTab
     # the monsterous RecordSet json. Checkout the seasketch-reporting-template
     # documentation for more info.
     
+    ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
+    nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
+    biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
+    sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
+    sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
+    sensitiveAreas.reverse()
+
+
+    protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
+    protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
+    protectedMammals.reverse()
+
+    seabirdBreedingSites = @recordSet('ProtectedAndThreatenedSpecies', 'SeabirdBreedingSites').toArray()
+    seabirdBreedingSites = _.sortBy seabirdBreedingSites, (row) -> parseInt(row.Count)
+    seabirdBreedingSites.reverse()
+
+    shorebirdSites = @recordSet('ProtectedAndThreatenedSpecies', 'ShorebirdPoints').toArray()
+    shorebirdSites = _.sortBy shorebirdSites, (row) -> parseInt(row.Count)
+    shorebirdSites.reverse()
     proximityToProtectedAreas = @recordSet('ProximityToExistingProtectedAreas', 'ProximityToExistingProtectedAreas').toArray()
-    console.log("prox: ",proximityToProtectedAreas)
+
 
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 
@@ -49,6 +70,23 @@ class AquacultureHabitatTab extends ReportTab
 
       proximityToProtectedAreas: proximityToProtectedAreas
       isCloseToProtectedAreas: proximityToProtectedAreas?.length > 0
+
+      nutrientRecycling: nutrient_recycling
+      biogenicHabitat: biogenic_habitat
+
+      ecosystemProductivity: ecosystem_productivity
+      sensitiveAreas: sensitiveAreas 
+      hasSensitiveAreas: sensitiveAreas?.length > 0
+
+
+      protectedMammals:protectedMammals
+      hasProtectedMammals:protectedMammals?.length > 0
+
+      seabirdBreedingSites:seabirdBreedingSites
+      hasSeabirdBreedingSites:seabirdBreedingSites?.length > 0
+
+      shorebirdSites:shorebirdSites
+      hasShorebirdSites:shorebirdSites?.length > 0
 
 
     # @template is /templates/overview.mustache

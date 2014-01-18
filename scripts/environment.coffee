@@ -51,6 +51,8 @@ class EnvironmentTab extends ReportTab
     shorebirdSites = _.sortBy shorebirdSites, (row) -> parseInt(row.Count)
     shorebirdSites.reverse()
 
+
+
     # The preceeding is of course, the wrong way to do this. I have no idea
     # how Dan intends to represent the habitat numbers for each of these. 
     # Lets say there is an attribute for each feature in the set that is
@@ -128,6 +130,7 @@ class EnvironmentTab extends ReportTab
 
       shorebirdSites:shorebirdSites
       hasShorebirdSites:shorebirdSites?.length > 0
+
 
 
     @$el.html @template.render(context, templates)

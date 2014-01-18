@@ -38,3 +38,193 @@
   </p>
 </div>
 {{/isCloseToProtectedAreas}}
+
+
+{{#hasSensitiveAreas}}
+<div class="reportSection tableContainer">
+  <h4>Sensitive Habitats</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Hectares Protected</th>
+        <th>Percent of Area Protected</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#sensitiveAreas}}
+      <tr>
+        <td>{{SA_NAME}}</td>
+        <td>{{SA_TYPE}}</td>
+        <td>{{CLPD_AREA}}</td>
+        <td>{{PERC_AREA}}</td>
+      </tr>
+      {{/sensitiveAreas}}
+    </tbody>
+  </table>
+</div>
+{{/hasSensitiveAreas}}
+
+{{#hasProtectedMammals}}
+<div class="reportSection tableContainer">
+  <h4>Protected Mammals</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Number of Protected Mammal Areas</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {{#protectedMammals}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>--</td>
+        <td>{{Count}}</td>
+      </tr>
+      {{/protectedMammals}}
+    </tbody>
+  </table>
+</div>
+{{/hasProtectedMammals}}
+
+{{#hasSeabirdBreedingSites}}
+<div class="reportSection tableContainer">
+
+  <h4>Seabirds</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+
+        <th>Status</th>
+
+        <th>Number of Breeding Sites</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#seabirdBreedingSites}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>--</td>
+        <td>{{Count}}</td>
+      </tr>
+      {{/seabirdBreedingSites}}
+    </tbody>
+  </table>
+</div>
+{{/hasSeabirdBreedingSites}}
+
+
+{{#hasShorebirdSites}}
+<div class="reportSection tableContainer">
+  <h4>Shorebird Sites</h4>
+
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+
+        <th>Status</th>
+        <th>Number of Shorebird Sites</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {{#shorebirdSites}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>--</td>
+        <td>{{Count}}</td>
+      </tr>
+      {{/shorebirdSites}}
+    </tbody>
+  </table>
+</div>
+{{/hasShorebirdSites}}
+
+{{^isCollection}}
+{{#adjacentProtectedAreas}}
+<div class="reportSection">
+  <h4>Adjacent Terrestrial Protected Area</h4>
+  <p class="large green-check">
+    This zone is adjacent to a <strong>Terrestrial Protected Area</strong>.
+  </p>
+</div>
+{{/adjacentProtectedAreas}}
+{{/isCollection}}
+
+
+
+<div class="reportSection tableContainer">
+  <h4>Nutrient Recycling</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Value</th>
+        <th>Area in Hectares</th>
+        <th>Percent</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#nutrientRecycling}}
+      <tr>
+        <td>{{Class}}</td>
+        <td>{{AreaInHa}}</td>
+        <td>{{Percent}}</td>
+      </tr>
+      {{/nutrientRecycling}}
+    </tbody>
+  </table>
+</div>
+
+
+
+<div class="reportSection tableContainer">
+  <h4>Biogenic Habitat</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Value</th>
+        <th>Area in Hectares</th>
+        <th>Percent</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#biogenicHabitat}}
+      <tr>
+        <td>{{Class}}</td>
+        <td>{{AreaInHa}}</td>
+        <td>{{Percent}}</td>
+      </tr>
+      {{/biogenicHabitat}}
+    </tbody>
+  </table>
+</div>
+
+
+
+<div class="reportSection tableContainer">
+  <h4>Ecosystem Productivity</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Value</th>
+        <th>Area in Hectares</th>
+        <th>Percent</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#ecosystemProductivity}}
+      <tr>
+        <td>{{Class}}</td>
+        <td>{{AreaInHa}}</td>
+        <td>{{Percent}}</td>
+      </tr>
+      {{/ecosystemProductivity}}
+    </tbody>
+  </table>
+</div>
