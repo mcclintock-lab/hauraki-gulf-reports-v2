@@ -446,3 +446,38 @@
   left: -8px;
   color: #4d4d4d;
 }
+.overview .arrayViz {
+  position: relative;
+  *zoom: 1;
+  margin-bottom: 50px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.overview .arrayViz:before,
+.overview .arrayViz:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.overview .arrayViz:after {
+  clear: both;
+}
+.overview .arrayViz .measure {
+  position: absolute;
+  top: -20px;
+  background: transparent;
+  float: none;
+  line-height: 20px;
+  padding-left: 14px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.overview .arrayViz .measure:before {
+  font-family: 'fontello';
+  content: '▾';
+  margin-right: 5px;
+  font-size: 28px;
+  position: absolute;
+  top: 3px;
+  left: -8px;
+  color: #4d4d4d;
+}

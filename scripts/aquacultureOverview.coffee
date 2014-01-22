@@ -2,8 +2,7 @@ ReportTab = require 'reportTab'
 templates = require '../templates/templates.js'
 _partials = require '../node_modules/seasketch-reporting-api/templates/templates.js'
 partials = []
-for key, val of _partials
-  partials[key.replace('node_modules/seasketch-reporting-api/', '')] = val
+
 
 MIN_SIZE = 10000
 

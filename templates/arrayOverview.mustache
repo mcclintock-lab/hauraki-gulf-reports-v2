@@ -1,0 +1,216 @@
+{{#sketchClass.deleted}}
+<div class="alert alert-warn" style="margin-bottom:10px;">
+  This sketch was created using the "{{sketchClass.name}}" template, which is
+  no longer available. You will not be able to copy this sketch or make new
+  sketches of this type.
+</div>
+{{/sketchClass.deleted}}
+
+
+<div class="reportSection size">
+  <h4>Size</h4>
+  {{#hasProtection}}
+    <p class="large {{#SIZE_OK}}green-check{{/SIZE_OK}}">
+      <!-- Notice, using mustache tags here to test whether we're rendering a 
+      collection or a single zone -->
+      {{#hasMultipleProtectionSketches}}
+      The average size of the <strong>{{NUM_PROTECTED}}</strong> protected 
+      areas is <strong>{{SIZE}} ha</strong>,
+      {{/hasMultipleProtectionSketches}}
+      {{^hasMultipleProtectionSketches}}
+      This protected area is <strong>{{SIZE}} ha</strong>,
+      {{/hasMultipleProtectionSketches}}
+      {{#SIZE_OK}}
+      meeting the target of {{MIN_SIZE}} ha.
+      {{/SIZE_OK}}
+      {{^SIZE_OK}}
+      which does not meet the target of {{MIN_SIZE}} ha.
+      {{/SIZE_OK}}
+    </p>
+  {{/hasProtection}}
+    {{#hasProtection}}
+      <p class="large" style="padding:0px 10px;padding-bottom:10px;">
+        The selected network contains <strong>{{MARINE_RESERVES}} Marine
+        Reserve{{#MARINE_RESERVES_PLURAL}}s{{/MARINE_RESERVES_PLURAL}}</strong> and 
+        <strong>{{TYPE_TWO_MPAS}} Type-2 Protection Area{{#TYPE_TWO_MPAS_PLURAL}}s{{/TYPE_TWO_MPAS_PLURAL}}</strong>.
+      </p>
+    {{/hasProtection}}
+    {{#hasAquaculture}}
+      <p class="large" style="padding:0px 10px;padding-bottom:10px;">
+        The selected network {{#hasProtection}}also{{/hasProtection}} contains <strong>{{numAquacultureSketches}} Aquaculture Zones.</strong>
+      </p>
+    {{/hasAquaculture}}
+</div>
+{{#hasProtection}}
+  <div class="reportSection tableContainer">
+    <h4>Representation of Habitats</h4>
+    <table data-paging="10"> <!-- data-paging... activates paging  -->
+      <thead>
+        <tr>
+          <th style="width:180px;"></th>
+          <th>In Proposed Areas</th>
+          <th>In Existing Areas</th>
+          <th>Combined</th>
+          <th>Total </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Number of Habitats Protected</td>
+          <td>{{HAB_COUNT_PROPOSED}}</td>
+          <td>{{HAB_COUNT_EXISTING}}</td>
+          <td>{{HAB_COUNT_COMBINED}}</td>
+          <td>{{HAB_COUNT_TOTAL}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="paragraph" style="text-align:left;">
+            <p class="large">
+              {{#isCollection}}
+              New and existing Marine Reserves protect
+              {{/isCollection}}
+              {{^isCollection}}
+              This Marine Reserve protects
+              {{/isCollection}}
+              <strong>{{HAB_COUNT_COMBINED}}</strong>
+              of <strong>{{HAB_COUNT_TOTAL}}</strong> habitat types.
+            </p>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="reportSection tableContainer">
+    <h4>Percent of Hauraki Gulf Marine Park Protected</h4>
+
+    <table data-paging="10"> <!-- data-paging... activates paging  -->
+      <thead>
+        <tr>
+          <th style="width:180px;"></th>
+          <th>In Proposed Areas (%)</th>
+          <th>In Existing Areas (%)</th>
+          <th>Combined (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>In Marine Reserves</td>
+          <td>{{HAB_PERC_MR_NEW}}</td>
+          <td>{{HAB_PERC_MR_EXISTING}}</td>
+          <td>{{HAB_PERC_MR_COMBINED}}</td>
+        </tr>
+        <tr>
+          <td>In Type 2 Protection Areas</td>
+          <td>{{HAB_PERC_T2_NEW}}</td>
+          <td>{{HAB_PERC_T2_EXISTING}}</td>
+          <td>{{HAB_PERC_T2_COMBINED}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="paragraph" style="text-align:left;">
+            <p class="large">This table shows how ‘comprehensive’ the proposed protection{{#isCollection}}s are{{/isCollection}}{{^isCollection}} is{{/isCollection}}. 
+              Proposed and existing plans protect these percentages of the total areas.
+            </p>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+{{/hasProtection}}
+{{#hasAquaculture}}
+  <div class="reportSection tableContainer">
+    <h4>Aquaculture</h4>
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:center;">Aquaculture Type</th>
+          <th>Total area in existing aquaculture (ha)</th>
+          <th>Total area in new aquaculture zones (ha)</th>
+          <th>Percentage of Gulf in Aquaculture</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#aquacultureSizes}}
+          <tr>
+            <td>{{AC_TYPE}}</td>
+            <td>{{HA_EXST}}</td>
+            <td>{{HA_NEW}}</td>
+            <td>{{PERCINGULF}}</td>
+          </tr>
+        {{/aquacultureSizes}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="paragraph" style="text-align:left;">
+            <p class="large">
+              {{#isCollection}}
+              New and existing aquaculture zones are
+              {{/isCollection}}
+              {{^isCollection}}
+              This aquaculture zone is
+              {{/isCollection}}
+              <strong>{{totalSize}}</strong> hectares.
+            </p>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  {{#hasProximity}}
+  <div class="reportSection tableContainer">
+    <h4>Proximity to Existing Aquaculture</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Aquaculture Zone Name</th>
+          <th>Distance to Nearest Existing Aquaculture Area</th>
+          <th>Potential Effect</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#aquacultureProximity}}
+          <tr>
+            <td>{{Name}}</td>
+            <td>{{DistInM}}</td>
+            <td>--</td>
+          </tr>
+        {{/aquacultureProximity}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasProximity}}
+  {{^hasProximity}}
+  <div class="reportSection">
+    <h4>Proximity to Existing Aquaculture</h4>
+    <p class="large">
+      This zone is <strong>not</strong> within 100 meters of any existing aquaculture areas.
+    </p>
+  </div>
+  {{/hasProximity}}
+{{/hasAquaculture}}
+<!-- 
+I'm leaving these items commented out because they seem hard to implement
+and duplicative. It's also not clear how they would look at the zone-level.
+
+<div class="reportSection representation">
+  <h4>Representation of Habitats</h4>
+  <p>The proposed protection areas and existing reserves protect a sample of the following number of habitats:</p>
+</div>
+
+<div class="reportSection percent">
+  <h4>Percent of Hauraki Gulf Marine Park Protected</h4>
+  <p>The graph belows shows how ‘comprehensive’ the proposed protection is. The proposed plan includes the following protection types:</p>
+</div>
+ -->
+
+{{#anyAttributes}}
+<div class="reportSection">
+  <h4>{{sketchClass.name}} Attributes</h4>
+  {{>attributes/attributesTable}}
+  </table>
+</div>
+{{/anyAttributes}}

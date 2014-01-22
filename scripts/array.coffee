@@ -1,9 +1,9 @@
-OverviewTab = require './overview.coffee'
-EnvironmentTab = require './environment.coffee'
+ArrayOverviewTab = require './arrayOverview.coffee'
+ArrayEnvironmentTab = require './arrayEnvironment.coffee'
 FisheriesTab = require './fisheries.coffee'
-AcitivitiesTab = require './activities.coffee'
+ActivitiesTab = require './activities.coffee'
 
 window.app.registerReport (report) ->
-  report.tabs [OverviewTab, EnvironmentTab, FisheriesTab, ActivitiesTab]
+  report.tabs [ArrayOverviewTab, ArrayEnvironmentTab, FisheriesTab, ActivitiesTab]
   # path must be relative to dist/
   report.stylesheets ['./protectionZone.css']

@@ -45,7 +45,8 @@ class AquacultureHabitatTab extends ReportTab
     shorebirdSites.reverse()
     proximityToProtectedAreas = @recordSet('ProximityToExistingProtectedAreas', 'ProximityToExistingProtectedAreas').toArray()
 
-
+    console.log('prox', proximityToProtectedAreas)
+    
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 
     # collections. I didn't do that here since they are so similar.

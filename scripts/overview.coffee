@@ -5,6 +5,10 @@ partials = []
 for key, val of _partials
   partials[key.replace('node_modules/seasketch-reporting-api/', '')] = val
 
+ids = require './ids.coffee'
+for key, value of ids
+  window[key] = value
+
 MIN_SIZE = 10000
 
 class OverviewTab extends ReportTab
@@ -18,6 +22,7 @@ class OverviewTab extends ReportTab
     'HabitatCount'
     'HabitatCountPercent'
   ]
+
   # Dependencies will likely need to be changed to something like this to
   # support more GP services:
   # dependencies: [
@@ -30,8 +35,10 @@ class OverviewTab extends ReportTab
     # The @recordSet method contains some useful means to get data out of 
     # the monsterous RecordSet json. Checkout the seasketch-reporting-template
     # documentation for more info.
+    
+
     HECTARES = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
-    # result: JSON.stringify(@results.get('data'), null, '  ')
+    
     hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
     hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
     hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
@@ -44,7 +51,6 @@ class OverviewTab extends ReportTab
     HAB_PERC_T2_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_HPA_PRC')
     HAB_PERC_T2_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_HPA_PRC')
     HAB_PERC_T2_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_HPA_PRC')
-
 
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 
@@ -87,6 +93,7 @@ class OverviewTab extends ReportTab
       HAB_PERC_T2_NEW: HAB_PERC_T2_NEW
       HAB_PERC_T2_EXISTING: HAB_PERC_T2_EXISTING
       HAB_PERC_T2_COMBINED: HAB_PERC_T2_COMBINED
+
 
     # @template is /templates/overview.mustache
     @$el.html @template.render(context, partials)
