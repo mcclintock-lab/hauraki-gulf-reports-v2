@@ -62,7 +62,6 @@ class ArrayOverviewTab extends ReportTab
         hasMultipleProtectionSketches = protectionSketches?.length > 1
     catch error
       hasProtection = false
-      console.log("no protection")
 
     try
       aquacultureSizes = @recordSet('AquacultureSize', 'AquacultureSize', AQUACULTURE_ID).toArray()
