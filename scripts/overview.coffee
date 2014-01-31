@@ -110,7 +110,6 @@ class OverviewTab extends ReportTab
   drawViz: (size) ->
     # Check if d3 is present. If not, we're probably dealing with IE
     if window.d3
-      console.log 'd3'
       el = @$('.viz')[0]
       maxScale = MIN_SIZE * 2
       ranges = [

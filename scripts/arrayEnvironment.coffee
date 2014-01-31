@@ -14,60 +14,111 @@ class ArrayEnvironmentTab extends ReportTab
 
   render: () ->
     isCollection = @model.isCollection()
-    try
-      #if its all aquaculture, this will be empty
-      habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness', AQUACULTURE_ID).toArray()
-      habitatsInReserves = _.filter habitats, (row) -> row.MPA_TYPE is 'MPA1' 
-      hasReserveData = habitatsInReserves?.length > 0
-      habitatsInReservesCount = habitatsInReserves?.length
+    aquacultureZones = @getChildren AQUACULTURE_ID
+    hasAquacultureClasses = aquacultureZones?.length > 0
 
-      habitatsInTypeTwos = _.filter habitats, (row) -> row.MPA_TYPE is 'MPA2' 
-      habitatsInTypeTwoCount = habitatsInTypeTwos?.length
+    protectionZones = @getChildren PROTECTION_ID
+    hasProtectionClasses = protectionZones?.length > 0
+    if hasProtectionClasses
+      try
+        #if its all aquaculture, this will be empty
+        habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
+        habitatsInReserves = _.filter habitats, (row) -> row.MPA_TYPE is 'MPA1' 
+        hasReserveData = habitatsInReserves?.length > 0
+        habitatsInReservesCount = habitatsInReserves?.length
+        
 
-      representationData = _.filter habitats, (row) -> row.MPA_TYPE is 'ALL_TYPES' 
-      hasRepresentationData = representationData?.length > 0
-      representedCount = representationData?.length
-      representationData = _.sortBy representationData, (row) -> parseFloat(row.CB_PERC)
-      representationData.reverse()
+        habitatsInTypeTwos = _.filter habitats, (row) -> row.MPA_TYPE is 'MPA2' 
+        habitatsInTypeTwoCount = habitatsInTypeTwos?.length
 
-      hasTypeTwoData = habitatsInTypeTwos.length > 0
-    catch error
-      hasTypeTwoData = false
-      hasReserveData = false
-      hasRepresentationData = false
+        representationData = _.filter habitats, (row) -> row.MPA_TYPE is 'ALL_TYPES' 
+        hasRepresentationData = representationData?.length > 0
+        representedCount = representationData?.length
+        representationData = _.sortBy representationData, (row) -> parseFloat(row.CB_PERC)
+        representationData.reverse()
 
-    ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
-    nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
-    biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
-    sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
+        hasTypeTwoData = habitatsInTypeTwos.length > 0
 
-    near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
+      catch error
+        hasTypeTwoData = false
+        hasReserveData = false
+        hasRepresentationData = false
 
-    sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
-    hasSensitiveAreas = sensitiveAreas?.length > 0
-    sensitiveAreas.reverse()
+      try
+        protectionEcosystemProductivity = @recordSet('EcosystemServices', 'EcosystemProductivity', PROTECTION_ID).toArray()
+        protectionNutrientRecycling = @recordSet('EcosystemServices', 'NutrientRecycling', PROTECTION_ID).toArray()
+        protectionBiogenicHabitat = @recordSet('EcosystemServices', 'BiogenicHabitat', PROTECTION_ID).toArray()
+        protectionSensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas', PROTECTION_ID).toArray()
+        protectionSensitiveAreas = _.sortBy protectionSensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
+        hasProtectionSensitiveAreas = hasProtectionSensitiveAreas?.length > 0
+        protectionSensitiveAreas.reverse()
+      catch error
+        hasProtectionSensitiveAreas = false
+      
 
-    protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
-    hasProtectedMammals = protectedMammals?.length > 0
-    protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
-    protectedMammals.reverse()
+      try
+        protectionProtectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals', PROTECTION_ID).toArray()
+        hasProtectionProtectedMammals = protectionProtectedMammals?.length > 0
+        protectionProtectedMammals = _.sortBy protectionProtectedMammals, (row) -> parseInt(row.Count)
+        protectionProtectedMammals.reverse()
+      catch error
+        hasProtectionProtectedMammals = false
 
-    seabirdBreedingSites = @recordSet('ProtectedAndThreatenedSpecies', 'SeabirdBreedingSites').toArray()
-    hasSeabirdBreedingSites = seabirdBreedingSites?.length > 0
-    seabirdBreedingSites = _.sortBy seabirdBreedingSites, (row) -> parseInt(row.Count)
-    seabirdBreedingSites.reverse()
+      try
+        protectionSeabirdBreedingSites = @recordSet('ProtectedAndThreatenedSpecies', 'SeabirdBreedingSites',PROTECTION_ID).toArray()
+        hasProtectionSeabirdBreedingSites = protectionSeabirdBreedingSites?.length > 0
+        protectionSeabirdBreedingSites = _.sortBy protectionSeabirdBreedingSites, (row) -> parseInt(row.Count)
+        protectionSeabirdBreedingSites.reverse()
+      catch error
+        hasProtectionSeabirdBreedingSites = false
+      try
+        protectonShorebirdSites = @recordSet('ProtectedAndThreatenedSpecies', 'ShorebirdPoints',PROTECTION_ID).toArray()
+        protectionShorebirdSites = _.sortBy protectionShorebirdSites, (row) -> parseInt(row.Count)
+        hasProtectionShorebirdSites = protectionShorebirdSites?.length > 0
+        protectionShorebirdSites.reverse()
+      catch error
+        hasProtectionShorebirdSites = false
 
-    shorebirdSites = @recordSet('ProtectedAndThreatenedSpecies', 'ShorebirdPoints').toArray()
-    shorebirdSites = _.sortBy shorebirdSites, (row) -> parseInt(row.Count)
-    hasShorebirdSites = shorebirdSites?.length > 0
-    shorebirdSites.reverse()
+    if hasAquacultureClasses
+      try
+        aquacultureSensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas',AQUACULTURE_ID).toArray()
+        aquacultureSensitiveAreas = _.sortBy aquacultureSensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
+        hasAquacultureSensitiveAreas = aquacultureSensitiveAreas?.length > 0
+        aquacultureSensitiveAreas.reverse()
+      catch e
+        hasAquacultureSensitiveAreas = false
 
-    #aquaculture only reports
-    try
-      proximityToProtectedAreas = @recordSet('ProximityToExistingProtectedAreas', 'ProximityToExistingProtectedAreas').toArray()
-      isCloseToProtectedAreas = proximityToProtectedAreas?.length > 0
-    catch error
-      isCloseToProtectedAreas = false
+      try
+        aquacultureProtectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals',AQUACULTURE_ID).toArray()
+        hasAquacultureProtectedMammals = aquacultureProtectedMammals?.length > 0
+        aquacultureProtectedMammals = _.sortBy aquacultureProtectedMammals, (row) -> parseInt(row.Count)
+        aquacultureProtectedMammals.reverse()
+      catch error
+        hasAquacultureProtectedMammals = false
+      try
+        aquacultureSeabirdBreedingSites = @recordSet('ProtectedAndThreatenedSpecies', 'SeabirdBreedingSites',AQUACULTURE_ID).toArray()
+        hasAquacultureSeabirdBreedingSites = aquacultureSeabirdBreedingSites?.length > 0
+        aquacultureSeabirdBreedingSites = _.sortBy aquacultureSeabirdBreedingSites, (row) -> parseInt(row.Count)
+        aquacultureSeabirdBreedingSites.reverse()
+      catch error
+        hasAquacultureSeabirdBreedingSites = false
+      try
+        aquacultureShorebirdSites = @recordSet('ProtectedAndThreatenedSpecies', 'ShorebirdPoints',AQUACULTURE_ID).toArray()
+        aquacultureShorebirdSites = _.sortBy aquacultureShorebirdSites, (row) -> parseInt(row.Count)
+        hasAquacultureShorebirdSites = aquacultureShorebirdSites?.length > 0
+        aquacultureShorebirdSites.reverse()
+      catch error
+        hasAquacultureShorebirdSites = false
+
+      try
+        aquacultureEcosystemProductivity = @recordSet('EcosystemServices', 'EcosystemProductivity', AQUACULTURE_ID).toArray()
+        aquacultureNutrientRecycling = @recordSet('EcosystemServices', 'NutrientRecycling',AQUACULTURE_ID).toArray()
+        aquacultureBiogenicHabitat = @recordSet('EcosystemServices', 'BiogenicHabitat',AQUACULTURE_ID).toArray()
+        #only for aquaculture
+        proximityToProtectedAreas = @recordSet('ProximityToExistingProtectedAreas', 'ProximityToExistingProtectedAreas').toArray()
+        isCloseToProtectedAreas = proximityToProtectedAreas?.length > 0
+      catch error
+        isCloseToProtectedAreas = false
 
     context =
       isCollection: isCollection
@@ -75,40 +126,47 @@ class ArrayEnvironmentTab extends ReportTab
       sketchClass: @sketchClass.forTemplate()
       attributes: @model.getAttributes()
       admin: @project.isAdmin window.user
+      hasAquacultureClasses: hasAquacultureClasses
+      hasProtectionClasses: hasProtectionClasses
 
-      #fix this to get rid of hardcoded value
+      #protection only      
       habitatsCount: 62
       hasReserveData: hasReserveData
       habitatsInReserves: habitatsInReserves
       habitatsInReservesCount: habitatsInReservesCount
-
       hasTypeTwoData: hasTypeTwoData
       habitatsInTypeTwoCount: habitatsInTypeTwoCount
       habitatsInTypeTwos: habitatsInTypeTwos
-
       representationData:representationData
       hasRepresentationData:hasRepresentationData
       representedCount:representedCount
 
-      adjacentProtectedAreas: near_terrestrial_protected 
+      #protection and aquaculture
+      protectionNutrientRecycling: protectionNutrientRecycling
+      protectionBiogenicHabitat: protectionBiogenicHabitat
+      protectionEcosystemProductivity: protectionEcosystemProductivity
+      protectionSensitiveAreas: protectionSensitiveAreas 
+      hasProtectionSensitiveAreas: hasProtectionSensitiveAreas
+      protectionProtectedMammals:protectionProtectedMammals
+      hasProtectionProtectedMammals:hasProtectionProtectedMammals
+      protectionSeabirdBreedingSites:protectionSeabirdBreedingSites
+      hasProtectionSeabirdBreedingSites:hasProtectionSeabirdBreedingSites
+      protectionShorebirdSites:protectionShorebirdSites
+      hasProtectionShorebirdSites:hasProtectionShorebirdSites
 
-      nutrientRecycling: nutrient_recycling
-      biogenicHabitat: biogenic_habitat
-      ecosystemProductivity: ecosystem_productivity
+      aquacultureNutrientRecycling: aquacultureNutrientRecycling
+      aquacultureBiogenicHabitat: aquacultureBiogenicHabitat
+      aquacultureEcosystemProductivity: aquacultureEcosystemProductivity
+      aquacultureSensitiveAreas: aquacultureSensitiveAreas 
+      hasAquacultureSensitiveAreas: hasAquacultureSensitiveAreas
+      aquacultureProtectedMammals:aquacultureProtectedMammals
+      hasAquacultureProtectedMammals:hasAquacultureProtectedMammals
+      aquacultureSeabirdBreedingSites:aquacultureSeabirdBreedingSites
+      hasAquacultureSeabirdBreedingSites:hasAquacultureSeabirdBreedingSites
+      aquacultureShorebirdSites:aquacultureShorebirdSites
+      hasAquacultureShorebirdSites:hasAquacultureShorebirdSites
 
-      sensitiveAreas: sensitiveAreas 
-      hasSensitiveAreas: hasSensitiveAreas
-
-
-      protectedMammals:protectedMammals
-      hasProtectedMammals:hasProtectedMammals
-
-      seabirdBreedingSites:seabirdBreedingSites
-      hasSeabirdBreedingSites:hasSeabirdBreedingSites
-
-      shorebirdSites:shorebirdSites
-      hasShorebirdSites:hasShorebirdSites
-
+      #aquaculture only
       proximityToProtectedAreas: proximityToProtectedAreas
       isCloseToProtectedAreas: isCloseToProtectedAreas
 

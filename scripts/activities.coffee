@@ -20,23 +20,35 @@ class ActivitiesTab extends ReportTab
 
   render: () ->
     isCollection = @model.isCollection()
-    aquaculture = @recordSet('OverlapWithAquaculture', 'OverlapWithAquaculture').toArray()
-    existingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
-    overlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
-    recreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
+
+    protectionAquaculture = @recordSet('OverlapWithAquaculture', 'OverlapWithAquaculture').toArray()
+    hasProtectionAquaculture = protectionAquaculture?.length > 0
+
+    protectionExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
+    hasProtectionExistingUseConflicts = protectionExistingUses?.length > 0
+
+    protectionOverlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
+    hasProtectionOverlapWithMooringsAndAnchorages = protectionOverlapWithMooringsAndAnchorages?.length > 0
+
+    protectionRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
+    hasProtectionRecreationalUseConflicts = protectionRecreationalUses?.length > 0
+
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
       sketchClass: @sketchClass.forTemplate()
       attributes: @model.getAttributes()
       admin: @project.isAdmin window.user
-      aquaculture: aquaculture
-      aquacultureCount: aquaculture?.length
-      existingUses: existingUses
-      hasExistingUseConflicts: existingUses?.length > 0
-      overlapWithMooringsAndAnchorages: overlapWithMooringsAndAnchorages
-      recreationalUses: recreationalUses
-      hasRecreationalUseConflicts: recreationalUses?.length > 0
+
+      protectionAquaculture: protectionAquaculture
+      protectionAquacultureCount: protectionAquaculture?.length
+      hasProtectionAquaculture: hasProtectionAquaculture
+      protectionExistingUses: protectionExistingUses
+      hasProtectionExistingUseConflicts: hasProtectionExistingUseConflicts
+      protectionOverlapWithMooringsAndAnchorages: protectionOverlapWithMooringsAndAnchorages
+      hasProtectionOverlapWithMooringsAndAnchorages: hasProtectionOverlapWithMooringsAndAnchorages
+      protectionRecreationalUses: protectionRecreationalUses
+      hasProtectionRecreationalUseConflicts: hasProtectionRecreationalUseConflicts
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()

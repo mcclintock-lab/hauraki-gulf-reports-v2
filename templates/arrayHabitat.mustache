@@ -1,352 +1,507 @@
-{{#isCollection}}
-<p>
-  The collection of marine protected areas will protect the full range of 
-  natural marine habitats and ecosystems. These reports show the proportion 
-  of the gulf protected for each habitat type in Marine Reserves and Type-2 
-  Protected Areas, for both existing protected areas and sketches.
-</p>
-{{/isCollection}}
 
-{{#hasReserveData}}
-<div class="reportSection tableContainer">
-  <h4>Habitats Protected in Marine Reserves</h4>
-  <table data-paging="10"> <!-- data-paging... activates paging  -->
-    <thead>
-      <tr>
-        <th style="width:180px;">Habitats</th>
-        <th>% In New Marine Reserves</th>
-        <th>% In Existing Marine Reserves</th>
-        <th style="width:50px;">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#habitatsInReserves}}
-      <tr>
-        <td>{{HAB_TYPE}}</td>
-        <td>{{NEW_PERC}}</td>
-        <td>{{EX_PERC}}</td>
-        <td>{{CB_PERC}}</td>
-
-      </tr>
-      {{/habitatsInReserves}}
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4" class="paragraph" style="text-align:left;">
-          <p class="large">
-            {{#isCollection}}
-            Marine Reserves protect
-            {{/isCollection}}
-            {{^isCollection}}
-            This Marine Reserve protects
-            {{/isCollection}}
-            <strong>{{habitatsInReservesCount}}</strong>
-            of <strong>{{habitatsCount}}</strong> habitat types.
-          </p>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
-{{/hasReserveData}}
-
-{{#hasTypeTwoData}}
-<div class="reportSection tableContainer">
-  <h4>Habitats Protected in Type-2 Protected Areas</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th style="width:180px;">Habitats</th>
-        <th>% In New Type-2 Protected Areas</th>
-        <th>% In Existing Type-2 Protected Areas</th>
-        <th style="width:50px;">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#habitatsInTypeTwos}}
-      <tr>
-        <td>{{HAB_TYPE}}</td>
-        <td>{{NEW_PERC}}</td>
-        <td>{{EX_PERC}}</td>
-        <td>{{CB_PERC}}</td>
-      </tr>
-      {{/habitatsInTypeTwos}}
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4" class="paragraph" style="text-align:left;">
-          <p class="large">
-            {{#isCollection}}
-            Type-2 Reserves protect 
-            {{/isCollection}}
-            {{^isCollection}}
-            This Type-2 Protected Area protects
-            {{/isCollection}}
-            <strong>{{habitatsInTypeTwoCount}}</strong>
-            of <strong>{{habitatsCount}}</strong> habitat types.
-          </p>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
-{{/hasTypeTwoData}}
-
-
-{{#hasRepresentationData}}
-<div class="reportSection tableContainer">
-  <h4>Habitat Representation</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Habitats</th>
-        <th>Total HA Protected in All Areas</th>
-        <th>Total % in All Areas</th>
-        <th>Number of Sites Protected</th>
-        <th>Adequately Represented?</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#representationData}}
-      <tr>
-        <td>{{HAB_TYPE}}</td>
-        <td>{{CB_SIZE}}</td>
-        <td>{{CB_PERC}}</td>
-        <td>{{REP_COUNT}}</td>
-        <td>??</td>
-      </tr>
-      {{/representationData}}
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="5" class="paragraph" style="text-align:left;">
-          <p class="large">
-
-            <strong>{{representedCount}}</strong>
-            of <strong>{{habitatsCount}}</strong> habitats are adequately 
-            protected.
-          </p>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
-{{/hasRepresentationData}}
-
-{{#hasSensitiveAreas}}
-<div class="reportSection tableContainer">
-  <h4>Sensitive Habitats</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Hectares Protected</th>
-        <th>Percent of Area Protected</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#sensitiveAreas}}
-      <tr>
-        <td>{{SA_NAME}}</td>
-        <td>{{SA_TYPE}}</td>
-        <td>{{CLPD_AREA}}</td>
-        <td>{{PERC_AREA}}</td>
-      </tr>
-      {{/sensitiveAreas}}
-    </tbody>
-  </table>
-</div>
-{{/hasSensitiveAreas}}
-
-{{#hasProtectedMammals}}
-<div class="reportSection tableContainer">
-  <h4>Protected Mammals</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Number of Protected Mammal Areas</th>
-
-      </tr>
-    </thead>
-    <tbody>
-      {{#protectedMammals}}
-      <tr>
-        <td>{{Name}}</td>
-        <td>--</td>
-        <td>{{Count}}</td>
-      </tr>
-      {{/protectedMammals}}
-    </tbody>
-  </table>
-</div>
-{{/hasProtectedMammals}}
-
-{{#hasSeabirdBreedingSites}}
-<div class="reportSection tableContainer">
-
-  <h4>Seabirds</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Name</th>
-
-        <th>Status</th>
-
-        <th>Number of Breeding Sites</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#seabirdBreedingSites}}
-      <tr>
-        <td>{{Name}}</td>
-        <td>--</td>
-        <td>{{Count}}</td>
-      </tr>
-      {{/seabirdBreedingSites}}
-    </tbody>
-  </table>
-</div>
-{{/hasSeabirdBreedingSites}}
-
-
-{{#hasShorebirdSites}}
-<div class="reportSection tableContainer">
-  <h4>Shorebird Sites</h4>
-
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Name</th>
-
-        <th>Status</th>
-        <th>Number of Shorebird Sites</th>
-
-      </tr>
-    </thead>
-    <tbody>
-      {{#shorebirdSites}}
-      <tr>
-        <td>{{Name}}</td>
-        <td>--</td>
-        <td>{{Count}}</td>
-      </tr>
-      {{/shorebirdSites}}
-    </tbody>
-  </table>
-</div>
-{{/hasShorebirdSites}}
-
-{{^isCollection}}
-{{#adjacentProtectedAreas}}
-<div class="reportSection">
-  <h4>Adjacent Terrestrial Protected Area</h4>
-  <p class="large green-check">
-    This zone is adjacent to a <strong>Terrestrial Protected Area</strong>.
+{{#hasProtectionClasses}}
+  <p>
+    The collection of <strong>marine protected areas</strong> will protect the full range of 
+    natural marine habitats and ecosystems. These reports show the proportion 
+    of the gulf protected for each habitat type in Marine Reserves and Type-2 
+    Protected Areas, for both existing protected areas and sketches.
   </p>
-</div>
-{{/adjacentProtectedAreas}}
-{{/isCollection}}
+  {{#hasReserveData}}
+    <div class="reportSection tableContainer">
+      <h4>Habitats Protected in Marine Reserves</h4>
+      <table data-paging="10"> <!-- data-paging... activates paging  -->
+        <thead>
+          <tr>
+            <th style="width:180px;">Habitats</th>
+            <th>% In New Marine Reserves</th>
+            <th>% In Existing Marine Reserves</th>
+            <th style="width:50px;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#habitatsInReserves}}
+          <tr>
+            <td>{{HAB_TYPE}}</td>
+            <td>{{NEW_PERC}}</td>
+            <td>{{EX_PERC}}</td>
+            <td>{{CB_PERC}}</td>
 
-<div class="reportSection tableContainer">
-  <h4>Nutrient Recycling</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Value</th>
-        <th>Area in Hectares</th>
-        <th>Percent</th>
-      </tr>
-    </thead>
-    <tbody>
-    {{#nutrientRecycling}}
-      <tr>
-        <td>{{Class}}</td>
-        <td>{{AreaInHa}}</td>
-        <td>{{Percent}}</td>
-      </tr>
-      {{/nutrientRecycling}}
-    </tbody>
-  </table>
-</div>
+          </tr>
+          {{/habitatsInReserves}}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="paragraph" style="text-align:left;">
+              <p class="large">
+                {{#isCollection}}
+                Marine Reserves protect
+                {{/isCollection}}
+                {{^isCollection}}
+                This Marine Reserve protects
+                {{/isCollection}}
+                <strong>{{habitatsInReservesCount}}</strong>
+                of <strong>{{habitatsCount}}</strong> habitat types.
+              </p>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  {{/hasReserveData}}
 
-<div class="reportSection tableContainer">
-  <h4>Biogenic Habitat</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Value</th>
-        <th>Area in Hectares</th>
-        <th>Percent</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#biogenicHabitat}}
-      <tr>
-        <td>{{Class}}</td>
-        <td>{{AreaInHa}}</td>
-        <td>{{Percent}}</td>
-      </tr>
-      {{/biogenicHabitat}}
-    </tbody>
-  </table>
-</div>
-
-<div class="reportSection tableContainer">
-  <h4>Ecosystem Productivity</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Value</th>
-        <th>Area in Hectares</th>
-        <th>Percent</th>
-      </tr>
-    </thead>
-    <tbody>
-    {{#ecosystemProductivity}}
-      <tr>
-        <td>{{Class}}</td>
-        <td>{{AreaInHa}}</td>
-        <td>{{Percent}}</td>
-      </tr>
-      {{/ecosystemProductivity}}
-    </tbody>
-  </table>
-</div>
-
-{{#isCloseToProtectedAreas}}
-<div class="reportSection tableContainer">
-  <h4>Proximity to Existing Protected Areas</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>Aquaculture Zone Name</th>
-        <th>Type of Protected Area Impacted</th>
-        <th>Likelihood of Impact</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#proximityToProtectedAreas}}
+  {{#hasTypeTwoData}}
+  <div class="reportSection tableContainer">
+    <h4>Habitats Protected in Type-2 Protected Areas</h4>
+    <table data-paging="10">
+      <thead>
         <tr>
-          <td>{{ZoneName}}</td>
-          <td>{{NEAR_TYPE}}</td>
-          <td>{{THRESHOLD}}</td>
+          <th style="width:180px;">Habitats</th>
+          <th>% In New Type-2 Protected Areas</th>
+          <th>% In Existing Type-2 Protected Areas</th>
+          <th style="width:50px;">Total</th>
         </tr>
-      {{/proximityToProtectedAreas}}
-    </tbody>
-  </table>
-</div>
-{{/isCloseToProtectedAreas}}
+      </thead>
+      <tbody>
+        {{#habitatsInTypeTwos}}
+        <tr>
+          <td>{{HAB_TYPE}}</td>
+          <td>{{NEW_PERC}}</td>
+          <td>{{EX_PERC}}</td>
+          <td>{{CB_PERC}}</td>
+        </tr>
+        {{/habitatsInTypeTwos}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="paragraph" style="text-align:left;">
+            <p class="large">
+              {{#isCollection}}
+              Type-2 Reserves protect 
+              {{/isCollection}}
+              {{^isCollection}}
+              This Type-2 Protected Area protects
+              {{/isCollection}}
+              <strong>{{habitatsInTypeTwoCount}}</strong>
+              of <strong>{{habitatsCount}}</strong> habitat types.
+            </p>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  {{/hasTypeTwoData}}
 
-{{^isCloseToProtectedAreas}}
-<div class="reportSection">
-  <h4>Proximity to Existing Protected Areas</h4>
-  <p class="large">
-    This zone is <strong>not</strong> within 1 kilometer of any existing protected areas.
+  {{#hasRepresentationData}}
+  <div class="reportSection tableContainer">
+    <h4>Habitat Representation</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Habitats</th>
+          <th>Total HA Protected in All Areas</th>
+          <th>Total % in All Areas</th>
+          <th>Number of Sites Protected</th>
+          <th>Adequately Represented?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#representationData}}
+        <tr>
+          <td>{{HAB_TYPE}}</td>
+          <td>{{CB_SIZE}}</td>
+          <td>{{CB_PERC}}</td>
+          <td>{{REP_COUNT}}</td>
+          <td>??</td>
+        </tr>
+        {{/representationData}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="paragraph" style="text-align:left;">
+            <p class="large">
+
+              <strong>{{representedCount}}</strong>
+              of <strong>{{habitatsCount}}</strong> habitats are adequately 
+              protected.
+            </p>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  {{/hasRepresentationData}}
+
+
+  {{#hasProtectionSensitiveAreas}}
+  <div class="reportSection tableContainer">
+    <h4>Sensitive Habitats in Protection Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Hectares Protected</th>
+          <th>Percent of Area Protected</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#sensitiveProtectionAreas}}
+        <tr>
+          <td>{{SA_NAME}}</td>
+          <td>{{SA_TYPE}}</td>
+          <td>{{CLPD_AREA}}</td>
+          <td>{{PERC_AREA}}</td>
+        </tr>
+        {{/sensitiveProtectionAreas}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasProtectionSensitiveAreas}}
+
+  {{#hasProtectionProtectedMammals}}
+  <div class="reportSection tableContainer">
+    <h4>Protected Mammals in Protection Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Number of Protected Mammal Areas</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {{#protectionProtectedMammals}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>--</td>
+          <td>{{Count}}</td>
+        </tr>
+        {{/protectionProtectedMammals}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasProtectionProtectedMammals}}
+
+  {{#hasProtectionSeabirdBreedingSites}}
+  <div class="reportSection tableContainer">
+    <h4>Seabirds in Protection Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Number of Breeding Sites</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#protectionSeabirdBreedingSites}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>--</td>
+          <td>{{Count}}</td>
+        </tr>
+        {{/protectionSeabirdBreedingSites}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasProtectionSeabirdBreedingSites}}
+
+
+  {{#hasProtectionShorebirdSites}}
+  <div class="reportSection tableContainer">
+    <h4>Shorebird Sites in Protection Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Number of Shorebird Sites</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#protectionShorebirdSites}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>--</td>
+          <td>{{Count}}</td>
+        </tr>
+        {{/protectionShorebirdSites}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasProtectionShorebirdSites}}
+
+  <div class="reportSection tableContainer">
+    <h4>Nutrient Recycling in Protection Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Value</th>
+          <th>Area in Hectares</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#protectionNutrientRecycling}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/protectionNutrientRecycling}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reportSection tableContainer">
+    <h4>Biogenic Habitat in Protection Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Value</th>
+          <th>Area in Hectares</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#protectionBiogenicHabitat}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/protectionBiogenicHabitat}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reportSection tableContainer">
+    <h4>Ecosystem Productivity in Protection Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Value</th>
+          <th>Area in Hectares</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#protectionEcosystemProductivity}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/protectionEcosystemProductivity}}
+      </tbody>
+    </table>
+  </div>
+{{/hasProtectionClasses}}
+
+
+{{#hasAquacultureClasses}}
+  <p>
+    The following reports show the proportion of the gulf included in <strong>aquaculture zones</strong>, and the potential
+    habitats, ecosystems, and uses impacted by the aquaculture areas.
   </p>
-</div>
-{{/isCloseToProtectedAreas}}
+  {{#hasAquacultureSensitiveAreas}}
+  <div class="reportSection tableContainer">
+    <h4>Sensitive Habitats in Aquaculture Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Hectares Protected</th>
+          <th>Percent of Area Protected</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#sensitiveAquacultureAreas}}
+        <tr>
+          <td>{{SA_NAME}}</td>
+          <td>{{SA_TYPE}}</td>
+          <td>{{CLPD_AREA}}</td>
+          <td>{{PERC_AREA}}</td>
+        </tr>
+        {{/sensitiveAquacultureAreas}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasAquacultureSensitiveAreas}}
+
+  {{#hasAquacultureProtectedMammals}}
+  <div class="reportSection tableContainer">
+    <h4>Protected Mammals in Aquaculture Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Number of Protected Mammal Areas</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#aquacultureProtectedMammals}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>--</td>
+          <td>{{Count}}</td>
+        </tr>
+        {{/aquacultureProtectedMammals}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasAquacultureProtectedMammals}}
+
+  {{#hasAquacultureSeabirdBreedingSites}}
+  <div class="reportSection tableContainer">
+    <h4>Seabirds in Aquaculture Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Number of Breeding Sites</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#aquacultureSeabirdBreedingSites}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>--</td>
+          <td>{{Count}}</td>
+        </tr>
+        {{/aquacultureSeabirdBreedingSites}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasAquacultureSeabirdBreedingSites}}
+
+
+  {{#hasAquacultureShorebirdSites}}
+  <div class="reportSection tableContainer">
+    <h4>Shorebird Sites in Aquaculture Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Number of Shorebird Sites</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#aquacultureShorebirdSites}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>--</td>
+          <td>{{Count}}</td>
+        </tr>
+        {{/aquacultureShorebirdSites}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasAquacultureShorebirdSites}}
+
+  <div class="reportSection tableContainer">
+    <h4>Nutrient Recycling in Aquaculture Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Value</th>
+          <th>Area in Hectares</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#aquacultureNutrientRecycling}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/aquacultureNutrientRecycling}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reportSection tableContainer">
+    <h4>Biogenic Habitat in Aquaculture Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Value</th>
+          <th>Area in Hectares</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#aquacultureBiogenicHabitat}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/aquacultureBiogenicHabitat}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reportSection tableContainer">
+    <h4>Ecosystem Productivity in Aquaculture Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Value</th>
+          <th>Area in Hectares</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#aquacultureEcosystemProductivity}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/aquacultureEcosystemProductivity}}
+      </tbody>
+    </table>
+  </div>
+
+  {{#isCloseToProtectedAreas}}
+  <div class="reportSection tableContainer">
+    <h4>Proximity to Existing Protected Areas</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Aquaculture Zone Name</th>
+          <th>Type of Protected Area Impacted</th>
+          <th>Likelihood of Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#proximityToProtectedAreas}}
+          <tr>
+            <td>{{ZoneName}}</td>
+            <td>{{NEAR_TYPE}}</td>
+            <td>{{THRESHOLD}}</td>
+          </tr>
+        {{/proximityToProtectedAreas}}
+      </tbody>
+    </table>
+  </div>
+  {{/isCloseToProtectedAreas}}
+
+  {{^isCloseToProtectedAreas}}
+  <div class="reportSection">
+    <h4>Proximity to Existing Protected Areas</h4>
+    <p class="large">
+      This zone is <strong>not</strong> within 1 kilometer of any existing protected areas.
+    </p>
+  </div>
+  {{/isCloseToProtectedAreas}}
+{{/hasAquacultureClasses}}
 
 

@@ -63,21 +63,21 @@ class ArrayOverviewTab extends ReportTab
     catch error
       hasProtection = false
 
-    try
-      aquacultureSizes = @recordSet('AquacultureSize', 'AquacultureSize', AQUACULTURE_ID).toArray()
-      hasMultipleAquacultureSketches = false
-      hasAquaculture = aquacultureSizes.length
-      if hasAquaculture
+    aquacultureClasses = @getChildren AQUACULTURE_ID
+    hasAquaculture = aquacultureClasses?.length > 0
+    numAquacultureSketches = aquacultureClasses?.length
+    if hasAquaculture
+      try
+        aquacultureSizes = @recordSet('AquacultureSize', 'AquacultureSize', AQUACULTURE_ID).toArray()
+        hasMultipleAquacultureSketches = false
         totalAquacultureSize = @recordSet('AquacultureSize', 'TotalSize').float('TOTAL_HA')
         hasMultipleAquacultureSketches = aquacultureSizes?.length > 1
-    catch error
-      hasAquaculture = false
-
-    if hasAquaculture
-        try
-          #need to investigate why this happens sometimes
-          aquacultureProximity = @recordSet('ProximityToExistingAquaculture', 'ProximityToExistingAquaculture', AQUACULTURE_ID).toArray()
-        catch error
+      catch error
+        hasAquaculture = false
+      try
+        #need to investigate why this happens sometimes
+        aquacultureProximity = @recordSet('ProximityToExistingAquaculture', 'ProximityToExistingAquaculture', AQUACULTURE_ID).toArray()
+      catch error
 
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 
@@ -88,15 +88,12 @@ class ArrayOverviewTab extends ReportTab
       # @model is the client-side sketch representation, which has some
       # useful, if undocumented, methods like getChildren().
       children = @model.getChildren()
-      # NOTE: I'm dividing by all children here. Should this be filtered to
-      # exclude Aquaculture and Mooring areas??
+
       if hasProtection
         marineReserves = _.filter children, (child) -> 
           child.getAttribute('MPA_TYPE') is 'MPA1'
         type2MPAs = _.filter children, (child) -> 
           child.getAttribute('MPA_TYPE') is 'MPA2'
-
-      console.log("is collection? ", isCollection)
 
     try
       context =
@@ -110,7 +107,7 @@ class ArrayOverviewTab extends ReportTab
         hasProtection: hasProtection
         hasAquaculture: hasAquaculture
         aquacultureSizes: aquacultureSizes
-        numAquacultureSketches: aquacultureSizes?.length
+        numAquacultureSketches: numAquacultureSketches
         aquacultureProximity: aquacultureProximity
         totalAquacultureSize: totalAquacultureSize
         hasMultipleAquacultureSketches: hasMultipleAquacultureSketches
@@ -137,7 +134,7 @@ class ArrayOverviewTab extends ReportTab
 
 
     catch error
-      console.log('error: ', error)
+
     # @template is /templates/overview.mustache
     @$el.html @template.render(context, partials)
     # If the measure is too high, the visualization just looks stupid
@@ -153,7 +150,6 @@ class ArrayOverviewTab extends ReportTab
   drawViz: (size) ->
     # Check if d3 is present. If not, we're probably dealing with IE
     if window.d3
-      console.log 'd3'
       el = @$('.viz')[0]
       maxScale = MIN_SIZE * 2
       ranges = [

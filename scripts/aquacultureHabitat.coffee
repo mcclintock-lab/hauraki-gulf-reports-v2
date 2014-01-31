@@ -31,7 +31,6 @@ class AquacultureHabitatTab extends ReportTab
     sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
     sensitiveAreas.reverse()
 
-
     protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
     protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
     protectedMammals.reverse()
@@ -44,9 +43,6 @@ class AquacultureHabitatTab extends ReportTab
     shorebirdSites = _.sortBy shorebirdSites, (row) -> parseInt(row.Count)
     shorebirdSites.reverse()
     proximityToProtectedAreas = @recordSet('ProximityToExistingProtectedAreas', 'ProximityToExistingProtectedAreas').toArray()
-
-    console.log('prox', proximityToProtectedAreas)
-    
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 
     # collections. I didn't do that here since they are so similar.

@@ -6,6 +6,7 @@
 </div>
 {{/sketchClass.deleted}}
 
+{{#hasProtectionAquaculture}}
 <div class="reportSection tableContainer">
   <h4>Possible Effects on Aquaculture</h4>
   <table data-paging="10"> <!-- data-paging... activates paging  -->
@@ -19,7 +20,7 @@
       </tr>
     </thead>
     <tbody>
-      {{#aquaculture}}
+      {{#protectionAquaculture}}
         <tr>
           <td>{{FARM_TYPE}}</td>
           <td>{{SIZE_IN_HA}}</td>
@@ -27,7 +28,7 @@
           <td>--</td>
           <td>--</td>
         </tr>
-      {{/aquaculture}}
+      {{/protectionAquaculture}}
     </tbody>
     <tfoot>
       <tr>
@@ -42,63 +43,100 @@
     </tfoot>
   </table>
 </div>
+{{/hasProtectionAquaculture}}
+{{^hasProtectionAquaculture}}
+  <div class="reportSection">
+    <h4>Possible Effects on Aquaculture</h4>
+        <p class="large">
+          <strong>No</strong> protection classes overlap with aquaculture areas.
+        </p>
+  </div> 
+{{/hasProtectionAquaculture}}
 
-<div class="reportSection tableContainer">
-  <h4>Existing Use Conflicts</h4>
-    {{#hasExistingUseConflicts}}
-      <p class="large">
-        One or more protection classes overlap with, or are near, <strong>existing uses</strong> that are in conflict with the purposes of the protection.
-      </p>
-    {{/hasExistingUseConflicts}}
-  <table data-paging="10"> <!-- data-paging... activates paging  -->
-    <thead>
-      <tr>
-        <th>Existing Use</th>
-        <th>Is Compatible</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#existingUses}}
+{{#hasProtectionExistingUseConflicts}}
+  <div class="reportSection tableContainer">
+    <h4>Existing Use Conflicts</h4>
+      {{#hasProtectionExistingUseConflicts}}
+        <p class="large">
+          One or more protection classes overlap with, or are near, <strong>existing uses</strong> that are in conflict with the purposes of the protection.
+        </p>
+      {{/hasProtectionExistingUseConflicts}}
+    <table data-paging="10"> <!-- data-paging... activates paging  -->
+      <thead>
         <tr>
-          <td>{{FEAT_TYPE}}</td>
-          <td>--</td>
+          <th>Existing Use</th>
+          <th>Is Compatible</th>
         </tr>
-      {{/existingUses}}
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        {{#protectionExistingUses}}
+          <tr>
+            <td>{{FEAT_TYPE}}</td>
+            <td>--</td>
+          </tr>
+        {{/protectionExistingUses}}
+      </tbody>
+    </table>
+  </div>
+{{/hasProtectionExistingUseConflicts}}
+{{^hasProtectionExistingUseConflicts}}
+  <div class="reportSection">
+    <h4>Existing Use Conflicts</h4>
+        <p class="large">
+          <strong>No</strong> protection classes overlap with existing uses.
+        </p>
+  </div> 
+{{/hasProtectionExistingUseConflicts}}
 
-<div class="reportSection tableContainer">
-  <h4>Overlap with Recreational Uses</h4>
-    {{#hasRecreationalUseConflicts}}
-      <p class="large">
-        One or more protection classes overlap with, or are near, <strong>recreational uses</strong> that may be in conflict with the purposes of the protection.
-      </p>
-    {{/hasRecreationalUseConflicts}}
-  <table data-paging="10"> <!-- data-paging... activates paging  -->
-    <thead>
-      <tr>
-        <th>Recreational Use</th>
-        <th>Is Compatible</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#recreationalUses}}
+{{#hasProtectionRecreationalUseConflicts}}
+  <div class="reportSection tableContainer">
+    <h4>Overlap with Recreational Uses</h4>
+      {{#hasProtectionRecreationalUseConflicts}}
+        <p class="large">
+          One or more protection classes overlap with, or are near, <strong>recreational uses</strong> that may be in conflict with the purposes of the protection.
+        </p>
+      {{/hasProtectionRecreationalUseConflicts}}
+    <table data-paging="10"> <!-- data-paging... activates paging  -->
+      <thead>
         <tr>
-          <td>{{FEAT_TYPE}}</td>
-          <td>--</td>
+          <th>Recreational Use</th>
+          <th>Is Compatible</th>
         </tr>
-      {{/recreationalUses}}
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        {{#protectionRecreationalUses}}
+          <tr>
+            <td>{{FEAT_TYPE}}</td>
+            <td>--</td>
+          </tr>
+        {{/protectionRecreationalUses}}
+      </tbody>
+    </table>
+  </div>
+{{/hasProtectionRecreationalUseConflicts}}
+{{^hasProtectionRecreationalUseConflicts}}
+  <div class="reportSection">
+    <h4>Overlap with Recreational Uses</h4>
+        <p class="large">
+          <strong>No</strong> protection classes overlap with recreational uses.
+        </p>
+  </div> 
+{{/hasProtectionRecreationalUseConflicts}}
 
 
-{{#overlapWithMooringsAndAnchorages}}
-<div class="reportSection">
-  <h4>Overlaps with Mooring and Anchorage Areas</h4>
-  <p class="large green-check">
-    One more more protection areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
-  </p>
-</div>
-{{/overlapWithMooringsAndAnchorages}}
+{{#hasProtectionOverlapWithMooringsAndAnchorages}}
+  <div class="reportSection">
+    <h4>Overlaps with Mooring and Anchorage Areas</h4>
+    <p class="large green-check">
+      One more more protection areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
+    </p>
+  </div>
+{{/hasProtectionOverlapWithMooringsAndAnchorages}}
+{{^hasProtectionOverlapWithMooringsAndAnchorages}}
+  <div class="reportSection">
+    <h4>Overlaps with Mooring and Anchorage Areas</h4>
+    <p>
+      <strong>No</strong> protection areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
+    </p>
+  </div>
+{{/hasProtectionOverlapWithMooringsAndAnchorages}}

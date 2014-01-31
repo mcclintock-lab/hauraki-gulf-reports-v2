@@ -1,0 +1,243 @@
+{{#hasProtectionClasses}}
+<div class="reportSection tableContainer">
+  <h4>Commercial Fishing in Protection Zones</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Affected Area (%)</th>
+        <th>Level of Fishing Displaced (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#protectionCommercialFishing}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{PERC_DISP}}</td>
+        <td>{{LVL_DISP}}</td>
+      </tr>
+      {{/protectionCommercialFishing}}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+          Note: as not all areas fished have the same fishing effort or catch, the “Level of Fishing Displaced” is a combination of the area being restricted and the catch that would normally be caught in that area.
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="reportSection tableContainer">
+  <h4>Recreational Fishing in Protection Zones</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Affected Area (%)</th>
+        <th>Level of Fishing Displaced (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#protectionRecreationalFishing}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{PERC_DISP}}</td>
+        <td>{{LVL_DISP}}</td>
+      </tr>
+      {{/protectionRecreationalFishing}}
+    </tbody>
+<!-- 
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+        </td>
+      </tr>
+    </tfoot>
+ -->
+  </table>
+</div>
+
+<div class="reportSection tableContainer">
+  <h4>Customary Fishing in Protection Zones</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Affected Area (%)</th>
+        <th>Level of Fishing Displaced (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#protectionCustomaryFishing}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{PERC_DISP}}</td>
+        <td>{{LVL_DISP}}</td>
+      </tr>
+      {{/protectionCustomaryFishing}}
+    </tbody> 
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+          Important customary fishing locations have not been identified yet. Information on the whereabouts of these activities may be added during planning process.
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="reportSection tableContainer">
+  <h4>Total Food Provision in Protection Zones</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Fish Stock</th>
+        <th>Catch Displaced (tonnss)</th>
+        <th>Percent from Gulf</th>
+        <th>Percent of TAC</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#protectionTotalFood}}
+      <tr>
+        <td>{{FishStock}}</td>
+        <td>--</td>
+        <td>--</td>
+        <td>--</td>
+      </tr>
+      {{/protectionTotalFood}}
+    </tbody> 
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+          The total food provision includes commercial, recreational, and
+          customary catch.
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+{{/hasProtectionClasses}}
+
+{{#hasAquacultureClasses}}
+<div class="reportSection tableContainer">
+  <h4>Commercial Fishing in Aquaculture Zones</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Affected Area (%)</th>
+        <th>Level of Fishing Displaced (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#aquacultureCommercialFishing}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{PERC_DISP}}</td>
+        <td>{{LVL_DISP}}</td>
+      </tr>
+      {{/aquacultureCommercialFishing}}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+          Note: as not all areas fished have the same fishing effort or catch, the “Level of Fishing Displaced” is a combination of the area being restricted and the catch that would normally be caught in that area.
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="reportSection tableContainer">
+  <h4>Recreational Fishing in Aquaculture Zones</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Affected Area (%)</th>
+        <th>Level of Fishing Displaced (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#aquacultureRecreationalFishing}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{PERC_DISP}}</td>
+        <td>{{LVL_DISP}}</td>
+      </tr>
+      {{/aquacultureRecreationalFishing}}
+    </tbody>
+<!-- 
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+        </td>
+      </tr>
+    </tfoot>
+ -->
+  </table>
+</div>
+
+<div class="reportSection tableContainer">
+  <h4>Customary Fishing in Aquaculture Zones</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Affected Area (%)</th>
+        <th>Level of Fishing Displaced (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#aquacultureCustomaryFishing}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{PERC_DISP}}</td>
+        <td>{{LVL_DISP}}</td>
+      </tr>
+      {{/aquacultureCustomaryFishing}}
+    </tbody> 
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+          Important customary fishing locations have not been identified yet. Information on the whereabouts of these activities may be added during planning process.
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="reportSection tableContainer">
+  <h4>Total Food Provision in Aquaculture Zones</h4>
+  <table data-paging="10">
+    <thead>
+      <tr>
+        <th>Fish Stock</th>
+        <th>Catch Displaced (tonnss)</th>
+        <th>Percent from Gulf</th>
+        <th>Percent of TAC</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#aquacultureTotalFood}}
+      <tr>
+        <td>{{FishStock}}</td>
+        <td>--</td>
+        <td>--</td>
+        <td>--</td>
+      </tr>
+      {{/aquacultureTotalFood}}
+    </tbody> 
+    <tfoot>
+      <tr>
+        <td colspan="6" class="paragraph" style="text-align:left;">
+          The total food provision includes commercial, recreational, and
+          customary catch.
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+{{/hasAquacultureClasses}}

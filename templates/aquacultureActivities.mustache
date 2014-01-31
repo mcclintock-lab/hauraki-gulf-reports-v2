@@ -6,99 +6,90 @@
 </div>
 {{/sketchClass.deleted}}
 
-<div class="reportSection tableContainer">
-  <h4>Possible Effects on Aquaculture</h4>
-  <table data-paging="10"> <!-- data-paging... activates paging  -->
-    <thead>
-      <tr>
-        <th style="width:180px;">Type</th>
-        <th>Area Affected (Ha)</th>
-        <th>Area Affect (%)</th>
-        <th>Potential Impact on Production</th>
-        <th>Potential Impact on Economic Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#aquaculture}}
+{{#hasAquacultureExistingUseConflicts}}
+  <div class="reportSection tableContainer">
+    <h4>Existing Use Conflicts</h4>
+      {{#hasAquacultureExistingUseConflicts}}
+        <p class="large">
+          One or more aquaculture areas overlap with, or are near, <strong>existing uses</strong>.
+        </p>
+      {{/hasAquacultureExistingUseConflicts}}
+    <table data-paging="10"> <!-- data-paging... activates paging  -->
+      <thead>
         <tr>
-          <td>{{FARM_TYPE}}</td>
-          <td>{{SIZE_IN_HA}}</td>
-          <td>--</td>
-          <td>--</td>
-          <td>--</td>
+          <th>Existing Use</th>
+          <th>Is Compatible</th>
         </tr>
-      {{/aquaculture}}
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="5" class="paragraph" style="text-align:left;">
-          <p class="large">
-            Note: as not all areas fished have the same fishing effort or catch, the 
-            “Level of Fishing Displaced” is a combination of the area being 
-            restricted and the catch that would normally be caught in that area
-          </p>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        {{#aquacultureExistingUses}}
+          <tr>
+            <td>{{FEAT_TYPE}}</td>
+            <td>--</td>
+          </tr>
+        {{/aquacultureExistingUses}}
+      </tbody>
+    </table>
+  </div>
+{{/hasAquacultureExistingUseConflicts}}
+{{^hasAquacultureExistingUseConflicts}}
+  <div class="reportSection">
+    <h4>Existing Use Conflicts</h4>
+        <p class="large">
+          <strong>No</strong> aquaculture areas overlap with existing uses.
+        </p>
+  </div> 
+{{/hasAquacultureExistingUseConflicts}}
 
-<div class="reportSection tableContainer">
-  <h4>Existing Use Conflicts</h4>
-    {{#hasExistingUseConflicts}}
-      <p class="large">
-        One or more protection classes overlap with, or are near, <strong>existing uses</strong> that are in conflict with the purposes of the protection.
+{{#hasAquacultureRecreationalUseConflicts}}
+  <div class="reportSection tableContainer">
+    <h4>Overlap with Recreational Uses</h4>
+      {{#hasAquacultureRecreationalUseConflicts}}
+        <p class="large">
+          One or more aquaculture areas overlap with, or are near, <strong>recreational uses</strong> that may be in conflict with the purposes of the protection.
+        </p>
+      {{/hasAquacultureRecreationalUseConflicts}}
+    <table data-paging="10"> <!-- data-paging... activates paging  -->
+      <thead>
+        <tr>
+          <th>Recreational Use</th>
+          <th>Is Compatible</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#aquacultureRecreationalUses}}
+          <tr>
+            <td>{{FEAT_TYPE}}</td>
+            <td>--</td>
+          </tr>
+        {{/aquacultureRecreationalUses}}
+      </tbody>
+    </table>
+  </div>
+{{/hasAquacultureRecreationalUseConflicts}}
+{{^hasAquacultureRecreationalUseConflicts}}
+  <div class="reportSection">
+    <h4>Overlap with Recreational Uses</h4>
+        <p class="large">
+          <strong>No</strong> aquaculture areas overlap with recreational uses.
+        </p>
+  </div> 
+{{/hasAquacultureRecreationalUseConflicts}}
+
+{{#hasAquacultureOverlapWithMooringsAndAnchorages}}
+  <div class="reportSection">
+    <h4>Overlaps with Mooring and Anchorage Areas</h4>
+      <p class="large green-check">
+        One more more aquaculture areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
       </p>
-    {{/hasExistingUseConflicts}}
-  <table data-paging="10"> <!-- data-paging... activates paging  -->
-    <thead>
-      <tr>
-        <th>Existing Use</th>
-        <th>Is Compatible</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#existingUses}}
-        <tr>
-          <td>{{FEAT_TYPE}}</td>
-          <td>--</td>
-        </tr>
-      {{/existingUses}}
-    </tbody>
-  </table>
-</div>
-
-<div class="reportSection tableContainer">
-  <h4>Overlap with Recreational Uses</h4>
-    {{#hasRecreationalUseConflicts}}
-      <p class="large">
-        One or more protection classes overlap with, or are near, <strong>recreational uses</strong> that may be in conflict with the purposes of the protection.
+  </div>
+{{/hasAquacultureOverlapWithMooringsAndAnchorages}}
+{{^hasAquacultureOverlapWithMooringsAndAnchorages}}
+  <div class="reportSection">
+    <h4>Overlaps with Mooring and Anchorage Areas</h4>
+      <p>
+        <strong>No</strong> aquaculture areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
       </p>
-    {{/hasRecreationalUseConflicts}}
-  <table data-paging="10"> <!-- data-paging... activates paging  -->
-    <thead>
-      <tr>
-        <th>Recreational Use</th>
-        <th>Is Compatible</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#recreationalUses}}
-        <tr>
-          <td>{{FEAT_TYPE}}</td>
-          <td>--</td>
-        </tr>
-      {{/recreationalUses}}
-    </tbody>
-  </table>
-</div>
+  </div>
+{{/hasAquacultureOverlapWithMooringsAndAnchorages}}
 
-
-{{#overlapWithMooringsAndAnchorages}}
-<div class="reportSection">
-  <h4>Overlaps with Mooring and Anchorage Areas</h4>
-  <p class="large green-check">
-    One more more protection areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
-  </p>
-</div>
-{{/overlapWithMooringsAndAnchorages}}

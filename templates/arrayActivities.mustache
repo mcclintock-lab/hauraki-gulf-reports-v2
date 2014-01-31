@@ -1,0 +1,233 @@
+{{#sketchClass.deleted}}
+<div class="alert alert-warn" style="margin-bottom:10px;">
+  This sketch was created using the "{{sketchClass.name}}" template, which is
+  no longer available. You will not be able to copy this sketch or make new
+  sketches of this type.
+</div>
+{{/sketchClass.deleted}}
+
+{{#hasProtectionClasses}}
+  {{#hasProtectionAquaculture}}
+  <div class="reportSection tableContainer">
+    <h4>Possible Effects on Aquaculture from Protection Zones</h4>
+    <table data-paging="10"> <!-- data-paging... activates paging  -->
+      <thead>
+        <tr>
+          <th style="width:180px;">Type</th>
+          <th>Area Affected (Ha)</th>
+          <th>Area Affect (%)</th>
+          <th>Potential Impact on Production</th>
+          <th>Potential Impact on Economic Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#protectionAquaculture}}
+          <tr>
+            <td>{{FARM_TYPE}}</td>
+            <td>{{SIZE_IN_HA}}</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+          </tr>
+        {{/protectionAquaculture}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="paragraph" style="text-align:left;">
+            <p class="large">
+              Note: as not all areas fished have the same fishing effort or catch, the 
+              “Level of Fishing Displaced” is a combination of the area being 
+              restricted and the catch that would normally be caught in that area
+            </p>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  {{/hasProtectionAquaculture}}
+  {{^hasProtectionAquaculture}}
+    <div class="reportSection">
+      <h4>Possible Effects on Aquaculture from Protection Zones</h4>
+          <p class="large">
+            <strong>No</strong> protection classes overlap with aquaculture areas.
+          </p>
+    </div> 
+  {{/hasProtectionAquaculture}}
+
+  {{#hasProtectionExistingUseConflicts}}
+    <div class="reportSection tableContainer">
+      <h4>Existing Use Conflicts with Protection Zones</h4>
+        {{#hasProtectionExistingUseConflicts}}
+          <p class="large">
+            One or more protection classes overlap with, or are near, <strong>existing uses</strong> that are in conflict with the purposes of the protection.
+          </p>
+        {{/hasProtectionExistingUseConflicts}}
+      <table data-paging="10"> <!-- data-paging... activates paging  -->
+        <thead>
+          <tr>
+            <th>Existing Use</th>
+            <th>Is Compatible</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#protectionExistingUses}}
+            <tr>
+              <td>{{FEAT_TYPE}}</td>
+              <td>--</td>
+            </tr>
+          {{/protectionExistingUses}}
+        </tbody>
+      </table>
+    </div>
+  {{/hasProtectionExistingUseConflicts}}
+  {{^hasProtectionExistingUseConflicts}}
+    <div class="reportSection">
+      <h4>Existing Use Conflicts with Protection Zones</h4>
+          <p class="large">
+            <strong>No</strong> protection classes overlap with existing uses.
+          </p>
+    </div> 
+  {{/hasProtectionExistingUseConflicts}}
+
+  {{#hasProtectionRecreationalUseConflicts}}
+    <div class="reportSection tableContainer">
+      <h4>Overlap with Recreational Uses for Protection Zones</h4>
+        {{#hasProtectionRecreationalUseConflicts}}
+          <p class="large">
+            One or more protection classes overlap with, or are near, <strong>recreational uses</strong> that may be in conflict with the purposes of the protection.
+          </p>
+        {{/hasProtectionRecreationalUseConflicts}}
+      <table data-paging="10"> <!-- data-paging... activates paging  -->
+        <thead>
+          <tr>
+            <th>Recreational Use</th>
+            <th>Is Compatible</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#protectionRecreationalUses}}
+            <tr>
+              <td>{{FEAT_TYPE}}</td>
+              <td>--</td>
+            </tr>
+          {{/protectionRecreationalUses}}
+        </tbody>
+      </table>
+    </div>
+  {{/hasProtectionRecreationalUseConflicts}}
+  {{^hasProtectionRecreationalUseConflicts}}
+    <div class="reportSection">
+      <h4>Overlap with Recreational Uses for Protection Zones</h4>
+          <p class="large">
+            <strong>No</strong> protection classes overlap with recreational uses.
+          </p>
+    </div> 
+  {{/hasProtectionRecreationalUseConflicts}}
+
+
+  {{#hasProtectionOverlapWithMooringsAndAnchorages}}
+    <div class="reportSection">
+      <h4>Overlap with Mooring/Anchorage Areas for Protection Zones</h4>
+      <p class="large green-check">
+        One more more aquaculture areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
+      </p>
+    </div>
+  {{/hasProtectionOverlapWithMooringsAndAnchorages}}
+  {{^hasProtectionOverlapWithMooringsAndAnchorages}}
+    <div class="reportSection">
+      <h4>Overlap with Mooring/Anchorage Areas for Protection Zones</h4>
+      <p>
+        <strong>No</strong> aquaculture areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
+      </p>
+    </div>
+  {{/hasProtectionOverlapWithMooringsAndAnchorages}}
+{{/hasProtectionClasses}}
+
+{{#hasAquacultureClasses}}
+  {{#hasAquacultureExistingUseConflicts}}
+    <div class="reportSection tableContainer">
+      <h4>Existing Use Conflicts with Aquaculture Zones</h4>
+        {{#hasAquacultureExistingUseConflicts}}
+          <p class="large">
+            One or more aquaculture areas overlap with, or are near, <strong>existing uses</strong>.
+          </p>
+        {{/hasAquacultureExistingUseConflicts}}
+      <table data-paging="10"> <!-- data-paging... activates paging  -->
+        <thead>
+          <tr>
+            <th>Existing Use</th>
+            <th>Is Compatible</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#aquacultureExistingUses}}
+            <tr>
+              <td>{{FEAT_TYPE}}</td>
+              <td>--</td>
+            </tr>
+          {{/aquacultureExistingUses}}
+        </tbody>
+      </table>
+    </div>
+  {{/hasAquacultureExistingUseConflicts}}
+  {{^hasAquacultureExistingUseConflicts}}
+    <div class="reportSection">
+      <h4>Existing Use Conflicts with Aquaculture Zones</h4>
+          <p class="large">
+            <strong>No</strong> aquaculture areas overlap with existing uses.
+          </p>
+    </div> 
+  {{/hasAquacultureExistingUseConflicts}}
+
+  {{#hasAquacultureRecreationalUseConflicts}}
+    <div class="reportSection tableContainer">
+      <h4>Overlap with Recreational Uses with Aquaculture Zones</h4>
+        {{#hasAquacultureRecreationalUseConflicts}}
+          <p class="large">
+            One or more aquaculture areas overlap with, or are near, <strong>recreational uses</strong> that may be in conflict with the purposes of the protection.
+          </p>
+        {{/hasAquacultureRecreationalUseConflicts}}
+      <table data-paging="10"> <!-- data-paging... activates paging  -->
+        <thead>
+          <tr>
+            <th>Recreational Use</th>
+            <th>Is Compatible</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#aquacultureRecreationalUses}}
+            <tr>
+              <td>{{FEAT_TYPE}}</td>
+              <td>--</td>
+            </tr>
+          {{/aquacultureRecreationalUses}}
+        </tbody>
+      </table>
+    </div>
+  {{/hasAquacultureRecreationalUseConflicts}}
+  {{^hasAquacultureRecreationalUseConflicts}}
+    <div class="reportSection">
+      <h4>Overlap with Recreational Uses with Aquaculture Zones</h4>
+          <p class="large">
+            <strong>No</strong> aquaculture areas overlap with recreational uses.
+          </p>
+    </div> 
+  {{/hasAquacultureRecreationalUseConflicts}}
+
+  {{#hasAquacultureOverlapWithMooringsAndAnchorages}}
+    <div class="reportSection">
+      <h4>Overlap with Mooring/Anchorage Areas for Aquaculture Zones</h4>
+        <p class="large green-check">
+          One more more aquaculture areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
+        </p>
+    </div>
+  {{/hasAquacultureOverlapWithMooringsAndAnchorages}}
+  {{^hasAquacultureOverlapWithMooringsAndAnchorages}}
+    <div class="reportSection">
+      <h4>Overlap with Mooring/Anchorage Areas for Aquaculture Zones</h4>
+        <p>
+          <strong>No</strong> aquaculture areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
+        </p>
+    </div>
+  {{/hasAquacultureOverlapWithMooringsAndAnchorages}}
+{{/hasAquacultureClasses}}

@@ -8,9 +8,8 @@ class AquacultureActivitiesTab extends ReportTab
   name: 'Activities'
   className: 'aquacultureActivities'
   timeout: 120000
-  template: templates.activities
+  template: templates.aquacultureActivities
   dependencies: [
-    'OverlapWithAquaculture'
     'OverlapWithExistingUses'
     'OverlapWithMooringsAndAnchorages'
     'OverlapWithRecreationalUses'
@@ -20,23 +19,28 @@ class AquacultureActivitiesTab extends ReportTab
 
   render: () ->
     isCollection = @model.isCollection()
-    aquaculture = @recordSet('OverlapWithAquaculture', 'OverlapWithAquaculture').toArray()
-    existingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
-    overlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
-    recreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
+
+    aquacultureExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
+    hasAquacultureExistingUseConflicts = aquacultureExistingUses?.length > 0
+  
+    aquacultureOverlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
+    hasAquacultureOverlapWithMooringsAndAnchroages = aquacultureOverlapWithMooringsAndAnchorages?.length > 0
+    aquacultureRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
+    hasAquacultureRecreationalUseConflicts = aquacultureRecreationalUses?.length > 0
+
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
       sketchClass: @sketchClass.forTemplate()
       attributes: @model.getAttributes()
       admin: @project.isAdmin window.user
-      aquaculture: aquaculture
-      aquacultureCount: aquaculture?.length
-      existingUses: existingUses
-      hasExistingUseConflicts: existingUses?.length > 0
-      overlapWithMooringsAndAnchorages: overlapWithMooringsAndAnchorages
-      recreationalUses: recreationalUses
-      hasRecreationalUseConflicts: recreationalUses?.length > 0
+
+      aquacultureExistingUses: aquacultureExistingUses
+      hasAquacultureExistingUseConflicts: hasAquacultureExistingUseConflicts
+      aquacultureOverlapWithMooringsAndAnchorages: aquacultureOverlapWithMooringsAndAnchorages
+      hasAquacultureOverlapWithMooringsAndAnchroages: hasAquacultureOverlapWithMooringsAndAnchroages
+      aquacultureRecreationalUses: aquacultureRecreationalUses
+      hasAquacultureRecreationalUseConflicts: hasAquacultureRecreationalUseConflicts
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()
