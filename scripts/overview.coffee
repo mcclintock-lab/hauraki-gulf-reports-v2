@@ -35,14 +35,38 @@ class OverviewTab extends ReportTab
     # The @recordSet method contains some useful means to get data out of 
     # the monsterous RecordSet json. Checkout the seasketch-reporting-template
     # documentation for more info.
-    
+    attr = @model.getAttribute('MPA_TYPE')
+
+    if attr == 'MPA2'
+      hasType2MPAs = true
+      hasMarineReserves = true
+    else
+      hasType2MPAs = false
+      hasMarineReserves = true
 
     HECTARES = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
     
-    hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
-    hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
-    hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
-    hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
+    if hasMarineReserves
+      hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
+      hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
+      hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
+      hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
+    else
+      hc_proposed = 0
+      hc_existing = 0
+      hc_combined = 0
+      hc_total = 0
+
+    if hasType2MPAs
+      hc_proposed_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('SEL_HAB')
+      hc_existing_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('EXST_HAB')
+      hc_combined_t2 =@recordSet('HabitatCount', 'HabitatCountType2').float('CMBD_HAB')
+      hc_total_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('TOT_HAB')
+    else
+      hc_proposed_t2 = 0
+      hc_existing_t2 = 0
+      hc_combined_t2 = 0
+      hc_total_t2 = 0
 
     HAB_PERC_MR_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_RES_PRC')
     HAB_PERC_MR_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_RES_PRC')
@@ -54,20 +78,21 @@ class OverviewTab extends ReportTab
 
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 
-    # collections. I didn't do that here since they are so similar.
+    # collections. I didnt do that here since they are so similar.
     isCollection = @model.isCollection()
     if isCollection
       # @model is the client-side sketch representation, which has some
       # useful, if undocumented, methods like getChildren().
       children = @model.getChildren()
-      # NOTE: I'm dividing by all children here. Should this be filtered to
-      # exclude Aquaculture and Mooring areas??
-      HECTARES = (HECTARES / children.length).toFixed(1)
-      
       marineReserves = _.filter children, (child) -> 
         child.getAttribute('MPA_TYPE') is 'MPA1'
       type2MPAs = _.filter children, (child) -> 
         child.getAttribute('MPA_TYPE') is 'MPA2'
+      # NOTE: Im dividing by all children here. Should this be filtered to
+      # exclude Aquaculture and Mooring areas??
+      HECTARES = (HECTARES / children.length).toFixed(1)
+      
+
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -87,6 +112,10 @@ class OverviewTab extends ReportTab
       HAB_COUNT_EXISTING: hc_existing
       HAB_COUNT_COMBINED: hc_combined
       HAB_COUNT_TOTAL: hc_total
+      HAB_COUNT_PROPOSED_T2: hc_proposed_t2
+      HAB_COUNT_EXISTING_T2: hc_existing_t2
+      HAB_COUNT_COMBINED_T2: hc_combined_t2
+      HAB_COUNT_TOTAL_T2: hc_total_t2
       HAB_PERC_MR_NEW: HAB_PERC_MR_NEW
       HAB_PERC_MR_EXISTING: HAB_PERC_MR_EXISTING
       HAB_PERC_MR_COMBINED: HAB_PERC_MR_COMBINED

@@ -19,14 +19,16 @@
     This protected area is <strong>{{SIZE}} ha</strong>,
     {{/isCollection}}
     {{#SIZE_OK}}
-    meeting the target of {{MIN_SIZE}} ha.
+    meeting the guideline of {{MIN_SIZE}} ha.
     {{/SIZE_OK}}
     {{^SIZE_OK}}
-    which does not meet the target of {{MIN_SIZE}} ha.
+    which does not meet the guideline of {{MIN_SIZE}} ha.
     {{/SIZE_OK}}
   </p>
   <div class="viz"></div>
-  <p style="font-size:12px;padding:11px;text-align:left;margin-top:-10px;">For the same amount of area to be protected, it is desirable to protect fewer, larger areas rather than numerous smaller ones.</p>
+  <p style="large">
+    Read more information on <a href="http://www.doc.govt.nz/publications/conservation/marine-and-coastal/marine-protected-areas/marine-protected-areas-classification-protection-standard-and-implementation-guidelines" target="_blank"> the Marine Protected Area Policy and Implementation Guidelines.</a>
+  <p style="large">For the same amount of area to be protected, it is desirable to protect fewer, larger areas rather than numerous smaller ones.</p>
   {{#isCollection}}
     <p class="large" style="padding:0px 10px;padding-bottom:10px;">
       The selected network contains <strong>{{MARINE_RESERVES}} Marine
@@ -42,33 +44,31 @@
     <thead>
       <tr>
         <th style="width:180px;"></th>
-        <th>In Proposed Areas</th>
-        <th>In Existing Areas</th>
-        <th>Combined</th>
-        <th>Total </th>
+        <th>Existing Protected Areas</th>
+        <th>Proposed Areas</th>
+        <th>Combined Total</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Number of Habitats Protected</td>
-        <td>{{HAB_COUNT_PROPOSED}}</td>
+        <td>Number of Habitats Protected in Marine Reserves</td>
         <td>{{HAB_COUNT_EXISTING}}</td>
+        <td>{{HAB_COUNT_PROPOSED}}</td>
         <td>{{HAB_COUNT_COMBINED}}</td>
-        <td>{{HAB_COUNT_TOTAL}}</td>
+      </tr>
+      <tr>
+        <td>Number of Habitats Protected in Type 2 Protected Areas</td>
+        <td>{{HAB_COUNT_EXISTING_T2}}</td>
+        <td>{{HAB_COUNT_PROPOSED_T2}}</td>
+        <td>{{HAB_COUNT_COMBINED_T2}}</td>
       </tr>
     </tbody>
     <tfoot>
       <tr>
         <td colspan="5" class="paragraph" style="text-align:left;">
           <p class="large">
-            {{#isCollection}}
-            New and existing Marine Reserves protect
-            {{/isCollection}}
-            {{^isCollection}}
-            This Marine Reserve protects
-            {{/isCollection}}
-            <strong>{{HAB_COUNT_COMBINED}}</strong>
-            of <strong>{{HAB_COUNT_TOTAL}}</strong> habitat types.
+            Of the <strong>62</strong> habitats present in the project area, <strong>{{HAB_COUNT_COMBINED}}</strong> of the habitats are afforded
+            protection in a marine reserve and <strong>{{HAB_COUNT_COMBINED_T2}}</strong> are protected in a Type II Marine Protected Area.
           </p>
         </td>
       </tr>
