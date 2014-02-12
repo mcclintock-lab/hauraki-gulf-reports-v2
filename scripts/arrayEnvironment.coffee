@@ -26,7 +26,6 @@ class ArrayEnvironmentTab extends ReportTab
         habitatsInReserves = _.filter habitats, (row) -> row.MPA_TYPE is 'MPA1' 
         hasReserveData = habitatsInReserves?.length > 0
         habitatsInReservesCount = habitatsInReserves?.length
-        
 
         habitatsInTypeTwos = _.filter habitats, (row) -> row.MPA_TYPE is 'MPA2' 
         habitatsInTypeTwoCount = habitatsInTypeTwos?.length

@@ -25,19 +25,12 @@
     which does not meet the guideline of {{MIN_SIZE}} ha.
     {{/SIZE_OK}}
   </p>
-  <div class="viz"></div>
-  <p style="large">
-    Read more information on <a href="http://www.doc.govt.nz/publications/conservation/marine-and-coastal/marine-protected-areas/marine-protected-areas-classification-protection-standard-and-implementation-guidelines" target="_blank"> the Marine Protected Area Policy and Implementation Guidelines.</a>
-  <p style="large">For the same amount of area to be protected, it is desirable to protect fewer, larger areas rather than numerous smaller ones.</p>
-  {{#isCollection}}
-    <p class="large" style="padding:0px 10px;padding-bottom:10px;">
-      The selected network contains <strong>{{MARINE_RESERVES}} Marine
-      Reserve{{#MARINE_RESERVES_PLURAL}}s{{/MARINE_RESERVES_PLURAL}}</strong> and 
-      <strong>{{TYPE_TWO_MPAS}} Type 2 Protection Area{{#TYPE_TWO_MPAS_PLURAL}}s{{/TYPE_TWO_MPAS_PLURAL}}</strong>.
-    </p>
-  {{/isCollection}}
+    <div>
+      <p class="large">
+        Read more information on <a href="http://www.doc.govt.nz/publications/conservation/marine-and-coastal/marine-protected-areas/marine-protected-areas-classification-protection-standard-and-implementation-guidelines" target="_blank"> the Marine Protected Area Policy and Implementation Guidelines.</a> In general, for the same amount of area to be protected, it is desirable to protect fewer, larger areas rather than numerous smaller ones.
+      </p>
+    </div>
 </div>
-
 <div class="reportSection tableContainer">
   <h4>Representation of Habitats</h4>
   <table data-paging="10"> <!-- data-paging... activates paging  -->
@@ -75,7 +68,6 @@
     </tfoot>
   </table>
 </div>
-
 <div class="reportSection tableContainer">
   <h4>Percent of Hauraki Gulf Marine Park Protected</h4>
 
@@ -83,22 +75,22 @@
     <thead>
       <tr>
         <th style="width:180px;"></th>
-        <th>In Proposed Areas (%)</th>
-        <th>In Existing Areas (%)</th>
-        <th>Combined (%)</th>
+        <th>Existing Protected Areas (%)</th>
+        <th>Proposed Areas (%)</th>
+        <th>Combined Total (%)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>In Marine Reserves</td>
-        <td>{{HAB_PERC_MR_NEW}}</td>
         <td>{{HAB_PERC_MR_EXISTING}}</td>
+        <td>{{HAB_PERC_MR_NEW}}</td>
         <td>{{HAB_PERC_MR_COMBINED}}</td>
       </tr>
       <tr>
         <td>In Type 2 Protection Areas</td>
-        <td>{{HAB_PERC_T2_NEW}}</td>
         <td>{{HAB_PERC_T2_EXISTING}}</td>
+        <td>{{HAB_PERC_T2_NEW}}</td>
         <td>{{HAB_PERC_T2_COMBINED}}</td>
       </tr>
     </tbody>

@@ -42,24 +42,72 @@ class ArrayOverviewTab extends ReportTab
       protectionSketches = @recordSet('TargetSize', 'TargetSize', PROTECTION_ID).toArray()
       hasMultipleProtectionSketches = false
       hasProtection = protectionSketches.length
+      children = @model.getChildren()
+      if hasProtection
+        marineReserves = _.filter children, (child) -> 
+          child.getAttribute('MPA_TYPE') is 'MPA1'
+        type2MPAs = _.filter children, (child) -> 
+          child.getAttribute('MPA_TYPE') is 'MPA2'
+
+        if marineReserves?.length > 0
+          hasMarineReserves = true
+        if type2MPAs?.length > 0
+          hasType2MPAs = true
 
       if hasProtection
         HECTARES = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
         HECTARES = (HECTARES / protectionSketches.length).toFixed(1)
-        hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
-        hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
-        hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
-        hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
+        if hasMarineReserves
+          hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
+          hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
+          hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
+          hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
 
-        HAB_PERC_MR_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_RES_PRC')
-        HAB_PERC_MR_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_RES_PRC')
-        HAB_PERC_MR_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_RES_PRC')
+          HAB_PERC_MR_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_RES_PRC')
+          HAB_PERC_MR_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_RES_PRC')
+          HAB_PERC_MR_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_RES_PRC')
+        else
+          hc_proposed = 0
+          hc_existing = 0
+          hc_combined = 0
+          hc_total = 0
+          HAB_PERC_MR_NEW = 0
+          HAB_PERC_MR_COMBINED = 0
+          HAB_PERC_MR_COMBINED = 0
 
-        HAB_PERC_T2_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_HPA_PRC')
-        HAB_PERC_T2_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_HPA_PRC')
-        HAB_PERC_T2_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_HPA_PRC')
+        if hasType2MPAs
+          hc_proposed_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('SEL_HAB')
+          hc_existing_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('EXST_HAB')
+          hc_combined_t2 =@recordSet('HabitatCount', 'HabitatCountType2').float('CMBD_HAB')
+          hc_total_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('TOT_HAB')
+          HAB_PERC_T2_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_HPA_PRC')
+          HAB_PERC_T2_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_HPA_PRC')
+          HAB_PERC_T2_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_HPA_PRC')
+        else
+          hc_proposed_t2 = 0
+          hc_existing_t2 = 0
+          hc_combined_t2 = 0
+          hc_total_t2 = 0
+          HAB_PERC_T2_NEW = 0
+          HAB_PERC_T2_EXISTING = 0
+          HAB_PERC_T2_COMBINED = 0
+      else
+        hc_proposed = 0
+        hc_existing = 0
+        hc_combined = 0
+        hc_total = 0
+        HAB_PERC_MR_NEW = 0
+        HAB_PERC_MR_COMBINED = 0
+        HAB_PERC_MR_COMBINED = 0
+        hc_proposed_t2 = 0
+        hc_existing_t2 = 0
+        hc_combined_t2 = 0
+        hc_total_t2 = 0
+        HAB_PERC_T2_NEW = 0
+        HAB_PERC_T2_EXISTING = 0
+        HAB_PERC_T2_COMBINED = 0
         
-        hasMultipleProtectionSketches = protectionSketches?.length > 1
+      hasMultipleProtectionSketches = protectionSketches?.length > 1
     catch error
       hasProtection = false
 
@@ -79,25 +127,10 @@ class ArrayOverviewTab extends ReportTab
         aquacultureProximity = @recordSet('ProximityToExistingAquaculture', 'ProximityToExistingAquaculture', AQUACULTURE_ID).toArray()
       catch error
 
-    # I use this isCollection flag to customize the display. Another option
-    # would be to have totally different Tab implementations for zones vs 
-    # collections. I didn't do that here since they are so similar.
-    isCollection = @model.isCollection()
-    
-    if isCollection
-      # @model is the client-side sketch representation, which has some
-      # useful, if undocumented, methods like getChildren().
-      children = @model.getChildren()
-
-      if hasProtection
-        marineReserves = _.filter children, (child) -> 
-          child.getAttribute('MPA_TYPE') is 'MPA1'
-        type2MPAs = _.filter children, (child) -> 
-          child.getAttribute('MPA_TYPE') is 'MPA2'
-
+    hasAquacultureOnly = hasAquaculture && !hasProtection
     try
       context =
-        isCollection: isCollection
+        isCollection: true
         sketch: @model.forTemplate()
         sketchClass: @sketchClass.forTemplate()
         attributes: @model.getAttributes()
@@ -124,6 +157,10 @@ class ArrayOverviewTab extends ReportTab
         HAB_COUNT_EXISTING: hc_existing
         HAB_COUNT_COMBINED: hc_combined
         HAB_COUNT_TOTAL: hc_total
+        HAB_COUNT_PROPOSED_T2: hc_proposed_t2
+        HAB_COUNT_EXISTING_T2: hc_existing_t2
+        HAB_COUNT_COMBINED_T2: hc_combined_t2
+        HAB_COUNT_TOTAL_T2: hc_total_t2
         HAB_PERC_MR_NEW: HAB_PERC_MR_NEW
         HAB_PERC_MR_EXISTING: HAB_PERC_MR_EXISTING
         HAB_PERC_MR_COMBINED: HAB_PERC_MR_COMBINED
@@ -131,7 +168,7 @@ class ArrayOverviewTab extends ReportTab
         HAB_PERC_T2_EXISTING: HAB_PERC_T2_EXISTING
         HAB_PERC_T2_COMBINED: HAB_PERC_T2_COMBINED
         hasMultipleProtectionSketches: hasMultipleProtectionSketches
-
+        hasAquacultureOnly: hasAquacultureOnly
 
     catch error
 

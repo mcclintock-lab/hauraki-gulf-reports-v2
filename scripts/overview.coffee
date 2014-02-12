@@ -79,22 +79,8 @@ class OverviewTab extends ReportTab
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 
     # collections. I didnt do that here since they are so similar.
-    isCollection = @model.isCollection()
-    if isCollection
-      # @model is the client-side sketch representation, which has some
-      # useful, if undocumented, methods like getChildren().
-      children = @model.getChildren()
-      marineReserves = _.filter children, (child) -> 
-        child.getAttribute('MPA_TYPE') is 'MPA1'
-      type2MPAs = _.filter children, (child) -> 
-        child.getAttribute('MPA_TYPE') is 'MPA2'
-      # NOTE: Im dividing by all children here. Should this be filtered to
-      # exclude Aquaculture and Mooring areas??
-      HECTARES = (HECTARES / children.length).toFixed(1)
-      
 
     context =
-      isCollection: isCollection
       sketch: @model.forTemplate()
       sketchClass: @sketchClass.forTemplate()
       attributes: @model.getAttributes()

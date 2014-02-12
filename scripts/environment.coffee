@@ -17,11 +17,9 @@ class EnvironmentTab extends ReportTab
     sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
     near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
-
     sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
     sensitiveAreas.reverse()
     
-
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
     habitatsInTypeTwos = _.filter habitats, (row) ->
@@ -31,7 +29,6 @@ class EnvironmentTab extends ReportTab
 
     representationData = _.sortBy representationData, (row) -> parseFloat(row.CB_PERC)
     representationData.reverse()
-
 
     protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
     protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
@@ -44,8 +41,19 @@ class EnvironmentTab extends ReportTab
     shorebirdSites = @recordSet('ProtectedAndThreatenedSpecies', 'ShorebirdPoints').toArray()
     shorebirdSites = _.sortBy shorebirdSites, (row) -> parseInt(row.Count)
     shorebirdSites.reverse()
-    hasTypeTwoData = habitatsInTypeTwos.length > 0
 
+    hasTypeTwoData = habitatsInTypeTwos?.length > 0
+    if hasTypeTwoData
+      habitatsInTypeTwoCount = habitatsInTypeTwos?.length
+    else
+      habitatsInTypeTwoCount = 0
+
+    hasReserveData = habitatsInReserves?.length > 0
+    if hasReserveData
+      habitatsInReservesCount = habitatsInReserves?.length
+    else
+      habitatsInReservesCount = 0
+    
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -54,12 +62,12 @@ class EnvironmentTab extends ReportTab
       admin: @project.isAdmin window.user
       #fix this to get rid of hardcoded value
       habitatsCount: 62
-      hasReserveData: habitatsInReserves?.length > 0
+      hasReserveData: hasReserveData
       habitatsInReserves: habitatsInReserves
-      habitatsInReservesCount: habitatsInReserves?.length
+      habitatsInReservesCount: habitatsInReservesCount
 
       hasTypeTwoData: hasTypeTwoData
-      habitatsInTypeTwoCount: habitatsInTypeTwos?.length
+      habitatsInTypeTwoCount: habitatsInTypeTwoCount
       habitatsInTypeTwos: habitatsInTypeTwos
 
       representationData:representationData
