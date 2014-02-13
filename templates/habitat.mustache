@@ -94,7 +94,7 @@
       {{#representationData}}
       <tr>
         <td>{{HAB_TYPE}}</td>
-        <td>{{CB_SIZE}}</td>
+        <td>{{CB_PERC}}</td>
         <td>{{REP_COUNT}}</td>
         <td>{{NEW_SIZE}}</td>
       </tr>
@@ -104,7 +104,7 @@
 </div>
 {{/hasRepresentationData}}
 {{#hasSensitiveAreas}}
-<div class="reportSection tableContainer">
+<div class="reportSection tableContaiqaner">
   <h4>Sensitive Habitats</h4>
   <table data-paging="10">
     <thead>
@@ -131,13 +131,13 @@
 
 {{#hasProtectedMammals}}
 <div class="reportSection tableContainer">
-  <h4>Protected Mammals</h4>
+  <h4>Marine Mammals</h4>
   <table data-paging="10">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Number of Protected Mammal Areas</th>
+        <th>Top 10 Species Present</th>
+        <th>Threat Status</th>
+        <th>Number of Recorded Sightings</th>
 
       </tr>
     </thead>
@@ -150,6 +150,15 @@
       </tr>
       {{/protectedMammals}}
     </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" style="text-align:left;">
+          <p class="large">
+            The Threat Status refers to the New Zealand Threat Classification System. <a href="http://www.doc.govt.nz/publications/conservation/nz-threat-classification-system/" target="_blank">Read more about the classification system here.</a>
+          </p>
+        </td>
+      </tr>
+    </tfoot>
   </table>
 </div>
 {{/hasProtectedMammals}}
