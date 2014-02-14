@@ -481,3 +481,9 @@
   left: -8px;
   color: #4d4d4d;
 }
+.protection-nutrient-recycling {
+  display: none;
+}
+.protection-biogenic-habitat {
+  display: none;
+}

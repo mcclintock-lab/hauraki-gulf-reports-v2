@@ -104,7 +104,7 @@
 </div>
 {{/hasRepresentationData}}
 {{#hasSensitiveAreas}}
-<div class="reportSection tableContaiqaner">
+<div class="reportSection tableContainer">
   <h4>Sensitive Habitats</h4>
   <table data-paging="10">
     <thead>
@@ -229,60 +229,64 @@
 {{/adjacentProtectedAreas}}
 {{/isCollection}}
 
-
-
-<div class="reportSection tableContainer">
-  <h4>Nutrient Recycling</h4>
-  <table data-paging="10">
+<div class="reportSection" class="tableContainer">
+  <h4>Ecosystem Services</h4>
+    <p>
+      Percent overlap of the proposed protection areas for three types of ecosystem services.
+    </p>
+    <p>
+      <select class="chosen">
+        {{#ecosystemServices}}
+        <option value="{{.}}">{{.}}</option>
+        {{/ecosystemServices}}
+      </select>
+    </p>
+  <div class="protection-nutrient-recycling">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:200px;">Nutrient Recycling Value</th>
+          <th>Area (Ha)</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#nutrientRecycling}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/nutrientRecycling}}
+      </tbody>
+    </table>
+  </div>
+  <div class="protection-biogenic-habitat">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:200px;">Biogenic Habitat Value</th>
+          <th>Area (Ha)</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#biogenicHabitat}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/biogenicHabitat}}
+      </tbody>
+    </table>
+  </div>
+  <div class="protection-ecosystem-productivity">
+  <table>
     <thead>
       <tr>
-        <th>Value</th>
-        <th>Area in Hectares</th>
-        <th>Percent</th>
-      </tr>
-    </thead>
-    <tbody>
-    {{#nutrientRecycling}}
-      <tr>
-        <td>{{Class}}</td>
-        <td>{{AreaInHa}}</td>
-        <td>{{Percent}}</td>
-      </tr>
-      {{/nutrientRecycling}}
-    </tbody>
-  </table>
-</div>
-
-
-
-<div class="reportSection tableContainer">
-  <h4>Biogenic Habitat</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Value</th>
-        <th>Area in Hectares</th>
-        <th>Percent</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#biogenicHabitat}}
-      <tr>
-        <td>{{Class}}</td>
-        <td>{{AreaInHa}}</td>
-        <td>{{Percent}}</td>
-      </tr>
-      {{/biogenicHabitat}}
-    </tbody>
-  </table>
-</div>
-<div class="reportSection tableContainer">
-  <h4>Ecosystem Productivity</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Value</th>
-        <th>Area in Hectares</th>
+        <th style="width:200px;">Ecosystem Productivity Value</th>
+        <th>Area (Ha)</th>
         <th>Percent</th>
       </tr>
     </thead>
@@ -296,6 +300,7 @@
       {{/ecosystemProductivity}}
     </tbody>
   </table>
+  </div>
 </div>
 
 

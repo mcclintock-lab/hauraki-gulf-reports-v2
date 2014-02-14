@@ -26,6 +26,8 @@ class AquacultureHabitatTab extends ReportTab
     ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
+    ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
+
     sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
     sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
@@ -68,10 +70,10 @@ class AquacultureHabitatTab extends ReportTab
       proximityToProtectedAreas: proximityToProtectedAreas
       isCloseToProtectedAreas: proximityToProtectedAreas?.length > 0
 
-      nutrientRecycling: nutrient_recycling
-      biogenicHabitat: biogenic_habitat
+      aquacultureNutrientRecycling: nutrient_recycling
+      aquacultureBiogenicHabitat: biogenic_habitat
+      aquacultureEcosystemProductivity: ecosystem_productivity
 
-      ecosystemProductivity: ecosystem_productivity
       sensitiveAreas: sensitiveAreas 
       hasSensitiveAreas: sensitiveAreas?.length > 0
 
@@ -84,10 +86,28 @@ class AquacultureHabitatTab extends ReportTab
 
       shorebirdSites:shorebirdSites
       hasShorebirdSites:shorebirdSites?.length > 0
-
+      aquacultureEcosystemServices: ecosystemServices
 
     # @template is /templates/overview.mustache
     @$el.html @template.render(context, partials)
+    @$('.aquaculture-chosen').chosen({disable_search_threshold: 10, width:'400px'})
+    @$('.aquaculture-chosen').change () =>
+      _.defer @renderAquacultureEcosystemServices
+
+  renderAquacultureEcosystemServices: () =>
+    name = @$('.aquaculture-chosen').val()
+    if name == "Ecosystem Productivity"
+      @$('.aquaculture-ecosystem-productivity').show()
+      @$('.aquaculture-nutrient-recycling').hide()
+      @$('.aquaculture-biogenic-habitat').hide()
+    else if name == "Nutrient Recycling"
+      @$('.aquaculture-ecosystem-productivity').hide()
+      @$('.aquaculture-nutrient-recycling').show()
+      @$('.aquaculture-biogenic-habitat').hide()
+    else
+      @$('.aquaculture-ecosystem-productivity').hide()
+      @$('.aquaculture-nutrient-recycling').hide()
+      @$('.aquaculture-biogenic-habitat').show()
 
 
 module.exports = AquacultureHabitatTab

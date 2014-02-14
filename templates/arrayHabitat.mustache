@@ -204,57 +204,64 @@
   </div>
   {{/hasProtectionShorebirdSites}}
 
-  <div class="reportSection tableContainer">
-    <h4>Nutrient Recycling in Protection Zones</h4>
-    <table data-paging="10">
+  <div class="reportSection" class="tableContainer">
+    <h4>Ecosystem Services in Protection Zones</h4>
+      <p>
+        Percent overlap of the proposed protection areas for three types of ecosystem services.
+      </p>
+      <p>
+        <select class="protection-chosen">
+          {{#protectionEcosystemServices}}
+          <option value="{{.}}">{{.}}</option>
+          {{/protectionEcosystemServices}}
+        </select>
+      </p>
+    <div class="protection-nutrient-recycling">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:200px;">Nutrient Recycling Value</th>
+            <th>Area (Ha)</th>
+            <th>Percent</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#protectionNutrientRecycling}}
+          <tr>
+            <td>{{Class}}</td>
+            <td>{{AreaInHa}}</td>
+            <td>{{Percent}}</td>
+          </tr>
+          {{/protectionNutrientRecycling}}
+        </tbody>
+      </table>
+    </div>
+    <div class="protection-biogenic-habitat">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:200px;">Biogenic Habitat Value</th>
+            <th>Area (Ha)</th>
+            <th>Percent</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#protectionBiogenicHabitat}}
+          <tr>
+            <td>{{Class}}</td>
+            <td>{{AreaInHa}}</td>
+            <td>{{Percent}}</td>
+          </tr>
+          {{/protectionBiogenicHabitat}}
+        </tbody>
+      </table>
+    </div>
+    <div class="protection-ecosystem-productivity">
+    <table>
       <thead>
         <tr>
-          <th>Value</th>
-          <th>Area in Hectares</th>
-          <th>Percent</th>
-        </tr>
-      </thead>
-      <tbody>
-      {{#protectionNutrientRecycling}}
-        <tr>
-          <td>{{Class}}</td>
-          <td>{{AreaInHa}}</td>
-          <td>{{Percent}}</td>
-        </tr>
-        {{/protectionNutrientRecycling}}
-      </tbody>
-    </table>
-  </div>
-
-  <div class="reportSection tableContainer">
-    <h4>Biogenic Habitat in Protection Zones</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Value</th>
-          <th>Area in Hectares</th>
-          <th>Percent</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#protectionBiogenicHabitat}}
-        <tr>
-          <td>{{Class}}</td>
-          <td>{{AreaInHa}}</td>
-          <td>{{Percent}}</td>
-        </tr>
-        {{/protectionBiogenicHabitat}}
-      </tbody>
-    </table>
-  </div>
-
-  <div class="reportSection tableContainer">
-    <h4>Ecosystem Productivity in Protection Zones</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Value</th>
-          <th>Area in Hectares</th>
+          <th style="width:200px;">Ecosystem Productivity Value</th>
+          <th>Area (Ha)</th>
           <th>Percent</th>
         </tr>
       </thead>
@@ -268,8 +275,9 @@
         {{/protectionEcosystemProductivity}}
       </tbody>
     </table>
+    </div>
   </div>
-{{/hasProtectionClasses}}
+  {{/hasProtectionClasses}}
 
 
 {{#hasAquacultureClasses}}
@@ -376,57 +384,64 @@
   </div>
   {{/hasAquacultureShorebirdSites}}
 
-  <div class="reportSection tableContainer">
-    <h4>Nutrient Recycling in Aquaculture Zones</h4>
-    <table data-paging="10">
+  <div class="reportSection" class="tableContainer">
+    <h4>Ecosystem Services in Aquaculture Zones</h4>
+      <p>
+        Percent overlap of the proposed aquaculture areas for three types of ecosystem services.
+      </p>
+      <p>
+        <select class="aquaculture-chosen">
+          {{#aquacultureEcosystemServices}}
+          <option value="{{.}}">{{.}}</option>
+          {{/aquacultureEcosystemServices}}
+        </select>
+      </p>
+    <div class="aquaculture-nutrient-recycling">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:200px;">Nutrient Recycling Value</th>
+            <th>Area (Ha)</th>
+            <th>Percent</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#aquacultureNutrientRecycling}}
+          <tr>
+            <td>{{Class}}</td>
+            <td>{{AreaInHa}}</td>
+            <td>{{Percent}}</td>
+          </tr>
+          {{/aquacultureNutrientRecycling}}
+        </tbody>
+      </table>
+    </div>
+    <div class="aquaculture-biogenic-habitat">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:200px;">Biogenic Habitat Value</th>
+            <th>Area (Ha)</th>
+            <th>Percent</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#aquacultureBiogenicHabitat}}
+          <tr>
+            <td>{{Class}}</td>
+            <td>{{AreaInHa}}</td>
+            <td>{{Percent}}</td>
+          </tr>
+          {{/aquacultureBiogenicHabitat}}
+        </tbody>
+      </table>
+    </div>
+    <div class="aquaculture-ecosystem-productivity">
+    <table>
       <thead>
         <tr>
-          <th>Value</th>
-          <th>Area in Hectares</th>
-          <th>Percent</th>
-        </tr>
-      </thead>
-      <tbody>
-      {{#aquacultureNutrientRecycling}}
-        <tr>
-          <td>{{Class}}</td>
-          <td>{{AreaInHa}}</td>
-          <td>{{Percent}}</td>
-        </tr>
-        {{/aquacultureNutrientRecycling}}
-      </tbody>
-    </table>
-  </div>
-
-  <div class="reportSection tableContainer">
-    <h4>Biogenic Habitat in Aquaculture Zones</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Value</th>
-          <th>Area in Hectares</th>
-          <th>Percent</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#aquacultureBiogenicHabitat}}
-        <tr>
-          <td>{{Class}}</td>
-          <td>{{AreaInHa}}</td>
-          <td>{{Percent}}</td>
-        </tr>
-        {{/aquacultureBiogenicHabitat}}
-      </tbody>
-    </table>
-  </div>
-
-  <div class="reportSection tableContainer">
-    <h4>Ecosystem Productivity in Aquaculture Zones</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Value</th>
-          <th>Area in Hectares</th>
+          <th style="width:200px;">Ecosystem Productivity Value</th>
+          <th>Area (Ha)</th>
           <th>Percent</th>
         </tr>
       </thead>
@@ -440,6 +455,7 @@
         {{/aquacultureEcosystemProductivity}}
       </tbody>
     </table>
+    </div>
   </div>
 
   {{#isCloseToProtectedAreas}}

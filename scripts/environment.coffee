@@ -11,9 +11,7 @@ class EnvironmentTab extends ReportTab
   render: () ->
     isCollection = @model.isCollection()
     habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
-    ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
-    nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
-    biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
+
     sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
     near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
@@ -53,7 +51,11 @@ class EnvironmentTab extends ReportTab
       habitatsInReservesCount = habitatsInReserves?.length
     else
       habitatsInReservesCount = 0
-    
+
+    ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
+    nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
+    biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
+    ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -93,10 +95,32 @@ class EnvironmentTab extends ReportTab
       shorebirdSites:shorebirdSites
       hasShorebirdSites:shorebirdSites?.length > 0
 
-
+      ecosystemServices: ecosystemServices
+      ecosystem_productivity: ecosystem_productivity
+      nutrient_recycling: nutrient_recycling
+      biogenic_habitat: biogenic_habitat
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()
     @enableLayerTogglers()
+    @$('.chosen').chosen({disable_search_threshold: 10, width:'400px'})
+    @$('.chosen').change () =>
+      _.defer @renderEcosystemServices
+
+  renderEcosystemServices: () =>
+    name = @$('.chosen').val()
+    if name == "Ecosystem Productivity"
+      @$('.protection-ecosystem-productivity').show()
+      @$('.protection-nutrient-recycling').hide()
+      @$('.protection-biogenic-habitat').hide()
+    else if name == "Nutrient Recycling"
+      @$('.protection-ecosystem-productivity').hide()
+      @$('.protection-nutrient-recycling').show()
+      @$('.protection-biogenic-habitat').hide()
+    else
+      @$('.protection-ecosystem-productivity').hide()
+      @$('.protection-nutrient-recycling').hide()
+      @$('.protection-biogenic-habitat').show()
+
 
 module.exports = EnvironmentTab

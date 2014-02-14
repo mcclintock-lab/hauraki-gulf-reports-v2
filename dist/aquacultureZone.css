@@ -446,3 +446,9 @@
   left: -8px;
   color: #4d4d4d;
 }
+.aquaculture-nutrient-recycling {
+  display: none;
+}
+.aquaculture-biogenic-habitat {
+  display: none;
+}

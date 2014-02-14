@@ -118,7 +118,7 @@ class ArrayEnvironmentTab extends ReportTab
         isCloseToProtectedAreas = proximityToProtectedAreas?.length > 0
       catch error
         isCloseToProtectedAreas = false
-
+    ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -144,6 +144,8 @@ class ArrayEnvironmentTab extends ReportTab
       protectionNutrientRecycling: protectionNutrientRecycling
       protectionBiogenicHabitat: protectionBiogenicHabitat
       protectionEcosystemProductivity: protectionEcosystemProductivity
+      protectionEcosystemServices:ecosystemServices
+
       protectionSensitiveAreas: protectionSensitiveAreas 
       hasProtectionSensitiveAreas: hasProtectionSensitiveAreas
       protectionProtectedMammals:protectionProtectedMammals
@@ -156,6 +158,8 @@ class ArrayEnvironmentTab extends ReportTab
       aquacultureNutrientRecycling: aquacultureNutrientRecycling
       aquacultureBiogenicHabitat: aquacultureBiogenicHabitat
       aquacultureEcosystemProductivity: aquacultureEcosystemProductivity
+      aquacultureEcosystemServices: ecosystemServices
+      
       aquacultureSensitiveAreas: aquacultureSensitiveAreas 
       hasAquacultureSensitiveAreas: hasAquacultureSensitiveAreas
       aquacultureProtectedMammals:aquacultureProtectedMammals
@@ -173,5 +177,42 @@ class ArrayEnvironmentTab extends ReportTab
     @$el.html @template.render(context, templates)
     @enableTablePaging()
     @enableLayerTogglers()
+    @$('.protection-chosen').chosen({disable_search_threshold: 10, width:'400px'})
+    @$('.protection-chosen').change () =>
+      _.defer @renderProtectionEcosystemServices
+
+    @$('.aquaculture-chosen').chosen({disable_search_threshold: 10, width:'400px'})
+    @$('.aquaculture-chosen').change () =>
+      _.defer @renderAquacultureEcosystemServices
+
+  renderProtectionEcosystemServices: () =>
+    name = @$('.protection-chosen').val()
+    if name == "Ecosystem Productivity"
+      @$('.protection-ecosystem-productivity').show()
+      @$('.protection-nutrient-recycling').hide()
+      @$('.protection-biogenic-habitat').hide()
+    else if name == "Nutrient Recycling"
+      @$('.protection-ecosystem-productivity').hide()
+      @$('.protection-nutrient-recycling').show()
+      @$('.protection-biogenic-habitat').hide()
+    else
+      @$('.protection-ecosystem-productivity').hide()
+      @$('.protection-nutrient-recycling').hide()
+      @$('.protection-biogenic-habitat').show()
+
+  renderAquacultureEcosystemServices: () =>
+    name = @$('.aquaculture-chosen').val()
+    if name == "Ecosystem Productivity"
+      @$('.aquaculture-ecosystem-productivity').show()
+      @$('.aquaculture-nutrient-recycling').hide()
+      @$('.aquaculture-biogenic-habitat').hide()
+    else if name == "Nutrient Recycling"
+      @$('.aquaculture-ecosystem-productivity').hide()
+      @$('.aquaculture-nutrient-recycling').show()
+      @$('.aquaculture-biogenic-habitat').hide()
+    else
+      @$('.aquaculture-ecosystem-productivity').hide()
+      @$('.aquaculture-nutrient-recycling').hide()
+      @$('.aquaculture-biogenic-habitat').show()
 
 module.exports = ArrayEnvironmentTab
