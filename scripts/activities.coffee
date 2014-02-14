@@ -10,10 +10,10 @@ class ActivitiesTab extends ReportTab
   timeout: 120000
   template: templates.activities
   dependencies: [
-    'OverlapWithAquaculture'
     'OverlapWithExistingUses'
     'OverlapWithMooringsAndAnchorages'
     'OverlapWithRecreationalUses'
+    'OverlapWithHeritageUses'
   ]
 
 
@@ -21,17 +21,17 @@ class ActivitiesTab extends ReportTab
   render: () ->
     isCollection = @model.isCollection()
 
-    protectionAquaculture = @recordSet('OverlapWithAquaculture', 'OverlapWithAquaculture').toArray()
-    hasProtectionAquaculture = protectionAquaculture?.length > 0
 
     protectionExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
     hasProtectionExistingUseConflicts = protectionExistingUses?.length > 0
 
-    protectionOverlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
-    hasProtectionOverlapWithMooringsAndAnchorages = protectionOverlapWithMooringsAndAnchorages?.length > 0
+    hasProtectionOverlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
 
     protectionRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
     hasProtectionRecreationalUseConflicts = protectionRecreationalUses?.length > 0
+
+    protectionHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
+    hasProtectionHeritageUses = protectionHeritageUses?.length > 0
 
     context =
       isCollection: isCollection
@@ -40,15 +40,13 @@ class ActivitiesTab extends ReportTab
       attributes: @model.getAttributes()
       admin: @project.isAdmin window.user
 
-      protectionAquaculture: protectionAquaculture
-      protectionAquacultureCount: protectionAquaculture?.length
-      hasProtectionAquaculture: hasProtectionAquaculture
       protectionExistingUses: protectionExistingUses
       hasProtectionExistingUseConflicts: hasProtectionExistingUseConflicts
-      protectionOverlapWithMooringsAndAnchorages: protectionOverlapWithMooringsAndAnchorages
       hasProtectionOverlapWithMooringsAndAnchorages: hasProtectionOverlapWithMooringsAndAnchorages
       protectionRecreationalUses: protectionRecreationalUses
       hasProtectionRecreationalUseConflicts: hasProtectionRecreationalUseConflicts
+      protectionHeritageUses: protectionHeritageUses
+      hasProtectionHeritageUses: hasProtectionHeritageUses
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()

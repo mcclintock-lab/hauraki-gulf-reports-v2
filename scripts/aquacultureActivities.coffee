@@ -13,6 +13,7 @@ class AquacultureActivitiesTab extends ReportTab
     'OverlapWithExistingUses'
     'OverlapWithMooringsAndAnchorages'
     'OverlapWithRecreationalUses'
+    'OverlapWithHeritageUses'
   ]
 
 
@@ -27,6 +28,8 @@ class AquacultureActivitiesTab extends ReportTab
     hasAquacultureOverlapWithMooringsAndAnchroages = aquacultureOverlapWithMooringsAndAnchorages?.length > 0
     aquacultureRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
     hasAquacultureRecreationalUseConflicts = aquacultureRecreationalUses?.length > 0
+    aquacultureHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
+    hasAquacultureHeritageUses = protectionHeritageUses?.length > 0
 
     context =
       isCollection: isCollection
@@ -41,6 +44,8 @@ class AquacultureActivitiesTab extends ReportTab
       hasAquacultureOverlapWithMooringsAndAnchroages: hasAquacultureOverlapWithMooringsAndAnchroages
       aquacultureRecreationalUses: aquacultureRecreationalUses
       hasAquacultureRecreationalUseConflicts: hasAquacultureRecreationalUseConflicts
+      aquacultureHeritageUses: aquacultureHeritageUses
+      hasAquacultureHeritageUses: hasAquacultureHeritageUses
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()

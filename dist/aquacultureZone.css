@@ -452,3 +452,6 @@
 .aquaculture-biogenic-habitat {
   display: none;
 }
+.single-column {
+  text-align: left;
+}

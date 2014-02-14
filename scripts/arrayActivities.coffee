@@ -15,10 +15,10 @@ class ArrayActivitiesTab extends ReportTab
   timeout: 120000
   template: templates.arrayActivities
   dependencies: [
-    'OverlapWithAquaculture'
     'OverlapWithExistingUses'
     'OverlapWithMooringsAndAnchorages'
     'OverlapWithRecreationalUses'
+    'OverlapWithHeritageUses'
   ]
 
 
@@ -46,13 +46,11 @@ class ArrayActivitiesTab extends ReportTab
         hasAquacultureRecreationalUseConflicts = aquacultureRecreationalUses?.length > 0
       catch error
         hasAquacultureRecreationalUseConflicts = false
+      protectionHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
+      hasProtectionHeritageUses = protectionHeritageUses?.length > 0
 
     if hasProtectionClasses
-      try
-        protectionAquaculture = @recordSet('OverlapWithAquaculture', 'OverlapWithAquaculture', PROTECTION_ID).toArray()
-        hasProtectionAquaculture = protectionAquaculture?.length > 0
-      catch error
-        hasProtectionAquaculture = false
+
       try
         protectionExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses', PROTECTION_ID).toArray()
         hasProtectionExistingUseConflicts = protectionExistingUses?.length > 0
@@ -68,7 +66,9 @@ class ArrayActivitiesTab extends ReportTab
         hasProtectionRecreationalUseConflicts = protectionRecreationalUses?.length > 0
       catch error
         hasProtectionRecreationalUseConflicts = false
-      
+
+      aquacultureHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
+      hasAquacultureHeritageUses = protectionHeritageUses?.length > 0
       
 
     context =
@@ -85,17 +85,18 @@ class ArrayActivitiesTab extends ReportTab
       hasAquacultureOverlapWithMooringsAndAnchroages: hasAquacultureOverlapWithMooringsAndAnchroages
       aquacultureRecreationalUses: aquacultureRecreationalUses
       hasAquacultureRecreationalUseConflicts: hasAquacultureRecreationalUseConflicts
+      aquacultureHeritageUses: aquacultureHeritageUses
+      hasAquacultureHeritageUses: hasAquacultureHeritageUses
 
       hasProtectionClasses: hasProtectionClasses
-      protectionAquaculture: protectionAquaculture
-      protectionAquacultureCount: protectionAquaculture?.length
-      hasProtectionAquaculture: hasProtectionAquaculture
       protectionExistingUses: protectionExistingUses
       hasProtectionExistingUseConflicts: hasProtectionExistingUseConflicts
       protectionOverlapWithMooringsAndAnchorages: protectionOverlapWithMooringsAndAnchorages
       hasProtectionOverlapWithMooringsAndAnchorages: hasProtectionOverlapWithMooringsAndAnchorages
       protectionRecreationalUses: protectionRecreationalUses
       hasProtectionRecreationalUseConflicts: hasProtectionRecreationalUseConflicts
+      protectionHeritageUses: protectionHeritageUses
+      hasProtectionHeritageUses: hasProtectionHeritageUses
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()

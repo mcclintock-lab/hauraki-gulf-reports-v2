@@ -6,137 +6,105 @@
 </div>
 {{/sketchClass.deleted}}
 
-{{#hasProtectionAquaculture}}
+
 <div class="reportSection tableContainer">
-  <h4>Possible Effects on Aquaculture</h4>
-  <table data-paging="10"> <!-- data-paging... activates paging  -->
-    <thead>
-      <tr>
-        <th style="width:180px;">Type</th>
-        <th>Area Affected (Ha)</th>
-        <th>Area Affect (%)</th>
-        <th>Potential Impact on Production</th>
-        <th>Potential Impact on Economic Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#protectionAquaculture}}
-        <tr>
-          <td>{{FARM_TYPE}}</td>
-          <td>{{SIZE_IN_HA}}</td>
-          <td>--</td>
-          <td>--</td>
-          <td>--</td>
-        </tr>
-      {{/protectionAquaculture}}
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="5" class="paragraph" style="text-align:left;">
-          <p class="large">
-            Note: as not all areas fished have the same fishing effort or catch, the 
-            “Level of Fishing Displaced” is a combination of the area being 
-            restricted and the catch that would normally be caught in that area
-          </p>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+  <h4>Existing Use Conflicts <a href="#" data-toggle-node="52d5af09c03e516417000274" data-visible="false">show layer</a></h4>
+    {{#hasProtectionExistingUseConflicts}}
+      <p class="large">
+        One or more sketches overlap with, or are near, <strong>existing uses</strong> that are in conflict with the purposes of the protection.
+      </p>
+      <table data-paging="10"> <!-- data-paging... activates paging  -->
+        <thead>
+          <tr>
+            <th class="single-column">Existing Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#protectionExistingUses}}
+            <tr>
+              <td>{{FEAT_TYPE}}</td>
+            </tr>
+          {{/protectionExistingUses}}
+        </tbody>
+      </table>
+  {{/hasProtectionExistingUseConflicts}}
+  {{^hasProtectionExistingUseConflicts}}
+    <p class="large">
+      <strong>No</strong> protection classes overlap with existing uses.
+    </p>
+  {{/hasProtectionExistingUseConflicts}}
 </div>
-{{/hasProtectionAquaculture}}
-{{^hasProtectionAquaculture}}
-  <div class="reportSection">
-    <h4>Possible Effects on Aquaculture</h4>
-        <p class="large">
-          <strong>No</strong> protection classes overlap with aquaculture areas.
-        </p>
-  </div> 
-{{/hasProtectionAquaculture}}
 
-{{#hasProtectionExistingUseConflicts}}
-  <div class="reportSection tableContainer">
-    <h4>Existing Use Conflicts</h4>
-      {{#hasProtectionExistingUseConflicts}}
-        <p class="large">
-          One or more protection classes overlap with, or are near, <strong>existing uses</strong> that are in conflict with the purposes of the protection.
-        </p>
-      {{/hasProtectionExistingUseConflicts}}
-    <table data-paging="10"> <!-- data-paging... activates paging  -->
-      <thead>
-        <tr>
-          <th>Existing Use</th>
-          <th>Is Compatible</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#protectionExistingUses}}
+<div class="reportSection tableContainer">
+  <h4>Recreational Use Conflicts <a href="#" data-toggle-node="52d5a8cbc03e51641700009e" data-visible="false">show layer</a></h4>
+    {{#hasProtectionRecreationalUseConflicts}}
+      <p class="large">
+        One or more sketches overlap, or are in the vicinity of, an area that has been identified as having <strong>recreational value</strong>. 
+      </p>
+    
+      <table data-paging="10"> <!-- data-paging... activates paging  -->
+        <thead>
           <tr>
-            <td>{{FEAT_TYPE}}</td>
-            <td>--</td>
+            <th class="single-column">Recreational Use</th>
           </tr>
-        {{/protectionExistingUses}}
-      </tbody>
-    </table>
-  </div>
-{{/hasProtectionExistingUseConflicts}}
-{{^hasProtectionExistingUseConflicts}}
-  <div class="reportSection">
-    <h4>Existing Use Conflicts</h4>
-        <p class="large">
-          <strong>No</strong> protection classes overlap with existing uses.
-        </p>
-  </div> 
-{{/hasProtectionExistingUseConflicts}}
+        </thead>
+        <tbody>
+          {{#protectionRecreationalUses}}
+            <tr>
+              <td>{{FEAT_TYPE}}</td>
+            </tr>
+          {{/protectionRecreationalUses}}
+        </tbody>
+      </table>
+  {{/hasProtectionRecreationalUseConflicts}}
+  {{^hasProtectionRecreationalUseConflicts}}
+    <p class="large">
+      <strong>No</strong> protection classes overlap with recreational uses.
+    </p>
+  {{/hasProtectionRecreationalUseConflicts}}
+</div>
 
-{{#hasProtectionRecreationalUseConflicts}}
-  <div class="reportSection tableContainer">
-    <h4>Overlap with Recreational Uses</h4>
-      {{#hasProtectionRecreationalUseConflicts}}
-        <p class="large">
-          One or more protection classes overlap with, or are near, <strong>recreational uses</strong> that may be in conflict with the purposes of the protection.
-        </p>
-      {{/hasProtectionRecreationalUseConflicts}}
-    <table data-paging="10"> <!-- data-paging... activates paging  -->
-      <thead>
-        <tr>
-          <th>Recreational Use</th>
-          <th>Is Compatible</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#protectionRecreationalUses}}
+<div class="reportSection tableContainer">
+  <h4>Heritage Use Conflicts <a href="#" data-toggle-node="52d5b094c03e5164170003ca" data-visible="false">show layer</a></h4>
+    {{#hasProtectionHeritageUses}}
+      <p class="large">
+        One or more sketches overlap, or are in the vicinity of, an area that has been identified as having <strong>cultural heritage values</strong>.
+      </p>
+      <table data-paging="10"> <!-- data-paging... activates paging  -->
+        <thead>
           <tr>
-            <td>{{FEAT_TYPE}}</td>
-            <td>--</td>
+            <th class="single-column">Heritage Use</th>
           </tr>
-        {{/protectionRecreationalUses}}
-      </tbody>
-    </table>
-  </div>
-{{/hasProtectionRecreationalUseConflicts}}
-{{^hasProtectionRecreationalUseConflicts}}
-  <div class="reportSection">
-    <h4>Overlap with Recreational Uses</h4>
-        <p class="large">
-          <strong>No</strong> protection classes overlap with recreational uses.
-        </p>
-  </div> 
-{{/hasProtectionRecreationalUseConflicts}}
+        </thead>
+        <tbody>
+          {{#protectionHeritageUses}}
+            <tr>
+              <td>{{NAME}}</td>
+            </tr>
+          {{/protectionHeritageUses}}
+        </tbody>
+      </table>
+  {{/hasProtectionHeritageUses}}
+  {{^hasProtectionHeritageUses}}
+    <p class="large">
+      <strong>No</strong> protection classes overlap with heritage uses.
+    </p>
+  {{/hasProtectionHeritageUses}}
+</div>
 
 
-{{#hasProtectionOverlapWithMooringsAndAnchorages}}
   <div class="reportSection">
-    <h4>Overlaps with Mooring and Anchorage Areas</h4>
-    <p class="large green-check">
-      One more more protection areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
-    </p>
+    <h4>Mooring/Anchorage Area Conflicts</h4>
+    {{#hasProtectionOverlapWithMooringsAndAnchorages}}
+      <p class="large green-check">
+        One more more protection areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
+      </p>
+    {{/hasProtectionOverlapWithMooringsAndAnchorages}}
+    {{^hasProtectionOverlapWithMooringsAndAnchorages}}
+      <p class="large">
+        <strong>No</strong> protection areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
+      </p>
+    {{/hasProtectionOverlapWithMooringsAndAnchorages}}
   </div>
-{{/hasProtectionOverlapWithMooringsAndAnchorages}}
-{{^hasProtectionOverlapWithMooringsAndAnchorages}}
-  <div class="reportSection">
-    <h4>Overlaps with Mooring and Anchorage Areas</h4>
-    <p>
-      <strong>No</strong> protection areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
-    </p>
-  </div>
-{{/hasProtectionOverlapWithMooringsAndAnchorages}}
+
+
