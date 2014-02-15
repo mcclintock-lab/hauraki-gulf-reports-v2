@@ -26,7 +26,27 @@
         #gradient > .vertical(darken(@bg, 10%), @bg);
 
       }
-      
+      &.t2existing {
+        @bg:#b3cfa7;
+        background:@bg;
+        #gradient > .vertical(darken(@bg, 5%), @bg);
+        margin-top:30px;
+      }
+
+      &.t2proposed {
+        @bg:#9aba8c; 
+        background:@bg;
+        #gradient > .vertical(darken(@bg, 10%), @bg);
+        margin-top:30px;
+      }
+
+      &.t2unprotected {
+        @bg:#e5cace;
+        background:@bg;
+        #gradient > .vertical(darken(@bg, 10%), @bg);
+        margin-top:30px;
+
+      }
 
     > span {
       position:absolute;
@@ -49,6 +69,44 @@
       }
       &.label-proposed{
         margin-top:7px
+      }
+      &.label-t2unprotected{
+        margin-top:30px;
+        text-align:right;
+      }
+      
+      &.label-t2existing{
+        margin-top:37px
+      }
+      &.label-t2proposed{
+        margin-top:37px
+      }
+    }
+  }
+  .viz {
+    .clearfix();
+    margin-bottom:50px;
+    margin-left:20px;
+    margin-top:20px;
+
+    .diam {
+      position:absolute;
+      top:-20px;
+      background:transparent;
+      float:none;
+      line-height:20px;
+      padding-left:14px;
+      text-shadow:1px 1px 1px rgba(0,0,0,0.2);
+
+      &:before {
+        font-family:'fontello';
+        content: '▾';
+        margin-right:5px;
+        font-size:28px;
+        position:absolute;
+        top:3px;
+        left:-8px;
+        color:#4d4d4d;
       }
     }
   }

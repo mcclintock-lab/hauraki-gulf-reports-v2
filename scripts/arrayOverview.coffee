@@ -120,7 +120,10 @@ class ArrayOverviewTab extends ReportTab
       catch error
 
     hasAquacultureOnly = hasAquaculture && !hasProtection
-    d3IsPresent = false
+    if window.d3
+      d3IsPresent = true
+    else
+      d3IsPresent = false
 
     context =
       isCollection: true
@@ -183,13 +186,11 @@ class ArrayOverviewTab extends ReportTab
       #need to make sure the label isn't too far to the right 
      
       if combined > 47
-        console.log("too big?", combined)
         unprotectedHabsStart = 47
       if t2combined > 47
-         console.log("here too", t2combined)
          unprotectedT2HabStart = 47
 
-      el = @$('.arrayViz')[0]
+      el = @$('.viz')[0]
 
       ranges = [
         {
@@ -250,7 +251,7 @@ class ArrayOverviewTab extends ReportTab
           .attr("class", (d) -> "label-"+d.class)
           .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
-      el = @$('.arrayViz')[1]
+      el = @$('.viz')[1]
       chart = d3.select(el)
       chart.selectAll("div.range")
         .data(t2ranges)
@@ -260,7 +261,6 @@ class ArrayOverviewTab extends ReportTab
         .append("span")
           .attr("class", (d) -> "label-"+d.class)
           .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
-
 
 
 

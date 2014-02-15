@@ -30,7 +30,7 @@
       </p>
     </div>
 </div>
-{{#d3IsPresent}}
+
 <div class="reportSection tableContainer">
   <h4>Representation of Habitats</h4>
   <div class="large-header">Habitats Protected in <strong>Marine Reserves</strong>:</div>
@@ -42,8 +42,10 @@
     protection in a marine reserve and <strong>{{HAB_COUNT_COMBINED_T2}}</strong> are protected in a Type II Marine Protected Area.
   </p>
 </div>
-{{/d3IsPresent}}
+
 {{^d3IsPresent}}
+<div class="reportSection tableContainer">
+  <h4>Representation of Habitats</h4>
   <table data-paging="10"> <!-- data-paging... activates paging  -->
     <thead>
       <tr>
@@ -78,6 +80,7 @@
       </tr>
     </tfoot>
   </table>
+  </div>
 {{/d3IsPresent}}
 <div class="reportSection tableContainer">
   <h4>Percent of Hauraki Gulf Marine Park Protected</h4>
