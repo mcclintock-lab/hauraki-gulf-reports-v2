@@ -6,4 +6,4 @@ ArrayActivitiesTab = require './arrayActivities.coffee'
 window.app.registerReport (report) ->
   report.tabs [ArrayOverviewTab, ArrayEnvironmentTab, ArrayFisheriesTab, ArrayActivitiesTab]
   # path must be relative to dist/
-  report.stylesheets ['./protectionZone.css', './aquacultureZone.css']
+  report.stylesheets ['./array.css']

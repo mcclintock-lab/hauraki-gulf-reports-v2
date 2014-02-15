@@ -362,13 +362,13 @@
 .reportView .reportSection.tableContainer p {
   padding: 10px;
 }
-.overview .viz > div.range {
+.arrayViz > div.range {
   height: 15px;
   float: left;
   margin-top: 10px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-.overview .viz > div.range.existing {
+.arrayViz > div.range.existing {
   background: #b3cfa7;
   background-color: #aaca9d;
   background-image: -moz-linear-gradient(top, #a5c696, #b3cfa7);
@@ -379,7 +379,7 @@
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffa5c696', endColorstr='#ffb3cfa7', GradientType=0);
 }
-.overview .viz > div.range.proposed {
+.arrayViz > div.range.proposed {
   background: #9aba8c;
   background-color: #89af79;
   background-image: -moz-linear-gradient(top, #7ea76c, #9aba8c);
@@ -390,7 +390,7 @@
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff7ea76c', endColorstr='#ff9aba8c', GradientType=0);
 }
-.overview .viz > div.range.unprotected {
+.arrayViz > div.range.unprotected {
   background: #e5cace;
   background-color: #dbb5bb;
   background-image: -moz-linear-gradient(top, #d4a8ae, #e5cace);
@@ -401,25 +401,25 @@
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd4a8ae', endColorstr='#ffe5cace', GradientType=0);
 }
-.overview .viz > div.range > span {
+.arrayViz > div.range > span {
   position: absolute;
   top: 18px;
   font-size: 12px;
 }
-.overview .viz > div.range > span span {
+.arrayViz > div.range > span span {
   font-size: 12px;
   display: block;
   color: #888;
   margin-top: -3px;
 }
-.overview .viz > div.range > span.label-unprotected {
+.arrayViz > div.range > span.label-unprotected {
   margin-top: -28px;
   text-align: right;
 }
-.overview .viz > div.range > span.label-existing {
+.arrayViz > div.range > span.label-existing {
   margin-top: 7px;
 }
-.overview .viz > div.range > span.label-proposed {
+.arrayViz > div.range > span.label-proposed {
   margin-top: 7px;
 }
 .protection-nutrient-recycling {
