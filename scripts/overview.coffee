@@ -114,7 +114,7 @@ class OverviewTab extends ReportTab
       d3IsPresent: d3IsPresent
 
     @$el.html @template.render(context, partials)
-    @drawViz(hc_existing, hc_proposed, hc_combined, hc_total, hc_existing_t2, hc_proposed_t2, hc_combined_t2, hc_total_t2)
+    @drawViz(hc_existing, hc_proposed, hc_combined, hc_total, hc_existing_t2, hc_proposed_t2, hc_combined_t2, hc_total_t2, HAB_PERC_MR_EXISTING, HAB_PERC_MR_NEW, HAB_PERC_T2_EXISTING, HAB_PERC_T2_NEW)
 
 
 
@@ -122,7 +122,7 @@ class OverviewTab extends ReportTab
   # things. I'd suggest just displaying the "Representation" and "Percent"
   # info with simple tables unless there is plenty of time to work on the
   # visualizations in the mockups.
-  drawViz: (existing, proposed, combined, total, t2existing, t2proposed, t2combined, t2total) ->
+  drawViz: (existing, proposed, combined, total, t2existing, t2proposed, t2combined, t2total, perc_mr_existing, perc_mr_new, perc_t2_existing, perc_t2_new) ->
     # Check if d3 is present. If not, we're probably dealing with IE
     if window.d3
       newHabs = combined-existing
@@ -138,6 +138,11 @@ class OverviewTab extends ReportTab
       if t2combined > 47
          unprotectedT2HabStart = 47
 
+      perc_mr_combined = perc_mr_existing+perc_mr_new
+      perc_t2_combined = perc_t2_existing+perc_t2_new
+
+      perc_mr_unprotected = 30 - perc_mr_combined
+      perc_t2_unprotected = 30 - perc_t2_combined
       el = @$('.viz')[0]
 
       ranges = [
@@ -209,6 +214,97 @@ class OverviewTab extends ReportTab
         .append("span")
           .attr("class", (d) -> "label-"+d.class)
           .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
+      
+      perc_ranges = [
+        {
+          name: 'Existing <strong>(0.3%)</strong> / New'
+          bg: "#8e5e50"
+          start: 0
+          end: perc_mr_combined
+          class: 'existing'
+          value: perc_mr_new
+        }
+        {
+          name: 'Unprotected'
+          bg: '#dddddd'
+          start: perc_mr_combined
+          end: 30
+          class: 'unprotected'
+          value: perc_mr_unprotected
+        }
+      ]
+
+      perc_t2_ranges = [
+        {
+          name: 'Existing <strong>(0%)</strong> / New'
+          bg: '#588e3f'
+          start: perc_t2_existing
+          end: perc_t2_combined
+          class: 'proposed'
+          value: perc_t2_combined
+        }
+        {
+          name: 'Unprotected'
+          bg: '#dddddd'
+          start: perc_t2_combined
+          end: 30
+          class: 'unprotected'
+          value: perc_t2_unprotected
+        }
+      ]
+      x = d3.scale.linear()
+        .domain([0, 30])
+        .range([0, 410])
+
+      el = @$('.viz')[2]
+      chart = d3.select(el)
+      chart.selectAll("div.range")
+        .data(perc_ranges)
+      .enter().append("div")
+        .style("width", (d) -> x(d.end - d.start) + 'px')
+        .attr("class", (d) -> "range " + d.class)
+        .append("span")
+          .attr("class", (d) -> "label-"+d.class)
+          .html((d) -> d.name+"<strong>  ("+d.value+"%)</strong>")
+      chart.selectAll("div.max_marker")
+        .data([30])
+      .enter().append("div")
+        .attr("class", "max_marker")
+        .text((d) -> "")
+        .style("left", (d) -> x(d) + 'px')
+
+      chart.selectAll("div.max_label")
+        .data([29])
+      .enter().append("div")
+        .attr("class", "max_label")
+        .text((d) -> "30%")
+        .style("left", (d) -> x(d) + 'px')
+
+      el = @$('.viz')[3]
+      chart = d3.select(el)
+      chart.selectAll("div.range")
+        .data(perc_t2_ranges)
+      .enter().append("div")
+        .style("width", (d) -> x(d.end - d.start) + 'px')
+        .attr("class", (d) -> "range " + d.class)
+        .append("span")
+          .attr("class", (d) -> "label-"+d.class)
+          .html((d) -> d.name+"<strong>  ("+d.value+"%)</strong>")
+
+      chart.selectAll("div.max_marker")
+        .data([30])
+      .enter().append("div")
+        .attr("class", "max_marker")
+        .text((d) -> "")
+        .style("left", (d) -> x(d) + 'px')
+
+      chart.selectAll("div.max_label")
+        .data([29])
+      .enter().append("div")
+        .attr("class", "max_label")
+        .text((d) -> "30%")
+        .style("left", (d) -> x(d) + 'px')
+        
 
 
 module.exports = OverviewTab

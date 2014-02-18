@@ -86,26 +86,48 @@
   .viz {
     .clearfix();
     margin-bottom:50px;
-    margin-left:20px;
+    margin-left:10px;
     margin-top:20px;
 
-    .diam {
+    .max_label {
       position:absolute;
-      top:-20px;
+      top:-10px;
       background:transparent;
       float:none;
-      line-height:20px;
-      padding-left:14px;
+      line-height:18px;
+      padding-left:-4px;
+      text-align:left;
       text-shadow:1px 1px 1px rgba(0,0,0,0.2);
 
       &:before {
         font-family:'fontello';
-        content: '▾';
         margin-right:5px;
         font-size:28px;
         position:absolute;
-        top:3px;
-        left:-8px;
+        top:5px;
+        left:-18px;
+        color:#4d4d4d;
+      }
+    }
+
+    .max_marker {
+      position:absolute;
+      top:4px;
+      background:transparent;
+      float:none;
+      line-height:18px;
+      padding-left:14px;
+      text-align:left;
+      text-shadow:1px 1px 1px rgba(0,0,0,0.2);
+
+      &:before {
+        font-family:'fontello';
+        content: '|';
+        margin-right:5px;
+        font-size:24px;
+        position:absolute;
+        top:6px;
+        left:-1px;
         color:#4d4d4d;
       }
     }

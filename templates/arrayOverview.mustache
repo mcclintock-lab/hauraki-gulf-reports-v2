@@ -55,7 +55,7 @@
       <div class="viz" style="position:relative;height:15px;float:left;margin-top:10px;border-top:1px solid rgba(0,0,0.1);"></div>
       <div style="padding-top:20px;" class="large-header">Habitats Protected in <strong>Type-2 Protected Areas</strong>:</div>
       <div class="viz" style="position:relative;height:15px;float:left;margin-top:10px;border-top:1px solid rgba(0,0,0.1);"></div>
-      <p style="padding-left:20px;padding-right:20px;padding-top:0px;" class="large">
+      <p style="float:left;padding-left:20px;padding-right:20px;padding-top:0px;" class="large">
         Of the <strong>62</strong> habitats present in the project area, <strong>{{HAB_COUNT_COMBINED}}</strong> of the habitats are afforded
         protection in a marine reserve and <strong>{{HAB_COUNT_COMBINED_T2}}</strong> are protected in a Type II Marine Protected Area.
       </p>
@@ -100,11 +100,21 @@
     </table>
     </div>
   {{/d3IsPresent}}
-
-
-  <div class="reportSection tableContainer">
-    <h4>Percent of Hauraki Gulf Marine Park Protected</h4>
-    <table data-paging="10"> <!-- data-paging... activates paging  -->
+<div class="reportSection tableContainer">
+  <h4>Percent of Hauraki Gulf Marine Park Protected</h4>
+  {{#d3IsPresent}}
+    <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Marine Reserves</strong>:</div>
+    <div class="viz" style="position:relative;"></div>
+    <div style="padding-top:20px;" class="large-header">Percent of Hauraki Gulf Protected in <strong>Type-2 Protected Areas</strong>:</div>
+    <div class="viz" style="position:relative;"></div>
+    <p style="padding-left:20px;padding-right:20px;padding-top:0px;" class="large">
+          <p class="large">This table shows how ‘comprehensive’ the proposed protection is. 
+            Proposed and existing plans protect these percentages of the total areas.
+          </p>
+    </p>
+  {{/d3IsPresent}}
+  {{^d3IsPresent}}
+  <table data-paging="10"> <!-- data-paging... activates paging  -->
     <thead>
       <tr>
         <th style="width:180px;"></th>
@@ -127,17 +137,18 @@
         <td>{{HAB_PERC_T2_COMBINED}}</td>
       </tr>
     </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="4" class="paragraph" style="text-align:left;">
-            <p class="large">This table shows how ‘comprehensive’ the proposed protection{{#isCollection}}s are{{/isCollection}}{{^isCollection}} is{{/isCollection}}. 
-              Proposed and existing plans protect these percentages of the total areas.
-            </p>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+    <tfoot>
+      <tr>
+        <td colspan="4" class="paragraph" style="text-align:left;">
+          <p class="large">This table shows how ‘comprehensive’ the proposed protection{{#isCollection}}s are{{/isCollection}}{{^isCollection}} is{{/isCollection}}. 
+            Proposed and existing plans protect these percentages of the total areas.
+          </p>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  {{/d3IsPresent}}
+</div>
 {{/hasProtection}}
 {{#hasAquaculture}}
   <div class="reportSection tableContainer">
