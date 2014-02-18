@@ -266,7 +266,7 @@ class ArrayOverviewTab extends ReportTab
 
       x = d3.scale.linear()
         .domain([0, 62])
-        .range([0, 400])
+        .range([0, 410])
       
       chart = d3.select(el)
       chart.selectAll("div.range")
@@ -366,7 +366,7 @@ class ArrayOverviewTab extends ReportTab
       ]
       x = d3.scale.linear()
         .domain([0, 30])
-        .range([0, 400])
+        .range([0, 410])
 
       el = @$('.viz')[2]
       chart = d3.select(el)

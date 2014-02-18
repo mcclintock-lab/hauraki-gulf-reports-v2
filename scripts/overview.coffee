@@ -118,59 +118,77 @@ class OverviewTab extends ReportTab
 
 
 
-  # D3 is a bit of a mess unless you've really internalized it's way of doing
-  # things. I'd suggest just displaying the "Representation" and "Percent"
-  # info with simple tables unless there is plenty of time to work on the
-  # visualizations in the mockups.
   drawViz: (existing, proposed, combined, total, t2existing, t2proposed, t2combined, t2total, perc_mr_existing, perc_mr_new, perc_t2_existing, perc_t2_new) ->
     # Check if d3 is present. If not, we're probably dealing with IE
     if window.d3
-      newHabs = combined-existing
-      unprotectedHabs = 62-combined
-      unprotectedHabsStart = combined
+      new_mr_habs = combined-existing
+      unprotected_mr_habs = 62-combined
+      unprotected_mr_habs_start = combined
+      unprotected_mr_label_start = combined
 
-      t2NewHabs = t2combined
-      t2UnprotectedHabs = 62-t2combined
-      unprotectedT2HabStart = t2combined
-      #need to make sure the label isn't too far to the right 
-      if combined > 47
-        unprotectedHabsStart = 47
-      if t2combined > 47
-         unprotectedT2HabStart = 47
+      if combined > 45 and combined <= 62
+        unprotected_mr_label_start = 45
+      
 
-      perc_mr_combined = perc_mr_existing+perc_mr_new
-      perc_t2_combined = perc_t2_existing+perc_t2_new
+      new_t2_habs = t2combined
+      unprotected_t2_habs = 62-t2combined
+      unprotected_t2_habs_start = t2combined
+      unprotected_t2_label_start = t2combined
+      
+      if t2combined > 45 and t2combined <=62
+        unprotected_t2_label_start = 45
 
-      perc_mr_unprotected = 30 - perc_mr_combined
-      perc_t2_unprotected = 30 - perc_t2_combined
+
       el = @$('.viz')[0]
 
-      ranges = [
-        {
-          name: 'Existing'
-          bg: "#8e5e50"
-          start: 0
-          end: existing
-          class: 'existing'
-          value: existing
-        }
-        {
-          name: 'New'
-          bg: '#588e3f'
-          start: existing
-          end: combined
-          class: 'proposed'
-          value: newHabs
-        }
-        {
-          name: 'Unprotected'
-          bg: '#dddddd'
-          start: unprotectedHabsStart
-          end: 62
-          class: 'unprotected'
-          value: unprotectedHabs
-        }
-      ]
+      #don't draw the 'unprotected' type if they are all protected
+      if combined == 62
+        ranges = [
+          {
+            name: 'Existing'
+            bg: "#8e5e50"
+            start: 0
+            end: existing
+            class: 'existing'
+            value: existing
+          }
+          {
+            name: 'New'
+            bg: '#588e3f'
+            start: existing
+            end: combined
+            class: 'proposed'
+            value: new_mr_habs
+          }
+        ]
+      else
+        ranges = [
+          {
+            name: 'Existing'
+            bg: "#8e5e50"
+            start: 0
+            end: existing
+            class: 'existing'
+            value: existing
+          }
+          {
+            name: 'New'
+            bg: '#588e3f'
+            start: existing
+            end: combined
+            class: 'proposed'
+            value: new_mr_habs
+          }
+          {
+            name: 'Unprotected'
+            bg: '#dddddd'
+            start: unprotected_mr_habs_start
+            end: 62
+            class: 'unprotected'
+            value: unprotected_mr_habs
+            label_start: unprotected_mr_label_start
+          }
+        ]
       t2ranges = [
         {
           name: 'Existing <strong>(0)</strong> / New'
@@ -178,21 +196,22 @@ class OverviewTab extends ReportTab
           start: t2existing
           end: t2combined
           class: 'proposed'
-          value: t2NewHabs
+          value: new_t2_habs
         }
         {
           name: 'Unprotected'
           bg: '#dddddd'
-          start: unprotectedT2HabStart
+          start: unprotected_t2_habs_start
           end: 62
           class: 'unprotected'
-          value: t2UnprotectedHabs
+          value: unprotected_t2_habs
+          label_start: unprotected_t2_label_start
         }
       ]
 
       x = d3.scale.linear()
         .domain([0, 62])
-        .range([0, 410])
+        .range([0, 400])
       
       chart = d3.select(el)
       chart.selectAll("div.range")
@@ -201,6 +220,7 @@ class OverviewTab extends ReportTab
         .style("width", (d) -> x(d.end - d.start) + 'px')
         .attr("class", (d) -> "range " + d.class)
         .append("span")
+        .style("left", (d) -> x(d.label_start)+'px')
           .attr("class", (d) -> "label-"+d.class)
           .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
@@ -212,22 +232,57 @@ class OverviewTab extends ReportTab
         .style("width", (d) -> x(d.end - d.start) + 'px')
         .attr("class", (d) -> "range " + d.class)
         .append("span")
+        .style("left", (d) -> x(d.label_start)+'px')
           .attr("class", (d) -> "label-"+d.class)
           .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
-      
+
+      #The percentage bars
+      perc_mr_combined = perc_mr_existing+perc_mr_new
+      perc_t2_combined = perc_t2_existing+perc_t2_new
+
+      if perc_mr_combined >= 22 and perc_mr_combined <= 30
+        perc_mr_new_start = 0
+        perc_mr_new_end = perc_mr_combined
+        perc_mr_unprotected_label_start = 20
+      else if perc_mr_combined > 30
+        perc_mr_new_start = 0
+        perc_mr_new_end = 30
+        perc_mr_unprotected_label_start = 21
+      else
+        perc_mr_new_start = perc_mr_combined
+        perc_mr_new_end = perc_mr_combined
+        perc_mr_unprotected_label_start = perc_mr_new_start
+
+      if perc_t2_combined >= 22 and perc_t2_combined <= 30
+        perc_t2_new_start = 0
+        perc_t2_new_end = perc_t2_combined
+        perc_t2_unprotected_label_start = 20
+      else if perc_t2_combined > 30
+        perc_t2_new_start = 0
+        perc_t2_new_end = 30
+        perc_t2_unprotected_label_start = 20
+      else
+        perc_t2_new_start = perc_t2_combined
+        perc_t2_new_end = perc_t2_combined
+        perc_t2_unprotected_label_start = perc_t2_new_start
+
+      perc_mr_unprotected = 100 - perc_mr_combined
+      perc_t2_unprotected = 100 - perc_t2_combined
       perc_ranges = [
         {
           name: 'Existing <strong>(0.3%)</strong> / New'
           bg: "#8e5e50"
           start: 0
-          end: perc_mr_combined
+          end: perc_mr_new_end
+          label_start: 0
           class: 'existing'
           value: perc_mr_new
         }
         {
           name: 'Unprotected'
           bg: '#dddddd'
-          start: perc_mr_combined
+          start: perc_mr_new_end
+          label_start: perc_mr_unprotected_label_start
           end: 30
           class: 'unprotected'
           value: perc_mr_unprotected
@@ -238,15 +293,17 @@ class OverviewTab extends ReportTab
         {
           name: 'Existing <strong>(0%)</strong> / New'
           bg: '#588e3f'
-          start: perc_t2_existing
-          end: perc_t2_combined
+          start: 0
+          end: perc_t2_new_end
           class: 'proposed'
           value: perc_t2_combined
+          label_start: 0
         }
         {
           name: 'Unprotected'
           bg: '#dddddd'
-          start: perc_t2_combined
+          start: perc_t2_new_end
+          label_start: perc_t2_unprotected_label_start
           end: 30
           class: 'unprotected'
           value: perc_t2_unprotected
@@ -254,7 +311,7 @@ class OverviewTab extends ReportTab
       ]
       x = d3.scale.linear()
         .domain([0, 30])
-        .range([0, 410])
+        .range([0, 400])
 
       el = @$('.viz')[2]
       chart = d3.select(el)
@@ -265,7 +322,9 @@ class OverviewTab extends ReportTab
         .attr("class", (d) -> "range " + d.class)
         .append("span")
           .attr("class", (d) -> "label-"+d.class)
+          .style("left", (d) -> x(d.label_start)+'px')
           .html((d) -> d.name+"<strong>  ("+d.value+"%)</strong>")
+      
       chart.selectAll("div.max_marker")
         .data([30])
       .enter().append("div")
@@ -289,6 +348,7 @@ class OverviewTab extends ReportTab
         .attr("class", (d) -> "range " + d.class)
         .append("span")
           .attr("class", (d) -> "label-"+d.class)
+          .style("left", (d) -> x(d.label_start)+'px')
           .html((d) -> d.name+"<strong>  ("+d.value+"%)</strong>")
 
       chart.selectAll("div.max_marker")
@@ -304,7 +364,5 @@ class OverviewTab extends ReportTab
         .attr("class", "max_label")
         .text((d) -> "30%")
         .style("left", (d) -> x(d) + 'px')
-        
-
 
 module.exports = OverviewTab
