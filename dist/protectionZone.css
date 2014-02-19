@@ -540,8 +540,8 @@
 div.large-header {
   background: '#000000';
   margin-top: 10px;
-  margin-left: 10px;
-  padding-bottom: 0px;
+  margin-left: 20px;
+  padding-bottom: 5px;
   font-size: 15px;
   line-height: 19px;
 }
