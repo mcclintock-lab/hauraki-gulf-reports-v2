@@ -472,7 +472,7 @@
   *zoom: 1;
   margin-bottom: 50px;
   margin-left: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .overview .viz:before,
 .overview .viz:after {
@@ -539,9 +539,15 @@
 }
 div.large-header {
   background: '#000000';
-  padding-top: 2px;
-  padding-left: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
   padding-bottom: 0px;
+  font-size: 15px;
+  line-height: 19px;
+}
+div.large-in-report {
+  float: left;
+  padding: 2px 20px 10px 20px;
   font-size: 15px;
   line-height: 19px;
 }
