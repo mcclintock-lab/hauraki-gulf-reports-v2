@@ -8,15 +8,7 @@
 <div class="reportSection size">
   <h4>Size</h4>
   <p class="large {{#SIZE_OK}}green-check{{/SIZE_OK}}">
-    <!-- Notice, using mustache tags here to test whether we're rendering a 
-    collection or a single zone -->
-    {{#isCollection}}
-    The average size of the <strong>{{NUM_PROTECTED}}</strong> protected 
-    areas is <strong>{{SIZE}} ha</strong>,
-    {{/isCollection}}
-    {{^isCollection}}
     This protected area is <strong>{{SIZE}} ha</strong>,
-    {{/isCollection}}
     {{#SIZE_OK}}
     meeting the guideline of {{MIN_SIZE}} ha.
     {{/SIZE_OK}}
@@ -30,6 +22,14 @@
       </p>
     </div>
 </div>
+{{#hasWarnings}}
+<div class="reportSection size">
+  <h4>Warning</h4>
+    <p class="large yellow-warn" style="padding-left:50px;">
+      This sketch is placed over {{warnings}}. These areas are unlikely to be consistent with a marine protected area.
+    </p>
+</div>
+{{/hasWarnings}}
 
   {{#d3IsPresent}}
     <div class="reportSection tableContainer">

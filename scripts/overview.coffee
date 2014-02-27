@@ -22,6 +22,7 @@ class OverviewTab extends ReportTab
     'TargetSize'
     'HabitatCount'
     'HabitatCountPercent'
+    'OverlapWithWarningAreas'
   ]
 
   # Dependencies will likely need to be changed to something like this to
@@ -46,7 +47,16 @@ class OverviewTab extends ReportTab
       hasMarineReserves = true
 
     HECTARES = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
-    
+
+    warningsRS = @recordSet('OverlapWithWarningAreas', 'OverlapWithWarningAreas')
+    if warningsRS.toArray()?.length > 0
+      hasWarnings = true
+      warnings = warningsRS.raw('FEAT_TYPE')
+    else
+      hasWarnings = false
+      warnings = ""
+
+
     if hasMarineReserves
       hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
       hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
@@ -112,6 +122,9 @@ class OverviewTab extends ReportTab
       HAB_PERC_T2_EXISTING: HAB_PERC_T2_EXISTING
       HAB_PERC_T2_COMBINED: HAB_PERC_T2_COMBINED
       d3IsPresent: d3IsPresent
+
+      warnings: warnings
+      hasWarnings: hasWarnings
 
     @$el.html @template.render(context, partials)
     @drawViz(hc_existing, hc_proposed, hc_combined, hc_total, hc_existing_t2, hc_proposed_t2, hc_combined_t2, hc_total_t2, HAB_PERC_MR_EXISTING, HAB_PERC_MR_NEW, HAB_PERC_T2_EXISTING, HAB_PERC_T2_NEW)

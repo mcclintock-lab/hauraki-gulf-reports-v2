@@ -34,6 +34,15 @@
           Read more information on <a href="http://www.doc.govt.nz/publications/conservation/marine-and-coastal/marine-protected-areas/marine-protected-areas-classification-protection-standard-and-implementation-guidelines" target="_blank"> the Marine Protected Area Policy and Implementation Guidelines.</a> In general, for the same amount of area to be protected, it is desirable to protect fewer, larger areas rather than numerous smaller ones.
         </p>
   </div>
+  {{#hasWarnings}}
+    <div class="reportSection size">
+      <h4>Warning</h4>
+        <p class="large yellow-warn" style="padding-left:50px;">
+          {{#hasMultipleProtectionSketches}}One or more sketches are {{/hasMultipleProtectionSketches}}{{^hasMultipleProtectionSketches}}A sketch is {{/hasMultipleProtectionSketches}}
+          placed over {{warnings}}. These areas are unlikely to be consistent with a marine protected area.
+        </p>
+    </div>
+{{/hasWarnings}}
 {{/hasProtection}}
 {{#hasAquacultureOnly}}
   <div class="reportSection">

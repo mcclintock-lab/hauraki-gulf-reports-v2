@@ -23,6 +23,7 @@ class ArrayOverviewTab extends ReportTab
     'HabitatCountPercent'
     'AquacultureSize'
     'ProximityToExistingAquaculture'
+    'OverlapWithWarningAreas'
   ]
 
   render: () ->
@@ -41,6 +42,13 @@ class ArrayOverviewTab extends ReportTab
         type2MPAs = _.filter children, (child) -> 
           child.getAttribute('MPA_TYPE') is 'MPA2'
 
+        warningsRS = @recordSet('OverlapWithWarningAreas', 'OverlapWithWarningAreas')
+        if warningsRS.toArray()?.length > 0
+          hasWarnings = true
+          warnings = warningsRS.raw('FEAT_TYPE')
+        else
+          hasWarnings = false
+          warnings = ""
 
         if marineReserves?.length > 0
           hasMarineReserves = true
@@ -173,6 +181,8 @@ class ArrayOverviewTab extends ReportTab
       hasMultipleProtectionSketches: hasMultipleProtectionSketches
       hasAquacultureOnly: hasAquacultureOnly
       d3IsPresent: d3IsPresent
+      warnings:warnings
+      hasWarnings: hasWarnings
 
 
     # @template is /templates/overview.mustache
