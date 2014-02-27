@@ -41,14 +41,21 @@ class ArrayOverviewTab extends ReportTab
         type2MPAs = _.filter children, (child) -> 
           child.getAttribute('MPA_TYPE') is 'MPA2'
 
+
         if marineReserves?.length > 0
           hasMarineReserves = true
         if type2MPAs?.length > 0
           hasType2MPAs = true
 
       if hasProtection
-        HECTARES = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
-        HECTARES = (HECTARES / protectionSketches.length).toFixed(1)
+        numProtectionAreas = marineReserves?.length+type2MPAs?.length
+        origHectares = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
+        try
+          #parse the number to include commas, fall back to original number if that fails
+          HECTARES = (origHectares/numProtectionAreas).toFixed(2).replace(/(\d)(?=(\d{3})+\.\d\d$)/g,"$1,").split('.')[0]
+        catch error
+          HECTARES = origHectares
+
         if hasMarineReserves
           hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
           hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
@@ -99,7 +106,7 @@ class ArrayOverviewTab extends ReportTab
         HAB_PERC_T2_EXISTING = 0
         HAB_PERC_T2_COMBINED = 0
         
-      hasMultipleProtectionSketches = protectionSketches?.length > 1
+      hasMultipleProtectionSketches = numProtectionAreas > 1
     catch error
       hasProtection = false
 
@@ -111,7 +118,7 @@ class ArrayOverviewTab extends ReportTab
         aquacultureSizes = @recordSet('AquacultureSize', 'AquacultureSize', AQUACULTURE_ID).toArray()
         hasMultipleAquacultureSketches = false
         totalAquacultureSize = @recordSet('AquacultureSize', 'TotalSize').float('TOTAL_HA')
-        hasMultipleAquacultureSketches = aquacultureSizes?.length > 1
+        hasMultipleAquacultureSketches = aquacultureClasses?.length > 1
       catch error
         hasAquaculture = false
       try

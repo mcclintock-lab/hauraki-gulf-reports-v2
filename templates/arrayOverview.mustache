@@ -12,15 +12,9 @@
   <div class="reportSection size">
     <h4>Size</h4>
         <p class="large {{#SIZE_OK}}green-check{{/SIZE_OK}}">
-          <!-- Notice, using mustache tags here to test whether we're rendering a 
-          collection or a single zone -->
-          {{#isCollection}}
+          
           The average size of the <strong>{{NUM_PROTECTED}}</strong> protected 
-          areas is <strong>{{SIZE}} ha</strong>,
-          {{/isCollection}}
-          {{^isCollection}}
-          This protected area is <strong>{{SIZE}} ha</strong>,
-          {{/isCollection}}
+          area{{#hasMultipleProtectionSketches}}s{{/hasMultipleProtectionSketches}} is <strong>{{SIZE}} ha</strong>,
           {{#SIZE_OK}}
           meeting the guideline of {{MIN_SIZE}} ha.
           {{/SIZE_OK}}
@@ -33,7 +27,7 @@
           <strong>{{TYPE_TWO_MPAS}} Type 2 Protection Area{{#TYPE_TWO_MPAS_PLURAL}}s{{/TYPE_TWO_MPAS_PLURAL}}</strong>.
           {{/hasProtection}}
           {{#hasAquaculture}}        
-          The selected network {{#hasProtection}}also{{/hasProtection}} contains <strong>{{numAquacultureSketches}} Aquaculture Zones.</strong>
+          The selected network {{#hasProtection}}also{{/hasProtection}} contains <strong>{{numAquacultureSketches}} Aquaculture Zone{{#hasMultipleAquacultureSketches}}s{{/hasMultipleAquacultureSketches}}.</strong>
           {{/hasAquaculture}}
         </p>
         <p class="large">
