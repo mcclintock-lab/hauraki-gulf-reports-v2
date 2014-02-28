@@ -127,6 +127,7 @@ class OverviewTab extends ReportTab
       hasWarnings: hasWarnings
 
     @$el.html @template.render(context, partials)
+    @enableLayerTogglers()
     @drawViz(hc_existing, hc_proposed, hc_combined, hc_total, hc_existing_t2, hc_proposed_t2, hc_combined_t2, hc_total_t2, HAB_PERC_MR_EXISTING, HAB_PERC_MR_NEW, HAB_PERC_T2_EXISTING, HAB_PERC_T2_NEW)
 
 

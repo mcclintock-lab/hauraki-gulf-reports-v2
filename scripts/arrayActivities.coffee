@@ -46,8 +46,8 @@ class ArrayActivitiesTab extends ReportTab
         hasAquacultureRecreationalUseConflicts = aquacultureRecreationalUses?.length > 0
       catch error
         hasAquacultureRecreationalUseConflicts = false
-      protectionHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
-      hasProtectionHeritageUses = protectionHeritageUses?.length > 0
+      aquacultureHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
+      hasAquacultureHeritageUses = aquacultureHeritageUses?.length > 0
 
     if hasProtectionClasses
 
@@ -67,8 +67,9 @@ class ArrayActivitiesTab extends ReportTab
       catch error
         hasProtectionRecreationalUseConflicts = false
 
-      aquacultureHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
-      hasAquacultureHeritageUses = protectionHeritageUses?.length > 0
+      protectionHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
+      hasProtectionHeritageUses = protectionHeritageUses?.length > 0
+
       
 
     context =

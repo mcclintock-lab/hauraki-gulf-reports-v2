@@ -184,10 +184,8 @@ class ArrayOverviewTab extends ReportTab
       warnings:warnings
       hasWarnings: hasWarnings
 
-
-    # @template is /templates/overview.mustache
     @$el.html @template.render(context, partials)
-    # If the measure is too high, the visualization just looks stupid
+    @enableLayerTogglers()
     @drawViz(hc_existing, hc_proposed, hc_combined, hc_total, hc_existing_t2, hc_proposed_t2, hc_combined_t2, hc_total_t2, HAB_PERC_MR_EXISTING, HAB_PERC_MR_NEW, HAB_PERC_T2_EXISTING, HAB_PERC_T2_NEW)
 
   drawViz: (existing, proposed, combined, total, t2existing, t2proposed, t2combined, t2total, perc_mr_existing, perc_mr_new, perc_t2_existing, perc_t2_new) ->

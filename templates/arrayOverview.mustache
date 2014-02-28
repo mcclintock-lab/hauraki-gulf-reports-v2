@@ -5,14 +5,10 @@
   sketches of this type.
 </div>
 {{/sketchClass.deleted}}
-
-
-
 {{#hasProtection}}
   <div class="reportSection size">
     <h4>Size</h4>
         <p class="large {{#SIZE_OK}}green-check{{/SIZE_OK}}">
-          
           The average size of the <strong>{{NUM_PROTECTED}}</strong> protected 
           area{{#hasMultipleProtectionSketches}}s{{/hasMultipleProtectionSketches}} is <strong>{{SIZE}} ha</strong>,
           {{#SIZE_OK}}
@@ -36,8 +32,8 @@
   </div>
   {{#hasWarnings}}
     <div class="reportSection size">
-      <h4>Warning</h4>
-        <p class="large yellow-warn" style="padding-left:50px;">
+      <h4>Warning <a href="#" data-toggle-node="52d5afebc03e516417000321" data-visible="false">show layer</a></h4>
+        <p class="large yellow-warn" style="padding-left:50px;padding-right:20px;">
           {{#hasMultipleProtectionSketches}}One or more sketches are {{/hasMultipleProtectionSketches}}{{^hasMultipleProtectionSketches}}A sketch is {{/hasMultipleProtectionSketches}}
           placed over {{warnings}}. These areas are unlikely to be consistent with a marine protected area.
         </p>
