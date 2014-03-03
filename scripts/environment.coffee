@@ -43,12 +43,16 @@ class EnvironmentTab extends ReportTab
     hasTypeTwoData = habitatsInTypeTwos?.length > 0
     if hasTypeTwoData
       habitatsInTypeTwoCount = habitatsInTypeTwos?.length
+      habitatsInTypeTwos = _.sortBy habitatsInTypeTwos, (row) -> parseFloat(row.NEW_PERC)
+      habitatsInTypeTwos.reverse()
     else
       habitatsInTypeTwoCount = 0
 
     hasReserveData = habitatsInReserves?.length > 0
     if hasReserveData
       habitatsInReservesCount = habitatsInReserves?.length
+      habitatsInReserves = _.sortBy habitatsInReserves, (row) -> parseFloat(row.NEW_PERC)
+      habitatsInReserves.reverse()
     else
       habitatsInReservesCount = 0
 
