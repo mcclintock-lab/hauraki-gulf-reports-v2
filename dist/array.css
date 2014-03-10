@@ -522,6 +522,18 @@
   left: -1px;
   color: #4d4d4d;
 }
+#attribute-table {
+  border: 0px;
+}
+#attribute-table .tbody {
+  border: 0px;
+}
+#attribute-table .tr {
+  border: 0px;
+}
+#attribute-table .td {
+  border: 0px;
+}
 .protection-nutrient-recycling {
   display: none;
 }
@@ -536,6 +548,9 @@
 }
 .aquaculture-biogenic-habitat {
   display: none;
+}
+.sketch-attribute-table {
+  border-collapse: collapse;
 }
 .yellow-warn {
   padding-left: 50px;

@@ -14,7 +14,9 @@ class EnvironmentTab extends ReportTab
 
     sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
-    near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
+    #commented out for now
+    #near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
+    near_terrestrial_protected = false
     sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
     sensitiveAreas.reverse()
     

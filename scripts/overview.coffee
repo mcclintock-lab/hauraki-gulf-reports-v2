@@ -93,6 +93,9 @@ class OverviewTab extends ReportTab
     else
       d3IsPresent = false
 
+    attributes = @model.getAttributes()
+    console.log("attributes: ", attributes)
+    
     context =
       sketch: @model.forTemplate()
       sketchClass: @sketchClass.forTemplate()

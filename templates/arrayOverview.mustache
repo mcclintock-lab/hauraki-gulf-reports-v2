@@ -5,18 +5,25 @@
   sketches of this type.
 </div>
 {{/sketchClass.deleted}}
+{{#anyAttributes}}
+  <div class="reportSection">
+    <h4>{{sketchClass.name}} Attributes</h4>
+    <table class="attributes">
+    <tbody>
+      <tr>
+        <td class="name">Zone Type</td>
+        <td class="value">{{sketchClass.name}}</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+{{/anyAttributes}}
 {{#hasProtection}}
   <div class="reportSection size">
     <h4>Size</h4>
-        <p class="large {{#SIZE_OK}}green-check{{/SIZE_OK}}">
+        <p class="large" style="margin-left:10px;">
           The average size of the <strong>{{NUM_PROTECTED}}</strong> protected 
-          area{{#hasMultipleProtectionSketches}}s{{/hasMultipleProtectionSketches}} is <strong>{{SIZE}} ha</strong>,
-          {{#SIZE_OK}}
-          meeting the guideline of {{MIN_SIZE}} ha.
-          {{/SIZE_OK}}
-          {{^SIZE_OK}}
-          which does not meet the guideline of {{MIN_SIZE}} ha.
-          {{/SIZE_OK}}
+          area{{#hasMultipleProtectionSketches}}s{{/hasMultipleProtectionSketches}} is <strong>{{SIZE}} ha</strong>.
           {{#hasProtection}}
           The selected network contains <strong>{{MARINE_RESERVES}} Marine
           Reserve{{#MARINE_RESERVES_PLURAL}}s{{/MARINE_RESERVES_PLURAL}}</strong> and 
@@ -26,10 +33,11 @@
           The selected network {{#hasProtection}}also{{/hasProtection}} contains <strong>{{numAquacultureSketches}} Aquaculture Zone{{#hasMultipleAquacultureSketches}}s{{/hasMultipleAquacultureSketches}}.</strong>
           {{/hasAquaculture}}
         </p>
-        <p class="large">
+        <p style="margin-left:10px;">
           Read more information on <a href="http://www.doc.govt.nz/publications/conservation/marine-and-coastal/marine-protected-areas/marine-protected-areas-classification-protection-standard-and-implementation-guidelines" target="_blank"> the Marine Protected Area Policy and Implementation Guidelines.</a> In general, for the same amount of area to be protected, it is desirable to protect fewer, larger areas rather than numerous smaller ones.
         </p>
   </div>
+
   {{#hasWarnings}}
     <div class="reportSection size">
       <h4>Warning <a href="#" data-toggle-node="52d5afebc03e516417000321" data-visible="false">show layer</a></h4>
@@ -54,10 +62,10 @@
       <div class="viz" style="position:relative;"></div>
       <div class="large-header">Habitats Protected in <strong>Type-2 Protected Areas</strong>:</div>
       <div class="viz" style="position:relative;margin-bottom:40px;"></div>
-      <div class="large-in-report">
+      <p style="margin-left:10px;">
         Of the <strong>62</strong> habitats present in the project area, <strong>{{HAB_COUNT_COMBINED}}</strong> of the habitats are afforded
         protection in a marine reserve and <strong>{{HAB_COUNT_COMBINED_T2}}</strong> are protected in a Type II Marine Protected Area.
-      </div>
+      </p>
     </div>
   {{/d3IsPresent}}
   {{^d3IsPresent}}
@@ -89,7 +97,7 @@
       <tfoot>
         <tr>
           <td colspan="5" class="paragraph" style="text-align:left;">
-            <p class="large">
+            <p style="margin-left:10px;">
               Of the <strong>62</strong> habitats present in the project area, <strong>{{HAB_COUNT_COMBINED}}</strong> of the habitats are afforded
               protection in a marine reserve and <strong>{{HAB_COUNT_COMBINED_T2}}</strong> are protected in a Type II Marine Protected Area.
             </p>
@@ -106,9 +114,9 @@
       <div class="viz" style="position:relative;"></div>
       <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Type-2 Protected Areas</strong>:</div>
       <div class="viz" style="position:relative;margin-bottom:40px;"></div>
-      <div class="large-in-report">This table shows how ‘comprehensive’ the proposed protections are. 
+      <p style="margin-left:10px;">This table shows how ‘comprehensive’ the proposed protections are. 
         Proposed and existing plans protect the percentages shown. NOTE: bars go to 30% to improve readability at low values.
-      </div>
+      </p>
     {{/d3IsPresent}}
     {{^d3IsPresent}}
     <table data-paging="10"> <!-- data-paging... activates paging  -->
@@ -137,7 +145,7 @@
       <tfoot>
         <tr>
           <td colspan="4" class="paragraph" style="text-align:left;">
-            <p class="large-in-report">This table shows how ‘comprehensive’ the proposed protections are. 
+            <p style="margin-left:10px;">This table shows how ‘comprehensive’ the proposed protections are. 
               Proposed and existing plans protect the percentages shown. NOTE: bars go to 30% to improve readability at low values.
             </p>
           </td>
@@ -218,10 +226,3 @@
   </div>
   {{/hasProximity}}
 {{/hasAquaculture}}
-{{#anyAttributes}}
-<div class="reportSection">
-  <h4>{{sketchClass.name}} Attributes</h4>
-  {{>attributes/attributesTable}}
-  </table>
-</div>
-{{/anyAttributes}}

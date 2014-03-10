@@ -2,10 +2,7 @@
 <div>
   <p>
     <strong>Representation of Habitats in Marine Protection:</strong>
-    The collection of marine protected areas will protect the full range of 
-    natural marine habitats and ecosystems. These reports show the proportion 
-    of the gulf protected for each habitat type in Marine Reserves and Type-2 
-    Protected Areas, for both existing protected areas and sketches.
+    The MPA network will protect examples of the full range of natural marine habitats and ecosystems (<a href="" target="_blank">MPA Policy 2005</a>).
 </p>
 </div>
 
@@ -136,29 +133,17 @@
     <thead>
       <tr>
         <th>Top 10 Species Present</th>
-        <th>Threat Status</th>
         <th>Number of Recorded Sightings</th>
-
       </tr>
     </thead>
     <tbody>
       {{#protectedMammals}}
       <tr>
         <td>{{Name}}</td>
-        <td>--</td>
         <td>{{Count}}</td>
       </tr>
       {{/protectedMammals}}
     </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="3" style="text-align:left;">
-          <p class="large">
-            The Threat Status refers to the New Zealand Threat Classification System. <a href="http://www.doc.govt.nz/publications/conservation/nz-threat-classification-system/" target="_blank">Read more about the classification system here.</a>
-          </p>
-        </td>
-      </tr>
-    </tfoot>
   </table>
 </div>
 {{/hasProtectedMammals}}
@@ -171,9 +156,6 @@
     <thead>
       <tr>
         <th>Name</th>
-
-        <th>Status</th>
-
         <th>Number of Breeding Sites</th>
       </tr>
     </thead>
@@ -181,7 +163,6 @@
       {{#seabirdBreedingSites}}
       <tr>
         <td>{{Name}}</td>
-        <td>--</td>
         <td>{{Count}}</td>
       </tr>
       {{/seabirdBreedingSites}}
@@ -199,8 +180,6 @@
     <thead>
       <tr>
         <th>Name</th>
-
-        <th>Status</th>
         <th>Number of Shorebird Sites</th>
 
       </tr>
@@ -209,7 +188,6 @@
       {{#shorebirdSites}}
       <tr>
         <td>{{Name}}</td>
-        <td>--</td>
         <td>{{Count}}</td>
       </tr>
       {{/shorebirdSites}}
@@ -218,7 +196,6 @@
 </div>
 {{/hasShorebirdSites}}
 
-{{^isCollection}}
 {{#adjacentProtectedAreas}}
 <div class="reportSection">
   <h4>Adjacent Terrestrial Protected Area</h4>
@@ -227,12 +204,13 @@
   </p>
 </div>
 {{/adjacentProtectedAreas}}
-{{/isCollection}}
 
 <div class="reportSection" class="tableContainer">
   <h4>Ecosystem Services</h4>
     <p>
-      Percent overlap of the proposed protection areas for three types of ecosystem services.
+      Percent overlap of the proposed protection areas for three types of Regulating and Supporting Ecosystem Services. Note: Provisioning Services are included in the Fisheries reports. 
+      <a href="http://www.aucklandcouncil.govt.nz/SiteCollectionDocuments/aboutcouncil/planspoliciespublications/technicalpublications/tr2010033ecosystemfunctioninggoodsandservicesinthecoastalenvironment.pdf" 
+      target="_blank">Read more information on Ecosystem Services</a>
     </p>
     <p>
       <select class="chosen">

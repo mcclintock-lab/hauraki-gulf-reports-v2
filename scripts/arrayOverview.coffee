@@ -135,6 +135,7 @@ class ArrayOverviewTab extends ReportTab
       catch error
 
     hasAquacultureOnly = hasAquaculture && !hasProtection
+    
     if window.d3
       d3IsPresent = true
     else
@@ -145,7 +146,7 @@ class ArrayOverviewTab extends ReportTab
       sketch: @model.forTemplate()
       sketchClass: @sketchClass.forTemplate()
       attributes: @model.getAttributes()
-      anyAttributes: @model.getAttributes().length > 0
+      anyAttributes: true
       admin: @project.isAdmin window.user
       
       hasProtection: hasProtection
