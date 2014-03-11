@@ -27,8 +27,7 @@ class EnvironmentTab extends ReportTab
     representationData = _.filter habitats, (row) ->
       row.MPA_TYPE is 'ALL_TYPES' 
 
-    representationData = _.sortBy representationData, (row) -> parseFloat(row.CB_PERC)
-    representationData.reverse()
+    representationData = _.sortBy representationData, (row) -> row.HAB_TYPE
 
     protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
     protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
@@ -45,16 +44,14 @@ class EnvironmentTab extends ReportTab
     hasTypeTwoData = habitatsInTypeTwos?.length > 0
     if hasTypeTwoData
       habitatsInTypeTwoCount = habitatsInTypeTwos?.length
-      habitatsInTypeTwos = _.sortBy habitatsInTypeTwos, (row) -> parseFloat(row.NEW_PERC)
-      habitatsInTypeTwos.reverse()
+      habitatsInTypeTwos = _.sortBy habitatsInTypeTwos, (row) -> row.HAB_TYPE
     else
       habitatsInTypeTwoCount = 0
 
     hasReserveData = habitatsInReserves?.length > 0
     if hasReserveData
       habitatsInReservesCount = habitatsInReserves?.length
-      habitatsInReserves = _.sortBy habitatsInReserves, (row) -> parseFloat(row.NEW_PERC)
-      habitatsInReserves.reverse()
+      habitatsInReserves = _.sortBy habitatsInReserves, (row) -> row.HAB_TYPE
     else
       habitatsInReservesCount = 0
 

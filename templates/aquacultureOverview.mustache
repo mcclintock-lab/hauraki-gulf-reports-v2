@@ -5,8 +5,13 @@
   sketches of this type.
 </div>
 {{/sketchClass.deleted}}
-
-
+{{#anyAttributes}}
+<div class="reportSection">
+  <h4>{{sketchClass.name}}</h4>
+  {{>attributes/attributesTable}}
+  </table>
+</div>
+{{/anyAttributes}}
 <div class="reportSection tableContainer">
   <h4>Aquaculture</h4>
   <table>
@@ -76,10 +81,3 @@
   </p>
 </div>
 {{/hasProximity}}
-{{#anyAttributes}}
-<div class="reportSection">
-  <h4>{{sketchClass.name}} Attributes</h4>
-  {{>attributes/attributesTable}}
-  </table>
-</div>
-{{/anyAttributes}}

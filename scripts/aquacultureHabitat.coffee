@@ -14,9 +14,10 @@ class AquacultureHabitatTab extends ReportTab
   template: templates.aquacultureHabitat
   dependencies: [
     'ProximityToExistingProtectedAreas',
-    'EcosystemServices', 'SensitiveAreas', 
+    'EcosystemServices', 
     'ProtectedAndThreatenedSpecies'
   ]
+
 
   render: () ->
     # The @recordSet method contains some useful means to get data out of 
@@ -28,10 +29,7 @@ class AquacultureHabitatTab extends ReportTab
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
     ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
 
-    sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
-    sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
-    sensitiveAreas.reverse()
 
     protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
     protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
@@ -57,7 +55,8 @@ class AquacultureHabitatTab extends ReportTab
 
       #subtidal_ff  = _.filter children, (child) -> 
       #  child.getAttribute('AQUA_TYPE') is 'subtidal_filter_feeder'
-
+    #for now, hide these
+    hasSensitiveAreas = false
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -66,17 +65,13 @@ class AquacultureHabitatTab extends ReportTab
       anyAttributes: @model.getAttributes().length > 0
       admin: @project.isAdmin window.user
 
-
+      hasSensitiveAreas: hasSensitiveAreas
       proximityToProtectedAreas: proximityToProtectedAreas
       isCloseToProtectedAreas: proximityToProtectedAreas?.length > 0
 
       aquacultureNutrientRecycling: nutrient_recycling
       aquacultureBiogenicHabitat: biogenic_habitat
       aquacultureEcosystemProductivity: ecosystem_productivity
-
-      sensitiveAreas: sensitiveAreas 
-      hasSensitiveAreas: sensitiveAreas?.length > 0
-
 
       protectedMammals:protectedMammals
       hasProtectedMammals:protectedMammals?.length > 0

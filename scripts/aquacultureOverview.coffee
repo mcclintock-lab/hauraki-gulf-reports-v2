@@ -2,6 +2,8 @@ ReportTab = require 'reportTab'
 templates = require '../templates/templates.js'
 _partials = require '../node_modules/seasketch-reporting-api/templates/templates.js'
 partials = []
+for key, val of _partials
+  partials[key.replace('node_modules/seasketch-reporting-api/', '')] = val
 
 
 MIN_SIZE = 10000
@@ -47,12 +49,15 @@ class AquacultureOverviewTab extends ReportTab
       #subtidal_ff  = _.filter children, (child) -> 
       #  child.getAttribute('AQUA_TYPE') is 'subtidal_filter_feeder'
 
+    attributes = @model.getAttributes()
+    anyAttributes = attributes?.length > 0
+
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
       sketchClass: @sketchClass.forTemplate()
-      attributes: @model.getAttributes()
-      anyAttributes: @model.getAttributes().length > 0
+      attributes: attributes
+      anyAttributes: anyAttributes
       admin: @project.isAdmin window.user
       aquacultureSizes: aquacultureSizes
       totalSize: totalSize

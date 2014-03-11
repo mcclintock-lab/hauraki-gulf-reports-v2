@@ -27,8 +27,8 @@ class ArrayEnvironmentTab extends ReportTab
         hasReserveData = habitatsInReserves?.length > 0
         habitatsInReservesCount = habitatsInReserves?.length
         if hasReserveData
-          habitatsInReserves = _.sortBy habitatsInReserves, (row) -> parseFloat(row.NEW_PERC)
-          habitatsInReserves.reverse()
+          habitatsInReserves = _.sortBy habitatsInReserves, (row) -> row.HAB_TYPE
+
 
         habitatsInTypeTwos = _.filter habitats, (row) -> row.MPA_TYPE is 'MPA2' 
         habitatsInTypeTwoCount = habitatsInTypeTwos?.length
@@ -36,14 +36,13 @@ class ArrayEnvironmentTab extends ReportTab
         representationData = _.filter habitats, (row) -> row.MPA_TYPE is 'ALL_TYPES' 
         hasRepresentationData = representationData?.length > 0
         representedCount = representationData?.length
-        representationData = _.sortBy representationData, (row) -> parseFloat(row.CB_PERC)
-        representationData.reverse()
+        representationData = _.sortBy representationData, (row) -> row.HAB_TYPE
 
         hasTypeTwoData = habitatsInTypeTwos.length > 0
 
         if hasTypeTwoData
-          habitatsInTypeTwos = _.sortBy habitatsInTypeTwos, (row) -> parseFloat(row.NEW_PERC)
-          habitatsInTypeTwos.reverse()
+          habitatsInTypeTwos = _.sortBy habitatsInTypeTwos, (row) -> row.HAB_TYPE
+
 
       catch error
         hasTypeTwoData = false
