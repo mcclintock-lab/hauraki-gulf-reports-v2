@@ -9,7 +9,7 @@ class ArrayEnvironmentTab extends ReportTab
   className: 'arrayEnvironment'
   timeout: 120000
   template: templates.arrayHabitat
-  dependencies: ['HabitatComprehensiveness', 'NearTerrestrialProtected', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies', 'ProximityToExistingProtectedAreas',]
+  dependencies: ['HabitatComprehensiveness', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies', 'ProximityToExistingProtectedAreas',]
 
 
   render: () ->
