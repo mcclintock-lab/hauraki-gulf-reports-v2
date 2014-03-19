@@ -72,15 +72,29 @@
       <table data-paging="10"> <!-- data-paging... activates paging  -->
         <thead>
           <tr>
-            <th class="single-column">Heritage Use</th>
+            <th>Heritage Use</th>
+            <th>Number of Sites</th>
           </tr>
         </thead>
         <tbody>
-          {{#protectionHeritageUses}}
+          {{#hasProtectionShipwrecks}}
             <tr>
-              <td>{{NAME}}</td>
+              <td>Shipwrecks</td>
+              <td>{{protectionNumShipwrecks}}</td>
             </tr>
-          {{/protectionHeritageUses}}
+          {{/hasProtectionShipwrecks}}
+          {{#hasProtectionHistoricPlaces}}
+            <tr>
+              <td>Historic Places</td>
+              <td>{{protectionNumHistoricPlaces}}</td>
+            </tr>
+          {{/hasProtectionHistoricPlaces}}
+          {{#hasProtectionArcheologicalSites}}
+            <tr>
+              <td>Archeological Sites</td>
+              <td>{{protectionNumArcheologicalSites}}</td>
+            </tr>
+          {{/hasProtectionArcheologicalSites}}
         </tbody>
       </table>
   {{/hasProtectionHeritageUses}}

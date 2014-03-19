@@ -30,9 +30,16 @@ class ActivitiesTab extends ReportTab
     protectionRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
     hasProtectionRecreationalUseConflicts = protectionRecreationalUses?.length > 0
 
-    protectionHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
-    hasProtectionHeritageUses = protectionHeritageUses?.length > 0
+    protectionNumShipwrecks = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_SHIPS')
+    hasProtectionShipwrecks = protectionNumShipwrecks > 0
 
+    protectionNumHistoricPlaces = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_HIST')
+    hasProtectionHistoricPlaces = protectionNumHistoricPlaces > 0
+    
+    protectionNumArcheologicalSites = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_ARCHEO')
+    hasProtectionArcheologicalSites = protectionNumArcheologicalSites > 0
+
+    hasProtectionHeritageUses = hasProtectionShipwrecks or hasProtectionArcheologicalSites or hasProtectionHistoricPlaces
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -45,8 +52,16 @@ class ActivitiesTab extends ReportTab
       hasProtectionOverlapWithMooringsAndAnchorages: hasProtectionOverlapWithMooringsAndAnchorages
       protectionRecreationalUses: protectionRecreationalUses
       hasProtectionRecreationalUseConflicts: hasProtectionRecreationalUseConflicts
-      protectionHeritageUses: protectionHeritageUses
+
       hasProtectionHeritageUses: hasProtectionHeritageUses
+      protectionNumShipwrecks: protectionNumShipwrecks
+      hasProtectionShipwrecks: hasProtectionShipwrecks
+
+      protectionNumHistoricPlaces: protectionNumHistoricPlaces
+      hasProtectionHistoricPlaces: hasProtectionHistoricPlaces
+
+      protectionNumArcheologicalSites: protectionNumArcheologicalSites
+      hasProtectionArcheologicalSites: hasProtectionArcheologicalSites
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()
