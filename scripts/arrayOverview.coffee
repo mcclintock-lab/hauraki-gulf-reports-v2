@@ -74,23 +74,14 @@ class ArrayOverviewTab extends ReportTab
         catch error
           HECTARES = origHectares
 
-        if hasMarineReserves
-          HAB_PERC_MR_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_RES_PRC')
-          HAB_PERC_MR_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_RES_PRC')
-          HAB_PERC_MR_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_RES_PRC')
-        else
-          HAB_PERC_MR_NEW = 0
-          HAB_PERC_MR_COMBINED = 0
-          HAB_PERC_MR_COMBINED = 0
+        HAB_PERC_MR_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_RES_PRC')
+        HAB_PERC_MR_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_RES_PRC')
+        HAB_PERC_MR_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_RES_PRC')
 
-        if hasType2MPAs
-          HAB_PERC_T2_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_HPA_PRC')
-          HAB_PERC_T2_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_HPA_PRC')
-          HAB_PERC_T2_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_HPA_PRC')
-        else
-          HAB_PERC_T2_NEW = 0
-          HAB_PERC_T2_EXISTING = 0
-          HAB_PERC_T2_COMBINED = 0
+        HAB_PERC_T2_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_HPA_PRC')
+        HAB_PERC_T2_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_HPA_PRC')
+        HAB_PERC_T2_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_HPA_PRC')
+
       else
         hc_proposed = 0
         hc_existing = 0
@@ -363,13 +354,13 @@ class ArrayOverviewTab extends ReportTab
 
       perc_t2_ranges = [
         {
-          name: 'Existing <strong>(0%)</strong> / New'
+          name: 'Existing <strong>(0.3%)</strong> / New'
           bg: '#588e3f'
           start: 0
           end: perc_t2_new_end
-          class: 'proposed'
-          value: perc_t2_combined
           label_start: 0
+          class: 'existing'
+          value: perc_t2_new
         }
         {
           name: 'Unprotected'

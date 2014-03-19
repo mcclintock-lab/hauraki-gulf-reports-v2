@@ -305,12 +305,12 @@ class OverviewTab extends ReportTab
 
       perc_t2_ranges = [
         {
-          name: 'Existing <strong>(0%)</strong> / New'
+          name: 'Existing <strong>(0.3%)</strong> / New'
           bg: '#588e3f'
           start: 0
           end: perc_t2_new_end
-          class: 'proposed'
-          value: perc_t2_combined
+          class: 'existing'
+          value: perc_t2_new
           label_start: 0
         }
         {
