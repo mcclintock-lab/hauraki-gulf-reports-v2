@@ -57,27 +57,17 @@ class OverviewTab extends ReportTab
       warnings = ""
 
 
-    if hasMarineReserves
-      hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
-      hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
-      hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
-      hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
-    else
-      hc_proposed = 0
-      hc_existing = 0
-      hc_combined = 0
-      hc_total = 0
+    hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
+    hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
+    hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
+    hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
 
-    if hasType2MPAs
-      hc_proposed_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('SEL_HAB')
-      hc_existing_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('EXST_HAB')
-      hc_combined_t2 =@recordSet('HabitatCount', 'HabitatCountType2').float('CMBD_HAB')
-      hc_total_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('TOT_HAB')
-    else
-      hc_proposed_t2 = 0
-      hc_existing_t2 = 0
-      hc_combined_t2 = 0
-      hc_total_t2 = 0
+
+    hc_existing_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('EXST_HAB')
+    hc_proposed_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('SEL_HAB')    
+    hc_combined_t2 =@recordSet('HabitatCount', 'HabitatCountType2').float('CMBD_HAB')
+    hc_total_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('TOT_HAB')
+
 
     HAB_PERC_MR_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_RES_PRC')
     HAB_PERC_MR_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_RES_PRC')
@@ -146,7 +136,7 @@ class OverviewTab extends ReportTab
         unprotected_mr_label_start = 45
       
 
-      new_t2_habs = t2combined
+      new_t2_habs = t2combined-t2existing
       unprotected_t2_habs = 62-t2combined
       unprotected_t2_habs_start = t2combined
       unprotected_t2_label_start = t2combined
@@ -205,25 +195,33 @@ class OverviewTab extends ReportTab
             label_start: unprotected_mr_label_start
           }
         ]
-      t2ranges = [
-        {
-          name: 'Existing <strong>(0)</strong> / New'
-          bg: '#588e3f'
-          start: t2existing
-          end: t2combined
-          class: 'proposed'
-          value: new_t2_habs
-        }
-        {
-          name: 'Unprotected'
-          bg: '#dddddd'
-          start: unprotected_t2_habs_start
-          end: 62
-          class: 'unprotected'
-          value: unprotected_t2_habs
-          label_start: unprotected_t2_label_start
-        }
-      ]
+        t2ranges = [
+          {
+            name: 'Existing'
+            bg: "#8e5e50"
+            start: 0
+            end: t2existing
+            class: 'existing'
+            value: t2existing
+          }
+          {
+            name: 'New'
+            bg: '#588e3f'
+            start: t2existing
+            end: t2combined
+            class: 'proposed'
+            value: new_t2_habs
+          }
+          {
+            name: 'Unprotected'
+            bg: '#dddddd'
+            start: unprotected_t2_habs_start
+            end: 62
+            class: 'unprotected'
+            value: unprotected_t2_habs
+            label_start: unprotected_t2_label_start
+          }
+        ]
 
       x = d3.scale.linear()
         .domain([0, 62])

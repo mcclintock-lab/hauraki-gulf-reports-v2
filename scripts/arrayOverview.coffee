@@ -57,6 +57,16 @@ class ArrayOverviewTab extends ReportTab
 
       if hasProtection
         numProtectionAreas = marineReserves?.length+type2MPAs?.length
+        hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
+        hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
+        hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
+        hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
+
+
+        hc_existing_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('EXST_HAB')
+        hc_proposed_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('SEL_HAB')    
+        hc_combined_t2 =@recordSet('HabitatCount', 'HabitatCountType2').float('CMBD_HAB')
+        hc_total_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('TOT_HAB')
         origHectares = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
         try
           #parse the number to include commas, fall back to original number if that fails
@@ -65,36 +75,19 @@ class ArrayOverviewTab extends ReportTab
           HECTARES = origHectares
 
         if hasMarineReserves
-          hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
-          hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
-          hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
-          hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
-
           HAB_PERC_MR_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_RES_PRC')
           HAB_PERC_MR_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_RES_PRC')
           HAB_PERC_MR_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_RES_PRC')
         else
-          hc_proposed = 0
-          hc_existing = 0
-          hc_combined = 0
-          hc_total = 0
           HAB_PERC_MR_NEW = 0
           HAB_PERC_MR_COMBINED = 0
           HAB_PERC_MR_COMBINED = 0
 
         if hasType2MPAs
-          hc_proposed_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('SEL_HAB')
-          hc_existing_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('EXST_HAB')
-          hc_combined_t2 =@recordSet('HabitatCount', 'HabitatCountType2').float('CMBD_HAB')
-          hc_total_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('TOT_HAB')
           HAB_PERC_T2_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_HPA_PRC')
           HAB_PERC_T2_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_HPA_PRC')
           HAB_PERC_T2_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_HPA_PRC')
         else
-          hc_proposed_t2 = 0
-          hc_existing_t2 = 0
-          hc_combined_t2 = 0
-          hc_total_t2 = 0
           HAB_PERC_T2_NEW = 0
           HAB_PERC_T2_EXISTING = 0
           HAB_PERC_T2_COMBINED = 0
@@ -260,25 +253,33 @@ class ArrayOverviewTab extends ReportTab
             label_start: unprotected_mr_label_start
           }
         ]
-      t2ranges = [
-        {
-          name: 'Existing <strong>(0)</strong> / New'
-          bg: '#588e3f'
-          start: t2existing
-          end: t2combined
-          class: 'proposed'
-          value: new_t2_habs
-        }
-        {
-          name: 'Unprotected'
-          bg: '#dddddd'
-          start: unprotected_t2_habs_start
-          end: 62
-          class: 'unprotected'
-          value: unprotected_t2_habs
-          label_start: unprotected_t2_label_start
-        }
-      ]
+        t2ranges = [
+          {
+            name: 'Existing'
+            bg: "#8e5e50"
+            start: 0
+            end: t2existing
+            class: 'existing'
+            value: t2existing
+          }
+          {
+            name: 'New'
+            bg: '#588e3f'
+            start: t2existing
+            end: t2combined
+            class: 'proposed'
+            value: new_t2_habs
+          }
+          {
+            name: 'Unprotected'
+            bg: '#dddddd'
+            start: unprotected_t2_habs_start
+            end: 62
+            class: 'unprotected'
+            value: unprotected_t2_habs
+            label_start: unprotected_t2_label_start
+          }
+        ]
 
       x = d3.scale.linear()
         .domain([0, 62])
