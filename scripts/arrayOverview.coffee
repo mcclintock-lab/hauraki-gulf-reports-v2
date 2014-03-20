@@ -116,6 +116,7 @@ class ArrayOverviewTab extends ReportTab
       try
         #need to investigate why this happens sometimes
         aquacultureProximity = @recordSet('ProximityToExistingAquaculture', 'ProximityToExistingAquaculture', AQUACULTURE_ID).toArray()
+        hasProximity = aquacultureProximity?.length > 0
       catch error
 
     hasAquacultureOnly = hasAquaculture && !hasProtection
@@ -168,6 +169,7 @@ class ArrayOverviewTab extends ReportTab
       d3IsPresent: d3IsPresent
       warnings:warnings
       hasWarnings: hasWarnings
+      hasProximity: hasProximity
 
     @$el.html @template.render(context, partials)
     @enableLayerTogglers()

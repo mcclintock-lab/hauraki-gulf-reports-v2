@@ -34,7 +34,6 @@ class AquacultureOverviewTab extends ReportTab
     aquacultureSizes = @recordSet('AquacultureSize', 'AquacultureSize').toArray()
     aquacultureProximity = @recordSet('ProximityToExistingAquaculture', 'ProximityToExistingAquaculture').toArray()
     totalSize = @recordSet('AquacultureSize', 'TotalSize').float('TOTAL_HA')
-
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 
     # collections. I didn't do that here since they are so similar.
