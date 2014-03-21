@@ -272,110 +272,134 @@
     </div>
   </div>
   {{/hasProtectionClasses}}
-
-
 {{#hasAquacultureClasses}}
   <p>
     The following reports show the proportion of the gulf included in <strong>aquaculture zones</strong>, and the potential
     habitats, ecosystems, and uses impacted by the aquaculture areas.
   </p>
-  {{#hasAquacultureSensitiveAreas}}
   <div class="reportSection tableContainer">
-    <h4>Sensitive Habitats in Aquaculture Zones</h4>
-    <table data-paging="10">
+    <h4>Habitats in Aquaculture Areas</h4>
+    <table data-paging="10"> <!-- data-paging... activates paging  -->
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Hectares Protected</th>
-          <th>Percent of Area Protected</th>
+          <th style="width:180px;">Habitats</th>
+          <th>% In Existing Aquaculture Areas</th>
+          <th>% In New Aquaculture Areas</th>
+          <th style="width:50px;">Total</th>
         </tr>
       </thead>
       <tbody>
-        {{#sensitiveAquacultureAreas}}
+        {{#aquacultureHabitats}}
         <tr>
-          <td>{{SA_NAME}}</td>
-          <td>{{SA_TYPE}}</td>
-          <td>{{CLPD_AREA}}</td>
-          <td>{{PERC_AREA}}</td>
+          <td>{{HAB_TYPE}}</td>
+          <td>{{EX_PERC}}</td>
+          <td>{{NEW_PERC}}</td>
+          <td>{{CB_PERC}}</td>
         </tr>
-        {{/sensitiveAquacultureAreas}}
+        {{/aquacultureHabitats}}
       </tbody>
+      <tfoot>
+        <p>
+          <strong>{{habitatsInAquacultureZones}}</strong> of <strong>{{habitatCount}}</strong> habitats
+          are located inside new and existing aquaculture areas.
+        </p>
+      </tfoot>
     </table>
   </div>
+
+
+  {{#hasAquacultureSensitiveAreas}}
+    <div class="reportSection tableContainer">
+      <h4>Sensitive Habitats in Aquaculture Zones</h4>
+      <table data-paging="10">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Hectares Protected</th>
+            <th>Percent of Area Protected</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#aquacultureSensitiveAreas}}
+          <tr>
+            <td>{{SA_NAME}}</td>
+            <td>{{SA_TYPE}}</td>
+            <td>{{CLPD_AREA}}</td>
+            <td>{{PERC_AREA}}</td>
+          </tr>
+          {{/aquacultureSensitiveAreas}}
+        </tbody>
+      </table>
+    </div>
   {{/hasAquacultureSensitiveAreas}}
 
   {{#hasAquacultureProtectedMammals}}
-  <div class="reportSection tableContainer">
-    <h4>Protected Mammals in Aquaculture Zones</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Status</th>
-          <th>Number of Protected Mammal Areas</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#aquacultureProtectedMammals}}
-        <tr>
-          <td>{{Name}}</td>
-          <td>--</td>
-          <td>{{Count}}</td>
-        </tr>
-        {{/aquacultureProtectedMammals}}
-      </tbody>
-    </table>
-  </div>
+    <div class="reportSection tableContainer">
+      <h4>Marine Mammals in Aquaculture Zones</h4>
+      <table data-paging="10">
+        <thead>
+          <tr>
+            <th>Top 10 Species Present</th>
+            <th>Number of Recorded Sightings</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#aquacultureProtectedMammals}}
+          <tr>
+            <td>{{Name}}</td>
+            <td>{{Count}}</td>
+          </tr>
+          {{/aquacultureProtectedMammals}}
+        </tbody>
+      </table>
+    </div>
   {{/hasAquacultureProtectedMammals}}
 
   {{#hasAquacultureSeabirdBreedingSites}}
-  <div class="reportSection tableContainer">
-    <h4>Seabirds in Aquaculture Zones</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Status</th>
-          <th>Number of Breeding Sites</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#aquacultureSeabirdBreedingSites}}
-        <tr>
-          <td>{{Name}}</td>
-          <td>--</td>
-          <td>{{Count}}</td>
-        </tr>
-        {{/aquacultureSeabirdBreedingSites}}
-      </tbody>
-    </table>
-  </div>
+    <div class="reportSection tableContainer">
+
+      <h4>Seabirds in Aquaculture Zones</h4>
+      <table data-paging="10">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Number of Breeding Sites</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#aquacultureSeabirdBreedingSites}}
+          <tr>
+            <td>{{Name}}</td>
+            <td>{{Count}}</td>
+          </tr>
+          {{/aquacultureSeabirdBreedingSites}}
+        </tbody>
+      </table>
+    </div>
   {{/hasAquacultureSeabirdBreedingSites}}
 
 
   {{#hasAquacultureShorebirdSites}}
-  <div class="reportSection tableContainer">
-    <h4>Shorebird Sites in Aquaculture Zones</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Status</th>
-          <th>Number of Shorebird Sites</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#aquacultureShorebirdSites}}
-        <tr>
-          <td>{{Name}}</td>
-          <td>--</td>
-          <td>{{Count}}</td>
-        </tr>
-        {{/aquacultureShorebirdSites}}
-      </tbody>
-    </table>
-  </div>
+    <div class="reportSection tableContainer">
+      <h4>Shorebird Sites in Aquaculture Zones</h4>
+      <table data-paging="10">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Number of Shorebird Sites</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#aquacultureShorebirdSites}}
+          <tr>
+            <td>{{Name}}</td>
+            <td>{{Count}}</td>
+          </tr>
+          {{/aquacultureShorebirdSites}}
+        </tbody>
+      </table>
+    </div>
   {{/hasAquacultureShorebirdSites}}
 
   <div class="reportSection" class="tableContainer">

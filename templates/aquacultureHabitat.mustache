@@ -29,7 +29,6 @@
   </table>
 </div>
 {{/isCloseToProtectedAreas}}
-
 {{^isCloseToProtectedAreas}}
 <div class="reportSection">
   <h4>Proximity to Existing Protected Areas</h4>
@@ -39,6 +38,36 @@
 </div>
 {{/isCloseToProtectedAreas}}
 
+<div class="reportSection tableContainer">
+  <h4>Habitats in Aquaculture Areas</h4>
+  <table data-paging="10"> <!-- data-paging... activates paging  -->
+    <thead>
+      <tr>
+        <th style="width:180px;">Habitats</th>
+        <th>% In Existing Aquaculture Areas</th>
+        <th>% In New Aquaculture Areas</th>
+        <th style="width:50px;">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#aquacultureHabitats}}
+      <tr>
+        <td>{{HAB_TYPE}}</td>
+        <td>{{EX_PERC}}</td>
+        <td>{{NEW_PERC}}</td>
+        <td>{{CB_PERC}}</td>
+      </tr>
+      {{/aquacultureHabitats}}
+
+    </tbody>
+    <tfoot>
+      <p>
+        <strong>{{habitatsInAquacultureZones}}</strong> of <strong>{{habitatsCount}}</strong> habitats
+        are located inside new and existing aquaculture areas.
+      </p>
+    </tfoot>
+  </table>
+</div>
 
 {{#hasSensitiveAreas}}
 <div class="reportSection tableContainer">
@@ -68,21 +97,18 @@
 
 {{#hasProtectedMammals}}
 <div class="reportSection tableContainer">
-  <h4>Protected Mammals</h4>
+  <h4>Marine Mammals</h4>
   <table data-paging="10">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Number of Protected Mammal Areas</th>
-
+        <th>Top 10 Species Present</th>
+        <th>Number of Recorded Sightings</th>
       </tr>
     </thead>
     <tbody>
       {{#protectedMammals}}
       <tr>
         <td>{{Name}}</td>
-        <td>--</td>
         <td>{{Count}}</td>
       </tr>
       {{/protectedMammals}}
@@ -99,9 +125,6 @@
     <thead>
       <tr>
         <th>Name</th>
-
-        <th>Status</th>
-
         <th>Number of Breeding Sites</th>
       </tr>
     </thead>
@@ -109,7 +132,6 @@
       {{#seabirdBreedingSites}}
       <tr>
         <td>{{Name}}</td>
-        <td>--</td>
         <td>{{Count}}</td>
       </tr>
       {{/seabirdBreedingSites}}
@@ -122,11 +144,11 @@
 {{#hasShorebirdSites}}
 <div class="reportSection tableContainer">
   <h4>Shorebird Sites</h4>
+
   <table data-paging="10">
     <thead>
       <tr>
         <th>Name</th>
-        <th>Status</th>
         <th>Number of Shorebird Sites</th>
       </tr>
     </thead>
@@ -134,7 +156,6 @@
       {{#shorebirdSites}}
       <tr>
         <td>{{Name}}</td>
-        <td>--</td>
         <td>{{Count}}</td>
       </tr>
       {{/shorebirdSites}}

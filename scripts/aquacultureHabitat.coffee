@@ -15,7 +15,9 @@ class AquacultureHabitatTab extends ReportTab
   dependencies: [
     'ProximityToExistingProtectedAreas',
     'EcosystemServices', 
-    'ProtectedAndThreatenedSpecies'
+    'ProtectedAndThreatenedSpecies',
+    'HabitatComprehensiveness'
+
   ]
 
 
@@ -43,20 +45,23 @@ class AquacultureHabitatTab extends ReportTab
     shorebirdSites = _.sortBy shorebirdSites, (row) -> parseInt(row.Count)
     shorebirdSites.reverse()
     proximityToProtectedAreas = @recordSet('ProximityToExistingProtectedAreas', 'ProximityToExistingProtectedAreas').toArray()
-    # I use this isCollection flag to customize the display. Another option
-    # would be to have totally different Tab implementations for zones vs 
-    # collections. I didn't do that here since they are so similar.
+
+    try
+      aquacultureHabitats = @recordSet('HabitatComprehensiveness', 'AquacultureHabitatComprehensiveness').toArray()
+      aquacultureHabitats = _.sortBy aquacultureHabitats, (row) -> row.HAB_TYPE
+      habitatsInAquacultureZones = aquacultureHabitats?.length
+      hasAquacultureHabitats = aquacultureHabitats?.length  > 0
+    catch e
+      hasAquacultureHabitats = false
+
     isCollection = @model.isCollection()
     if isCollection
-      # @model is the client-side sketch representation, which has some
-      # useful, if undocumented, methods like getChildren().
       children = @model.getChildren()
 
 
-      #subtidal_ff  = _.filter children, (child) -> 
-      #  child.getAttribute('AQUA_TYPE') is 'subtidal_filter_feeder'
     #for now, hide these
     hasSensitiveAreas = false
+
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -82,9 +87,15 @@ class AquacultureHabitatTab extends ReportTab
       shorebirdSites:shorebirdSites
       hasShorebirdSites:shorebirdSites?.length > 0
       aquacultureEcosystemServices: ecosystemServices
+      aquacultureHabitats: aquacultureHabitats
+      hasAquacultureHabitats: hasAquacultureHabitats
+      habitatsInAquacultureZones: habitatsInAquacultureZones
+      habitatsCount: 62
 
     # @template is /templates/overview.mustache
     @$el.html @template.render(context, partials)
+    @enableTablePaging()
+    @enableLayerTogglers()
     @$('.aquaculture-chosen').chosen({disable_search_threshold: 10, width:'400px'})
     @$('.aquaculture-chosen').change () =>
       _.defer @renderAquacultureEcosystemServices

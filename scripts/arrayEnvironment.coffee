@@ -124,6 +124,14 @@ class ArrayEnvironmentTab extends ReportTab
         isCloseToProtectedAreas = proximityToProtectedAreas?.length > 0
       catch error
         isCloseToProtectedAreas = false
+      try
+        aquacultureHabitats = @recordSet('HabitatComprehensiveness', 'AquacultureHabitatComprehensiveness').toArray()
+        aquacultureHabitats = _.sortBy aquacultureHabitats, (row) -> row.HAB_TYPE
+        habitatsInAquacultureZones = aquacultureHabitats?.length
+        hasAquacultureHabitats = aquacultureHabitats?.length  > 0
+      catch e
+        hasAquacultureHabitats = false
+
     ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
     context =
       isCollection: isCollection
@@ -174,6 +182,10 @@ class ArrayEnvironmentTab extends ReportTab
       hasAquacultureSeabirdBreedingSites:hasAquacultureSeabirdBreedingSites
       aquacultureShorebirdSites:aquacultureShorebirdSites
       hasAquacultureShorebirdSites:hasAquacultureShorebirdSites
+
+      aquacultureHabitats: aquacultureHabitats
+      hasAquacultureHabitats: hasAquacultureHabitats
+      habitatsInAquacultureZones: habitatsInAquacultureZones
 
       #aquaculture only
       proximityToProtectedAreas: proximityToProtectedAreas

@@ -55,6 +55,8 @@ class EnvironmentTab extends ReportTab
     else
       habitatsInReservesCount = 0
 
+
+    
     ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
@@ -102,6 +104,7 @@ class EnvironmentTab extends ReportTab
       ecosystem_productivity: ecosystem_productivity
       nutrient_recycling: nutrient_recycling
       biogenic_habitat: biogenic_habitat
+
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()
