@@ -44,21 +44,22 @@
     <thead>
       <tr>
         <th style="width:180px;">Habitats</th>
-        <th>% In Existing Aquaculture Areas</th>
+        <th>In Existing Aquaculture Area (ha)</th>
         <th>% In New Aquaculture Areas</th>
-        <th style="width:50px;">Total</th>
+        <th>In New Aquaculture Area (ha)</th>
+        <th>% In New Aquaculture Areas</th>
       </tr>
     </thead>
     <tbody>
       {{#aquacultureHabitats}}
       <tr>
         <td>{{HAB_TYPE}}</td>
-        <td>{{EX_PERC}}</td>
+        <td>{{EX_SIZE}}</td>
+        <td>{{EX_PERC}}</td>        
+        <td>{{NEW_SIZE}}</td>
         <td>{{NEW_PERC}}</td>
-        <td>{{CB_PERC}}</td>
       </tr>
       {{/aquacultureHabitats}}
-
     </tbody>
     <tfoot>
       <p>

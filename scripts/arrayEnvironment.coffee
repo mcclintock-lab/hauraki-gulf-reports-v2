@@ -92,7 +92,8 @@ class ArrayEnvironmentTab extends ReportTab
         aquacultureSensitiveAreas.reverse()
       catch e
         hasAquacultureSensitiveAreas = false
-
+      #hide them for now
+      hasAquacultureSensitiveAreas = false
       try
         aquacultureProtectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals',AQUACULTURE_ID).toArray()
         hasAquacultureProtectedMammals = aquacultureProtectedMammals?.length > 0
@@ -133,6 +134,7 @@ class ArrayEnvironmentTab extends ReportTab
         hasAquacultureHabitats = false
 
     ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
+
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
