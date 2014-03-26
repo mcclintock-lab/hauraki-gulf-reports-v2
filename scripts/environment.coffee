@@ -1,12 +1,20 @@
 ReportTab = require 'reportTab'
 templates = require '../templates/templates.js'
 
+_partials = require '../node_modules/seasketch-reporting-api/templates/templates.js'
+partials = []
+for key, val of _partials
+  partials[key.replace('node_modules/seasketch-reporting-api/', '')] = val
+
+
 class EnvironmentTab extends ReportTab
   name: 'Environment'
   className: 'environment'
   timeout: 120000
   template: templates.habitat
   dependencies: ['HabitatComprehensiveness', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies']
+  UP: "up"
+  DOWN: "down"
 
   render: () ->
     isCollection = @model.isCollection()
@@ -61,6 +69,10 @@ class EnvironmentTab extends ReportTab
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
     ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
+    if window.d3
+      d3IsPresent = true
+    else
+      d3IsPresent = false
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -104,14 +116,18 @@ class EnvironmentTab extends ReportTab
       ecosystem_productivity: ecosystem_productivity
       nutrient_recycling: nutrient_recycling
       biogenic_habitat: biogenic_habitat
-
+      d3IsPresent: d3IsPresent
 
     @$el.html @template.render(context, templates)
-    @enableTablePaging()
     @enableLayerTogglers()
+
     @$('.chosen').chosen({disable_search_threshold: 10, width:'400px'})
     @$('.chosen').change () =>
       _.defer @renderEcosystemServices
+    #make sure this comes before paging, otherwise pages won't be there  
+    @setupReserveHabitatSorting(habitatsInReserves)
+    @enableTablePaging()
+   
 
   renderEcosystemServices: () =>
     name = @$('.chosen').val()
@@ -127,6 +143,103 @@ class EnvironmentTab extends ReportTab
       @$('.protection-ecosystem-productivity').hide()
       @$('.protection-nutrient-recycling').hide()
       @$('.protection-biogenic-habitat').show()
+
+  renderSortHabitats: (name, tableName, pdata, event, sortBy) =>
+    if event
+      #stops the link events from triggering
+      event.preventDefault()
+
+    targetColumn = @getSelectedColumn(event, name)
+    sortDir = @getSortDir(targetColumn)
+
+    if targetColumn == 'hab_existing'
+      data = _.sortBy pdata, (row) -> return parseFloat(row.EX_PERC)
+    else if targetColumn == 'hab_new'
+      data = _.sortBy pdata, (row) -> parseFloat(row.NEW_PERC)
+    else if targetColumn == 'hab_type'
+      data = _.sortBy pdata, (row) -> row.HAB_TYPE
+    else if targetColumn == 'hab_total'
+      data = _.sortBy pdata, (row) -> parseFloat(row.CB_PERC)
+
+    #flip sorting if needed
+    if sortDir == @UP
+      data.reverse()
+
+    el = @$('.reserve_values')[0]
+    hab_body = d3.select(el)
+    #remove old rows
+    hab_body.selectAll("tr.reserve_hab_rows")
+      .remove()
+    #add new rows (and data)
+    hab_body.selectAll("tbody.reserve_values")
+      .data(data)
+    .enter().insert("tr", ":first-child")
+    .attr("class", "reserve_hab_rows")
+    .html((d) -> "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_PERC+"</td>"+"<td>"+d.CB_PERC+"</td>")
+
+    @setNewSortDir(targetColumn, sortDir)
+    @setSortingColor(event, '.reserve_hab_table')
+    #fire the event for the active page if pagination is present
+    @firePagination(tableName)
+
+    if event
+      event.stopPropagation()
+
+  setupReserveHabitatSorting: (habitatsInReserves) =>
+    @$('.hab_new').click (event) =>
+      @renderSortHabitats('hab_new', '.reserve_hab_table', habitatsInReserves, event, "NEW_PERC", )
+    @$('.hab_existing').click (event) =>
+      @renderSortHabitats('hab_existing','.reserve_hab_table', habitatsInReserves, event, "EX_PERC")
+    @$('.hab_type').click (event) =>
+      @renderSortHabitats('hab_type', '.reserve_hab_table', habitatsInReserves, event, "HAB_TYPE")
+    @$('.hab_total').click (event) =>
+      @renderSortHabitats('hab_total', '.reserve_hab_table', habitatsInReserves, event, "CB_PERC")
+
+    @renderSortHabitats('hab_type', '.reserve_hab_table', habitatsInReserves, undefined, "HAB_TYPE")
+
+  setSortingColor: (event, tableName) =>
+    sortingClass = "sorting_col"
+    if event
+      parent = $(event.currentTarget).parent()
+      newTargetName = event.currentTarget.className
+      targetStr = tableName+" th.sorting_col a"   
+      oldTargetName = @$(targetStr)[0].className
+      
+      if newTargetName != oldTargetName
+        #remove it from old 
+        headerName = tableName+" th.sorting_col"
+        @$(headerName).removeClass(sortingClass)
+        #and add it to new
+        parent.addClass(sortingClass)
+     
+  getSortDir: (targetColumn) =>
+     return @$('.'+targetColumn).attr('sort_dir')
+
+  getSelectedColumn: (event, name) =>
+    if event
+      #get sort order
+      targetColumn = event.currentTarget.className
+    else
+      #when there is no event, first time table is filled
+      targetColumn = name
+
+    return targetColumn
+
+  setNewSortDir: (targetColumn, sortDir) =>
+    #get the new sort order
+    if sortDir == @UP
+      newSortDir = @DOWN
+    else
+      newSortDir = @UP
+    #and switch it
+    sortDir = @$('.'+targetColumn).attr('sort_dir', newSortDir)
+
+  firePagination: (tableName) =>
+    el = @$(tableName)[0]
+    hab_table = d3.select(el)
+    active_page = hab_table.selectAll(".active a")
+    if active_page[0][0]
+      active_page[0][0].click()
 
 
 module.exports = EnvironmentTab

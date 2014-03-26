@@ -522,6 +522,11 @@
   left: -1px;
   color: #4d4d4d;
 }
+.sorting_col {
+  background-color: #eee;
+  font-style: bold;
+  text-decoration: underline;
+}
 .yellow-warn {
   padding-left: 50px;
   padding-right: 10px;
