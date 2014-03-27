@@ -145,13 +145,12 @@ class EnvironmentTab extends ReportTab
       @$('.protection-biogenic-habitat').show()
 
   renderSortHabitats: (name, tableName, pdata, event, sortBy) =>
+
     if event
       #stops the link events from triggering
       event.preventDefault()
-
     targetColumn = @getSelectedColumn(event, name)
-    sortDir = @getSortDir(targetColumn)
-
+    sortUp = @getSortDir(targetColumn)
     if targetColumn == 'hab_existing'
       data = _.sortBy pdata, (row) -> return parseFloat(row.EX_PERC)
     else if targetColumn == 'hab_new'
@@ -162,7 +161,7 @@ class EnvironmentTab extends ReportTab
       data = _.sortBy pdata, (row) -> parseFloat(row.CB_PERC)
 
     #flip sorting if needed
-    if sortDir == @UP
+    if sortUp
       data.reverse()
 
     el = @$('.reserve_values')[0]
@@ -176,12 +175,11 @@ class EnvironmentTab extends ReportTab
     .enter().insert("tr", ":first-child")
     .attr("class", "reserve_hab_rows")
     .html((d) -> "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_PERC+"</td>"+"<td>"+d.CB_PERC+"</td>")
+    @setNewSortDir(targetColumn, sortUp)
 
-    @setNewSortDir(targetColumn, sortDir)
     @setSortingColor(event, '.reserve_hab_table')
     #fire the event for the active page if pagination is present
     @firePagination(tableName)
-
     if event
       event.stopPropagation()
 
@@ -213,26 +211,32 @@ class EnvironmentTab extends ReportTab
         parent.addClass(sortingClass)
      
   getSortDir: (targetColumn) =>
-     return @$('.'+targetColumn).attr('sort_dir')
+     sortup = @$('.'+targetColumn).hasClass("sort_up")
+     return sortup
 
   getSelectedColumn: (event, name) =>
     if event
       #get sort order
       targetColumn = event.currentTarget.className
+      multiClasses = targetColumn.split(' ')
+      #protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
+      habClassName =_.find multiClasses, (classname) -> 
+        classname.lastIndexOf('hab',0) == 0
+      targetColumn = habClassName
     else
       #when there is no event, first time table is filled
       targetColumn = name
 
     return targetColumn
 
-  setNewSortDir: (targetColumn, sortDir) =>
-    #get the new sort order
-    if sortDir == @UP
-      newSortDir = @DOWN
-    else
-      newSortDir = @UP
+  setNewSortDir: (targetColumn, sortUp) =>
     #and switch it
-    sortDir = @$('.'+targetColumn).attr('sort_dir', newSortDir)
+    if sortUp
+      @$('.'+targetColumn).removeClass('sort_up')
+      @$('.'+targetColumn).addClass('sort_down')
+    else
+      @$('.'+targetColumn).addClass('sort_up')
+      @$('.'+targetColumn).removeClass('sort_down')
 
   firePagination: (tableName) =>
     el = @$(tableName)[0]

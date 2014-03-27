@@ -7,16 +7,16 @@
     target="_blank">MPA Policy 2005</a>).
   </p>
 </div>
-
+{{#d3IsPresent}}
 <div class="reportSection tableContainer" id="test_habs_marine">
   <h4>Habitats Protected in Marine Reserves</h4>
   <table data-paging="10" class="reserve_hab_table"> 
     <thead>
       <tr>
-        <th class="sorting_col" style="width:180px;"><a sort_dir="up" class="hab_type" href="#">Habitats</a></th>
-        <th><a sort_dir="down" class="hab_existing" href="#" >% In Existing Marine Reserves</a></th>
-        <th><a sort_dir="down" class="hab_new" href="#">% In New Marine Reserves</a></th>
-        <th style="width:50px;"><a  sort_dir="down" class="hab_total"  href="#">Total</a></th>
+        <th class="sorting_col" style="width:180px;"><a class="hab_type sort_up" href="#">Habitats</a></th>
+        <th><a  class="hab_existing sort_down" href="#" >% In Existing Marine Reserves</a></th>
+        <th><a class="hab_new sort_down" href="#">% In New Marine Reserves</a></th>
+        <th style="width:50px;"><a class="hab_total sort_down"  href="#">Total</a></th>
       </tr>
     </thead>
     <tbody class="reserve_values"></tbody>
@@ -26,7 +26,7 @@
       </p>
   </table>
 </div>
-
+{{/d3IsPresent}}
 {{^d3IsPresent}}
 <div class="reportSection tableContainer">
   <h4>Habitats Protected in Marine Reserves</h4>
@@ -63,6 +63,8 @@
   </table>
 </div>
 {{/d3IsPresent}}
+
+{{^d3IsPresent}}
 <div class="reportSection tableContainer">
   <h4>Habitats Protected in Type-2 Protected Areas</h4>
   <table data-paging="10">
@@ -97,6 +99,7 @@
     </tfoot>
   </table>
 </div>
+{{/d3IsPresent}}
 {{#hasRepresentationData}}
 <div class="reportSection tableContainer">
   <h4>Habitat Representation</h4>
