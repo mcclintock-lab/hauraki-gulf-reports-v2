@@ -13,10 +13,10 @@
   <table data-paging="10" class="reserve_hab_table"> 
     <thead>
       <tr>
-        <th class="sorting_col" style="width:180px;"><a class="hab_type sort_up" href="#">Habitats</a></th>
-        <th><a  class="hab_existing sort_down" href="#" >% In Existing Marine Reserves</a></th>
-        <th><a class="hab_new sort_down" href="#">% In New Marine Reserves</a></th>
-        <th style="width:50px;"><a class="hab_total sort_down"  href="#">Total</a></th>
+        <th class="sorting_col" style="width:180px;"><a class="hab_reserve_type sort_up" href="#">Habitats</a></th>
+        <th><a  class="hab_reserve_existing sort_down" href="#" >% In Existing Marine Reserves</a></th>
+        <th><a class="hab_reserve_new sort_down" href="#">% In New Marine Reserves</a></th>
+        <th style="width:50px;"><a class="hab_reserve_total sort_down"  href="#">Total</a></th>
       </tr>
     </thead>
     <tbody class="reserve_values"></tbody>
@@ -63,7 +63,29 @@
   </table>
 </div>
 {{/d3IsPresent}}
-
+{{#d3IsPresent}}
+  <div class="reportSection tableContainer">
+    <h4>Habitats Protected in Type-2 Protected Areas</h4>
+    <table data-paging="10" class="type2_hab_table">
+      <thead>
+        <tr>
+          <th class="sorting_col" style="width:180px;"><a class="hab_type2_type sort_up" href="#">Habitats</a></th>
+          <th><a  class="hab_type2_existing sort_down" href="#" >% In New Type-2 Protected Areas</a></th>
+          <th><a class="hab_type2_new sort_down" href="#">% In Existing Type-2 Protected Areas</a></th>
+          <th style="width:50px;"><a class="hab_type2_total sort_down"  href="#">Total</a></th>
+        </tr>
+      </thead>
+      <tbody class="type2_values">
+      </tbody>
+      <tfoot>
+        <p>
+          <strong>{{habitatsInTypeTwoCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
+          are protected in a Type-2 Protected Area.
+        </p>
+      </tfoot>
+    </table>
+  </div>
+{{/d3IsPresent}}
 {{^d3IsPresent}}
 <div class="reportSection tableContainer">
   <h4>Habitats Protected in Type-2 Protected Areas</h4>

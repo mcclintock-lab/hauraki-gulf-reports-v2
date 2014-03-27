@@ -126,6 +126,7 @@ class EnvironmentTab extends ReportTab
       _.defer @renderEcosystemServices
     #make sure this comes before paging, otherwise pages won't be there  
     @setupReserveHabitatSorting(habitatsInReserves)
+    @setupType2HabitatSorting(habitatsInTypeTwos)
     @enableTablePaging()
    
 
@@ -144,56 +145,73 @@ class EnvironmentTab extends ReportTab
       @$('.protection-nutrient-recycling').hide()
       @$('.protection-biogenic-habitat').show()
 
-  renderSortHabitats: (name, tableName, pdata, event, sortBy) =>
+  setupReserveHabitatSorting: (habitatsInReserves) =>
+    tbodyName = '.reserve_values'
+    tableName = '.reserve_hab_table'
+    @$('.hab_reserve_new').click (event) =>
+      @renderSortHabitats('hab_reserve_new', tableName, habitatsInReserves, event, "NEW_PERC", tbodyName)
+    @$('.hab_reserve_existing').click (event) =>
+      @renderSortHabitats('hab_reserve_existing',tableName, habitatsInReserves, event, "EX_PERC", tbodyName)
+    @$('.hab_reserve_type').click (event) =>
+      @renderSortHabitats('hab_reserve_type', tableName, habitatsInReserves, event, "HAB_TYPE", tbodyName)
+    @$('.hab_reserve_total').click (event) =>
+      @renderSortHabitats('hab_reserve_total', tableName, habitatsInReserves, event, "CB_PERC", tbodyName)
+
+    @renderSortHabitats('hab_reserve_type', tableName, habitatsInReserves, undefined, "HAB_TYPE", tbodyName)
+
+  setupType2HabitatSorting: (type2Habitats) =>
+    tbodyName = '.type2_values'
+    tableName = '.type2_hab_table'
+    @$('.hab_type2_new').click (event) =>
+      @renderSortHabitats('hab_type2_new',  tableName, type2Habitats, event, "NEW_PERC", tbodyName)
+    @$('.hab_type2_existing').click (event) =>
+      @renderSortHabitats('hab_type2_existing',tableName, type2Habitats, event, "EX_PERC", tbodyName)
+    @$('.hab_type2_type').click (event) =>
+      @renderSortHabitats('hab_type2_type', tableName, type2Habitats, event, "HAB_TYPE", tbodyName)
+    @$('.hab_type2_total').click (event) =>
+      @renderSortHabitats('hab_type2_total', tableName, type2Habitats, event, "CB_PERC", tbodyName)
+
+    @renderSortHabitats('hab_type2_type', tableName, type2Habitats, undefined, "HAB_TYPE", tbodyName)
+
+  renderSortHabitats: (name, tableName, pdata, event, sortBy, tbodyName) =>
 
     if event
       #stops the link events from triggering
       event.preventDefault()
     targetColumn = @getSelectedColumn(event, name)
     sortUp = @getSortDir(targetColumn)
-    if targetColumn == 'hab_existing'
-      data = _.sortBy pdata, (row) -> return parseFloat(row.EX_PERC)
-    else if targetColumn == 'hab_new'
+
+    if targetColumn.search(/hab(.*)_existing/g) != -1
+      data = _.sortBy pdata, (row) ->  parseFloat(row.EX_PERC)
+    else if targetColumn.search(/hab_(.*)_new/g) != -1
       data = _.sortBy pdata, (row) -> parseFloat(row.NEW_PERC)
-    else if targetColumn == 'hab_type'
+    else if targetColumn.search(/hab_(.*)_type/g) != -1
       data = _.sortBy pdata, (row) -> row.HAB_TYPE
-    else if targetColumn == 'hab_total'
+    else if targetColumn.search(/hab_(.*)_total/g) != -1
       data = _.sortBy pdata, (row) -> parseFloat(row.CB_PERC)
 
     #flip sorting if needed
     if sortUp
       data.reverse()
 
-    el = @$('.reserve_values')[0]
+    el = @$(tbodyName)[0]
     hab_body = d3.select(el)
     #remove old rows
-    hab_body.selectAll("tr.reserve_hab_rows")
+    hab_body.selectAll("tr.hab_rows")
       .remove()
     #add new rows (and data)
-    hab_body.selectAll("tbody.reserve_values")
+    hab_body.selectAll("tbody"+tbodyName)
       .data(data)
     .enter().insert("tr", ":first-child")
-    .attr("class", "reserve_hab_rows")
+    .attr("class", "hab_rows")
     .html((d) -> "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_PERC+"</td>"+"<td>"+d.CB_PERC+"</td>")
     @setNewSortDir(targetColumn, sortUp)
 
-    @setSortingColor(event, '.reserve_hab_table')
+    @setSortingColor(event, tableName)
     #fire the event for the active page if pagination is present
     @firePagination(tableName)
     if event
       event.stopPropagation()
-
-  setupReserveHabitatSorting: (habitatsInReserves) =>
-    @$('.hab_new').click (event) =>
-      @renderSortHabitats('hab_new', '.reserve_hab_table', habitatsInReserves, event, "NEW_PERC", )
-    @$('.hab_existing').click (event) =>
-      @renderSortHabitats('hab_existing','.reserve_hab_table', habitatsInReserves, event, "EX_PERC")
-    @$('.hab_type').click (event) =>
-      @renderSortHabitats('hab_type', '.reserve_hab_table', habitatsInReserves, event, "HAB_TYPE")
-    @$('.hab_total').click (event) =>
-      @renderSortHabitats('hab_total', '.reserve_hab_table', habitatsInReserves, event, "CB_PERC")
-
-    @renderSortHabitats('hab_type', '.reserve_hab_table', habitatsInReserves, undefined, "HAB_TYPE")
 
   setSortingColor: (event, tableName) =>
     sortingClass = "sorting_col"
