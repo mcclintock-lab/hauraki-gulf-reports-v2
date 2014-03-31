@@ -73,6 +73,7 @@ class EnvironmentTab extends ReportTab
       d3IsPresent = true
     else
       d3IsPresent = false
+      
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -127,6 +128,8 @@ class EnvironmentTab extends ReportTab
     #make sure this comes before paging, otherwise pages won't be there  
     @setupReserveHabitatSorting(habitatsInReserves)
     @setupType2HabitatSorting(habitatsInTypeTwos)
+    @setupHabitatRepresentationSorting(representationData)
+    @setupSensitiveHabitatSorting(sensitiveAreas)
     @enableTablePaging()
    
 
@@ -145,50 +148,76 @@ class EnvironmentTab extends ReportTab
       @$('.protection-nutrient-recycling').hide()
       @$('.protection-biogenic-habitat').show()
 
+  setupSensitiveHabitatSorting: (sensitiveAreas) =>
+    tbodyName = '.hab_sensitive_values'
+    tableName = '.hab_sensitive_table'
+    @$('.hab_sensitive_name').click (event) =>
+      @renderSort('hab_sensitive_name', tableName, sensitiveAreas, event, "SA_NAME", tbodyName, false, @getSensitiveAreaString)
+    @$('.hab_sensitive_type').click (event) =>
+      @renderSort('hab_sensitive_type', tableName, sensitiveAreas, event, "SA_TYPE", tbodyName, false, @getSensitiveAreaString)
+    @$('.hab_sensitive_ha').click (event) =>
+      @renderSort('hab_sensitive_ha',tableName, sensitiveAreas, event, "CLPD_AREA", tbodyName, true, @getSensitiveAreaString)
+    @$('.hab_sensitive_perc').click (event) =>
+      @renderSort('hab_sensitive_perc', tableName, sensitiveAreas, event, "PERC_AREA", tbodyName, true, @getSensitiveAreaString)
+
+    @renderSort('hab_sensitive_name', tableName, sensitiveAreas, undefined, "SA_NAME", tbodyName, false, @getSensitiveAreaString)
+
+  setupHabitatRepresentationSorting: (representationData) =>
+    tbodyName = '.hab_rep_values'
+    tableName = '.hab_rep_table'
+    @$('.hab_rep_type').click (event) =>
+      @renderSort('hab_rep_type', tableName, representationData, event, "HAB_TYPE", tbodyName, false, @getHabitatRepString)
+    @$('.hab_rep_perc').click (event) =>
+      @renderSort('hab_rep_perc', tableName, representationData, event, "CB_PERC", tbodyName, true, @getHabitatRepString)
+    @$('.hab_rep_num_reserves').click (event) =>
+      @renderSort('hab_rep_num_reserves',tableName, representationData, event, "REP_COUNT", tbodyName, true, @getHabitatRepString)
+    @$('.hab_rep_num_type2').click (event) =>
+      @renderSort('hab_rep_num_type2', tableName, representationData, event, "NEW_SIZE", tbodyName, true, @getHabitatRepString)
+
+    @renderSort('hab_rep_type', tableName, representationData, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRepString)
+
   setupReserveHabitatSorting: (habitatsInReserves) =>
     tbodyName = '.reserve_values'
     tableName = '.reserve_hab_table'
-    @$('.hab_reserve_new').click (event) =>
-      @renderSortHabitats('hab_reserve_new', tableName, habitatsInReserves, event, "NEW_PERC", tbodyName)
-    @$('.hab_reserve_existing').click (event) =>
-      @renderSortHabitats('hab_reserve_existing',tableName, habitatsInReserves, event, "EX_PERC", tbodyName)
-    @$('.hab_reserve_type').click (event) =>
-      @renderSortHabitats('hab_reserve_type', tableName, habitatsInReserves, event, "HAB_TYPE", tbodyName)
-    @$('.hab_reserve_total').click (event) =>
-      @renderSortHabitats('hab_reserve_total', tableName, habitatsInReserves, event, "CB_PERC", tbodyName)
 
-    @renderSortHabitats('hab_reserve_type', tableName, habitatsInReserves, undefined, "HAB_TYPE", tbodyName)
+    @$('.hab_reserve_new').click (event) =>
+      @renderSort('hab_reserve_new', tableName, habitatsInReserves, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
+    @$('.hab_reserve_existing').click (event) =>
+      @renderSort('hab_reserve_existing',tableName, habitatsInReserves, event, "EX_PERC", tbodyName, true, @getHabitatRowString)
+    @$('.hab_reserve_type').click (event) =>
+      @renderSort('hab_reserve_type', tableName, habitatsInReserves, event, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
+    @$('.hab_reserve_total').click (event) =>
+      @renderSort('hab_reserve_total', tableName, habitatsInReserves, event, "CB_PERC", tbodyName, true, @getHabitatRowString)
+
+    @renderSort('hab_reserve_type', tableName, habitatsInReserves, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
 
   setupType2HabitatSorting: (type2Habitats) =>
     tbodyName = '.type2_values'
     tableName = '.type2_hab_table'
     @$('.hab_type2_new').click (event) =>
-      @renderSortHabitats('hab_type2_new',  tableName, type2Habitats, event, "NEW_PERC", tbodyName)
+      @renderSort('hab_type2_new',  tableName, type2Habitats, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
     @$('.hab_type2_existing').click (event) =>
-      @renderSortHabitats('hab_type2_existing',tableName, type2Habitats, event, "EX_PERC", tbodyName)
+      @renderSort('hab_type2_existing',tableName, type2Habitats, event, "EX_PERC", tbodyName, true, @getHabitatRowString)
     @$('.hab_type2_type').click (event) =>
-      @renderSortHabitats('hab_type2_type', tableName, type2Habitats, event, "HAB_TYPE", tbodyName)
+      @renderSort('hab_type2_type', tableName, type2Habitats, event, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
     @$('.hab_type2_total').click (event) =>
-      @renderSortHabitats('hab_type2_total', tableName, type2Habitats, event, "CB_PERC", tbodyName)
+      @renderSort('hab_type2_total', tableName, type2Habitats, event, "CB_PERC", tbodyName, true, @getHabitatRowString)
 
-    @renderSortHabitats('hab_type2_type', tableName, type2Habitats, undefined, "HAB_TYPE", tbodyName)
+    @renderSort('hab_type2_type', tableName, type2Habitats, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
 
-  renderSortHabitats: (name, tableName, pdata, event, sortBy, tbodyName) =>
 
+  #do the sorting - should be table independent
+  renderSort: (name, tableName, pdata, event, sortBy, tbodyName, isFloat, getRowStringValue) =>
     if event
-      #stops the link events from triggering
       event.preventDefault()
+
     targetColumn = @getSelectedColumn(event, name)
     sortUp = @getSortDir(targetColumn)
 
-    if targetColumn.search(/hab(.*)_existing/g) != -1
-      data = _.sortBy pdata, (row) ->  parseFloat(row.EX_PERC)
-    else if targetColumn.search(/hab_(.*)_new/g) != -1
-      data = _.sortBy pdata, (row) -> parseFloat(row.NEW_PERC)
-    else if targetColumn.search(/hab_(.*)_type/g) != -1
-      data = _.sortBy pdata, (row) -> row.HAB_TYPE
-    else if targetColumn.search(/hab_(.*)_total/g) != -1
-      data = _.sortBy pdata, (row) -> parseFloat(row.CB_PERC)
+    if isFloat
+      data = _.sortBy pdata, (row) ->  parseFloat(row[sortBy])
+    else
+      data = _.sortBy pdata, (row) -> row[sortBy]
 
     #flip sorting if needed
     if sortUp
@@ -204,7 +233,7 @@ class EnvironmentTab extends ReportTab
       .data(data)
     .enter().insert("tr", ":first-child")
     .attr("class", "hab_rows")
-    .html((d) -> "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_PERC+"</td>"+"<td>"+d.CB_PERC+"</td>")
+    .html((d) -> getRowStringValue(d))
     @setNewSortDir(targetColumn, sortUp)
 
     @setSortingColor(event, tableName)
@@ -212,6 +241,17 @@ class EnvironmentTab extends ReportTab
     @firePagination(tableName)
     if event
       event.stopPropagation()
+
+  #table row for habitat representation
+  getSensitiveAreaString: (d) =>
+    return "<td>"+d.SA_NAME+"</td>"+"<td>"+d.SA_TYPE+"</td>"+"<td>"+d.CLPD_AREA+"</td>"+"<td>"+d.PERC_AREA+"</td>"
+  #table row for habitat representation
+  getHabitatRepString: (d) =>
+    return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.CB_PERC+"</td>"+"<td>"+d.REP_COUNT+"</td>"+"<td>"+d.NEW_SIZE+"</td>"
+
+  #table row for habitat representation
+  getHabitatRowString: (d) =>
+    return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_PERC+"</td>"+"<td>"+d.CB_PERC+"</td>"
 
   setSortingColor: (event, tableName) =>
     sortingClass = "sorting_col"
