@@ -40,34 +40,50 @@
 
 <div class="reportSection tableContainer">
   <h4>Habitats in Aquaculture Areas</h4>
-  <table data-paging="10"> <!-- data-paging... activates paging  -->
-    <thead>
-      <tr>
-        <th style="width:180px;">Habitats</th>
-        <th>In Existing Aquaculture Area (ha)</th>
-        <th>% In New Aquaculture Areas</th>
-        <th>In New Aquaculture Area (ha)</th>
-        <th>% In New Aquaculture Areas</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#aquacultureHabitats}}
-      <tr>
-        <td>{{HAB_TYPE}}</td>
-        <td>{{EX_SIZE}}</td>
-        <td>{{EX_PERC}}</td>        
-        <td>{{NEW_SIZE}}</td>
-        <td>{{NEW_PERC}}</td>
-      </tr>
-      {{/aquacultureHabitats}}
-    </tbody>
-    <tfoot>
-      <p>
-        <strong>{{habitatsInAquacultureZones}}</strong> of <strong>{{habitatsCount}}</strong> habitats
-        are located inside new and existing aquaculture areas.
-      </p>
-    </tfoot>
-  </table>
+  {{#d3IsPresent}}
+      <table data-paging="10" class="aquaculture_hab_table"> 
+      <thead>
+        <tr>
+          <th class="sorting_col" style="width:180px;"><a class="hab_aquaculture_type sort_up" href="#">Habitats</a></th>
+          <th><a class="hab_aquaculture_existing sort_down" href="#" >In Existing Aquaculture Area (ha)</a></th>
+          <th><a class="hab_aquaculture_existing_perc sort_down" href="#" >% In Existing Aquaculture Area</a></th>
+          <th><a class="hab_aquaculture_new sort_down" href="#">In New Aquaculture Area (ha)</a></th>
+          <th><a class="hab_aquaculture_new_perc sort_down" href="#">% In New Aquaculture Areas</a></th>
+        </tr>
+      </thead>
+      <tbody class="aquaculture_values"></tbody>
+    </table>
+  {{/d3IsPresent}}
+  {{^d3IsPresent}}
+    <table data-paging="10"> <!-- data-paging... activates paging  -->
+      <thead>
+        <tr>
+          <th style="width:180px;">Habitats</th>
+          <th>In Existing Aquaculture Area (ha)</th>
+          <th>% In Existing Aquaculture Areas</th>
+          <th>In New Aquaculture Area (ha)</th>
+          <th>% In New Aquaculture Areas</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#aquacultureHabitats}}
+        <tr>
+          <td>{{HAB_TYPE}}</td>
+          <td>{{EX_SIZE}}</td>
+          <td>{{EX_PERC}}</td>        
+          <td>{{NEW_SIZE}}</td>
+          <td>{{NEW_PERC}}</td>
+        </tr>
+        {{/aquacultureHabitats}}
+      </tbody>
+      <tfoot>
+        <p>
+          <strong>{{habitatsInAquacultureZones}}</strong> of <strong>{{habitatsCount}}</strong> habitats
+          are located inside new and existing aquaculture areas.
+        </p>
+      </tfoot>
+    </table>
+  {{/d3IsPresent}}
 </div>
 
 {{#hasSensitiveAreas}}

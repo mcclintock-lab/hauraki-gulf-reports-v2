@@ -223,7 +223,7 @@ class ArrayEnvironmentTab extends ReportTab
     @setupHabitatRepresentationSorting(representationData)
     @setupSensitiveHabitatSorting(protectionSensitiveAreas, 'prot')
     @setupSensitiveHabitatSorting(aquacultureSensitiveAreas, 'aq')
-
+    @setupAquacultureHabitatSorting(aquacultureHabitats)
     @enableTablePaging()
 
   renderProtectionEcosystemServices: () =>
@@ -256,6 +256,25 @@ class ArrayEnvironmentTab extends ReportTab
       @$('.aquaculture-nutrient-recycling').hide()
       @$('.aquaculture-biogenic-habitat').show()
 
+  setupAquacultureHabitatSorting: (pdata) =>
+    tbodyName = '.aquaculture_values'
+    tableName = '.aquaculture_hab_table'
+    habitatFunction = @getAquacultureHabitatRowString
+    @$('.hab_aquaculture_type').click (event) =>
+      @renderSort('hab_aquaculture_type', tableName, pdata, event, "HAB_TYPE", tbodyName, false, habitatFunction)
+
+    @$('.hab_aquaculture_existing').click (event) =>
+      @renderSort('hab_aquaculture_existing',  tableName, pdata, event, "EX_SIZE", tbodyName, true, habitatFunction)
+    @$('.hab_aquaculture_existing_perc').click (event) =>
+      @renderSort('hab_aquaculture_existing_perc',  tableName, pdata, event, "EX_PERC", tbodyName, true, habitatFunction)      
+    
+    @$('.hab_aquaculture_new').click (event) =>
+      @renderSort('hab_aquaculture_new',tableName, pdata, event, "NEW_SIZE", tbodyName, true, habitatFunction)
+    @$('.hab_aquaculture_new_perc').click (event) =>
+      @renderSort('hab_aquaculture_new_perc', tableName, pdata, event, "NEW_PERC", tbodyName, true, habitatFunction)
+
+    @renderSort('hab_type2_type', tableName, pdata, undefined, "HAB_TYPE", tbodyName, false, habitatFunction)
+    
   setupSensitiveHabitatSorting: (sensitiveAreas, typeString) =>
     #example, based on typeString, the protection tables will be hab_sensitive_prot_name, aquaculture will be hab_sensitive_aq_name
     tbodyName = '.hab_sensitive_'+typeString+'_values'
@@ -350,6 +369,10 @@ class ArrayEnvironmentTab extends ReportTab
     @firePagination(tableName)
     if event
       event.stopPropagation()
+      
+  #table row for habitat representation
+  getAquacultureHabitatRowString: (d) =>
+    return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_SIZE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_SIZE+"</td>"+"<td>"+d.NEW_PERC+"</td>"
 
   #table row for habitat representation
   getSensitiveAreaString: (d) =>
