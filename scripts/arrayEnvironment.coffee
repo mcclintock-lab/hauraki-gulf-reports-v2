@@ -432,7 +432,7 @@ class ArrayEnvironmentTab extends ReportTab
     el = @$(tableName)[0]
     hab_table = d3.select(el)
     active_page = hab_table.selectAll(".active a")
-    if active_page and active_page[0]
+    if active_page and active_page[0] and active_page[0][0]
       if active_page[0][0]
         active_page[0][0].click()
 
