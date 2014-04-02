@@ -36,13 +36,16 @@
   {{#d3IsPresent}}
     <div class="reportSection tableContainer">
       <h4>Representation of Habitats</h4>
-      <div class="large-header">Habitats Protected in <strong>Marine Reserves</strong>:</div>
-      <div class="viz" style="position:relative;"></div>
-      <div class="large-header">Habitats Protected in <strong>Type-2 Protected Areas</strong>:</div>
-      <div class="viz" style="position:relative;"></div>
+      {{#isMarineReserve}}
+        <div class="large-header">Habitats Protected in <strong>Marine Reserves</strong>:</div>
+        <div class="viz" style="position:relative;"></div>
+      {{/isMarineReserve}}
+      {{#isType2}}
+        <div class="large-header">Habitats Protected in <strong>Type-2 Protected Areas</strong>:</div>
+        <div class="viz" style="position:relative;"></div>
+      {{/isType2}}
       <p style="margin-left:10px;">
-        Of the <strong>62</strong> habitats present in the project area, <strong>{{HAB_COUNT_COMBINED}}</strong> of the habitats are afforded
-        protection in a marine reserve and <strong>{{HAB_COUNT_COMBINED_T2}}</strong> are protected in a Type II Marine Protected Area.
+        There are a total of <strong>62</strong> habitats in the study area. The light green shows the number of habitats currently found within existing {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}}, and the dark green the number of additional habitat types that would be added. The red shows the number of habitats that are not yet represented.
       </p>
     </div>
   {{/d3IsPresent}}
@@ -59,25 +62,28 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Number of Habitats Protected in Marine Reserves</td>
-          <td>{{HAB_COUNT_EXISTING}}</td>
-          <td>{{HAB_COUNT_PROPOSED}}</td>
-          <td>{{HAB_COUNT_COMBINED}}</td>
-        </tr>
-        <tr>
-          <td>Number of Habitats Protected in Type 2 Protected Areas</td>
-          <td>{{HAB_COUNT_EXISTING_T2}}</td>
-          <td>{{HAB_COUNT_PROPOSED_T2}}</td>
-          <td>{{HAB_COUNT_COMBINED_T2}}</td>
-        </tr>
+        {{#isMarineReserve}}
+          <tr>
+            <td>Number of Habitats Protected in Marine Reserves</td>
+            <td>{{HAB_COUNT_EXISTING}}</td>
+            <td>{{HAB_COUNT_PROPOSED}}</td>
+            <td>{{HAB_COUNT_COMBINED}}</td>
+          </tr>
+        {{/isMarineReserve}}
+        {{#isType2}}
+          <tr>
+            <td>Number of Habitats Protected in Type 2 Protected Areas</td>
+            <td>{{HAB_COUNT_EXISTING_T2}}</td>
+            <td>{{HAB_COUNT_PROPOSED_T2}}</td>
+            <td>{{HAB_COUNT_COMBINED_T2}}</td>
+          </tr>
+        {{/isType2}}
       </tbody>
       <tfoot>
         <tr>
           <td colspan="5" class="paragraph" style="text-align:left;">
             <p style="margin-left:10px;">
-              Of the <strong>62</strong> habitats present in the project area, <strong>{{HAB_COUNT_COMBINED}}</strong> of the habitats are afforded
-              protection in a marine reserve and <strong>{{HAB_COUNT_COMBINED_T2}}</strong> are protected in a Type II Marine Protected Area.
+              There are a total of <strong>62</strong> habitats in the study area. The light green shows the number of habitats currently found within existing {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}}, and the dark green the number of additional habitat types that would be added. The red shows the number of habitats that are not yet represented.
             </p>
           </td>
         </tr>
@@ -88,12 +94,16 @@
   <div class="reportSection tableContainer">
     <h4>Percent of Hauraki Gulf Marine Park Protected</h4>
     {{#d3IsPresent}}
-      <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Marine Reserves</strong>:</div>
-      <div class="viz" style="position:relative;"></div>
-      <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Type-2 Protected Areas</strong>:</div>
-      <div class="viz" style="position:relative;"></div>
-      <p style="margin-left:10px;">This table shows how ‘comprehensive’ the proposed protections are. 
-        Proposed and existing plans protect the percentages shown. NOTE: bars go to 30% to improve readability at low values.
+      {{#isMarineReserve}}
+        <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Marine Reserves</strong>:</div>
+        <div class="viz" style="position:relative;"></div>
+      {{/isMarineReserve}}
+      {{#isType2}}
+        <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Type-2 Protected Areas</strong>:</div>
+        <div class="viz" style="position:relative;"></div>
+      {{/isType2}}
+      <p style="margin-left:10px;">
+        The graph shows the percent of the Gulf protected in existing {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}} in light green, and the additional percentage that would be added from your sketch are shown in dark green. Note the scale only goes to 30% to increase readability at low values.
       </p>
     {{/d3IsPresent}}
     {{^d3IsPresent}}
@@ -107,24 +117,28 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>In Marine Reserves</td>
-            <td>{{HAB_PERC_MR_EXISTING}}</td>
-            <td>{{HAB_PERC_MR_NEW}}</td>
-            <td>{{HAB_PERC_MR_COMBINED}}</td>
-          </tr>
-          <tr>
-            <td>In Type 2 Protection Areas</td>
-            <td>{{HAB_PERC_T2_EXISTING}}</td>
-            <td>{{HAB_PERC_T2_NEW}}</td>
-            <td>{{HAB_PERC_T2_COMBINED}}</td>
-          </tr>
+          {{#isMarineReserve}}
+            <tr>
+              <td>In Marine Reserves</td>
+              <td>{{HAB_PERC_MR_EXISTING}}</td>
+              <td>{{HAB_PERC_MR_NEW}}</td>
+              <td>{{HAB_PERC_MR_COMBINED}}</td>
+            </tr>
+          {{/isMarineReserve}}
+          {{#isType2}}
+            <tr>
+              <td>In Type 2 Protection Areas</td>
+              <td>{{HAB_PERC_T2_EXISTING}}</td>
+              <td>{{HAB_PERC_T2_NEW}}</td>
+              <td>{{HAB_PERC_T2_COMBINED}}</td>
+            </tr>
+          {{/isType2}}
         </tbody>
         <tfoot>
           <tr>
             <td colspan="4" style="text-align:left;">
-              <p style="margin-left:10px;">This table shows how ‘comprehensive’ the proposed protections are. 
-                Proposed and existing plans protect the percentages shown. NOTE: bars go to 30% to improve readability at low values.
+              <p style="margin-left:10px;">
+                The graph shows the percent of the Gulf protected in existing {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}} in light green, and the additional percentage that would be added from your sketch are shown in dark green. Note the scale only goes to 30% to increase readability at low values.
               </p>
             </td>
           </tr>
@@ -132,19 +146,4 @@
       </table>
     {{/d3IsPresent}}
 </div>
-
-<!-- 
-I'm leaving these items commented out because they seem hard to implement
-and duplicative. It's also not clear how they would look at the zone-level.
-
-<div class="reportSection representation">
-  <h4>Representation of Habitats</h4>
-  <p>The proposed protection areas and existing reserves protect a sample of the following number of habitats:</p>
-</div>
-
-<div class="reportSection percent">
-  <h4>Percent of Hauraki Gulf Marine Park Protected</h4>
-  <p>The graph belows shows how ‘comprehensive’ the proposed protection is. The proposed plan includes the following protection types:</p>
-</div>
- -->
 

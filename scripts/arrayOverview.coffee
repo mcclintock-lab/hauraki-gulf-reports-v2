@@ -49,11 +49,24 @@ class ArrayOverviewTab extends ReportTab
         else
           hasWarnings = false
           warnings = ""
+        #getting rid of warnings temporarily
+        hasWarnings = false
+        warnings = ""
 
         if marineReserves?.length > 0
           hasMarineReserves = true
+        else
+          hasMarineReserves = false
+
         if type2MPAs?.length > 0
           hasType2MPAs = true
+        else
+          hasType2MPAs = false
+
+        if hasMarineReserves and hasType2MPAs
+          hasBothPMZTypes = true
+        else
+          hasBothPMZTypes = false
 
       if hasProtection
         numProtectionAreas = marineReserves?.length+type2MPAs?.length
@@ -170,12 +183,17 @@ class ArrayOverviewTab extends ReportTab
       warnings:warnings
       hasWarnings: hasWarnings
       hasProximity: hasProximity
+      hasMarineReserves: hasMarineReserves
+      hasType2MPAs: hasType2MPAs
+      hasBothPMZTypes: hasBothPMZTypes
 
     @$el.html @template.render(context, partials)
     @enableLayerTogglers()
-    @drawViz(hc_existing, hc_proposed, hc_combined, hc_total, hc_existing_t2, hc_proposed_t2, hc_combined_t2, hc_total_t2, HAB_PERC_MR_EXISTING, HAB_PERC_MR_NEW, HAB_PERC_T2_EXISTING, HAB_PERC_T2_NEW)
+    @drawViz(hc_existing, hc_proposed, hc_combined, hc_total, hc_existing_t2, hc_proposed_t2, hc_combined_t2, hc_total_t2, HAB_PERC_MR_EXISTING, 
+      HAB_PERC_MR_NEW, HAB_PERC_T2_EXISTING, HAB_PERC_T2_NEW, hasMarineReserves, hasType2MPAs)
 
-  drawViz: (existing, proposed, combined, total, t2existing, t2proposed, t2combined, t2total, perc_mr_existing, perc_mr_new, perc_t2_existing, perc_t2_new) ->
+  drawViz: (existing, proposed, combined, total, t2existing, t2proposed, t2combined, t2total, perc_mr_existing, 
+    perc_mr_new, perc_t2_existing, perc_t2_new, hasMarineReserves, hasType2MPAs) ->
     # Check if d3 is present. If not, we're probably dealing with IE
     if window.d3
       new_mr_habs = combined-existing
@@ -187,16 +205,13 @@ class ArrayOverviewTab extends ReportTab
         unprotected_mr_label_start = 45
       
 
-      new_t2_habs = t2combined
+      new_t2_habs = t2combined-t2existing      
       unprotected_t2_habs = 62-t2combined
       unprotected_t2_habs_start = t2combined
       unprotected_t2_label_start = t2combined
       
       if t2combined > 45 and t2combined <=62
         unprotected_t2_label_start = 45
-
-
-      el = @$('.viz')[0]
 
       #don't draw the 'unprotected' type if they are all protected
       if combined == 62
@@ -210,7 +225,7 @@ class ArrayOverviewTab extends ReportTab
             value: existing
           }
           {
-            name: 'New'
+            name: 'Collection'
             bg: '#588e3f'
             start: existing
             end: combined
@@ -229,7 +244,7 @@ class ArrayOverviewTab extends ReportTab
             value: existing
           }
           {
-            name: 'New'
+            name: 'Collection'
             bg: '#588e3f'
             start: existing
             end: combined
@@ -256,7 +271,7 @@ class ArrayOverviewTab extends ReportTab
             value: t2existing
           }
           {
-            name: 'New'
+            name: 'Collection'
             bg: '#588e3f'
             start: t2existing
             end: t2combined
@@ -274,39 +289,21 @@ class ArrayOverviewTab extends ReportTab
           }
         ]
 
-      x = d3.scale.linear()
-        .domain([0, 62])
-        .range([0, 410])
+      if hasMarineReserves
+        @drawMarineReserveBars(ranges, 0)
       
-      chart = d3.select(el)
-      chart.selectAll("div.range")
-        .data(ranges)
-      .enter().append("div")
-        .style("width", (d) -> x(d.end - d.start) + 'px')
-        .attr("class", (d) -> "range " + d.class)
-        .append("span")
-        .style("left", (d) -> x(d.label_start)+'px')
-          .attr("class", (d) -> "label-"+d.class)
-          .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
-
-      el = @$('.viz')[1]
-      chart = d3.select(el)
-      chart.selectAll("div.range")
-        .data(t2ranges)
-      .enter().append("div")
-        .style("width", (d) -> x(d.end - d.start) + 'px')
-        .attr("class", (d) -> "range " + d.class)
-        .append("span")
-        .style("left", (d) -> x(d.label_start)+'px')
-          .attr("class", (d) -> "label-"+d.class)
-          .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
+      if hasType2MPAs
+        if hasMarineReserves
+          index = 1
+        else 
+          index = 0
+        @drawType2Bars(t2ranges, index)
 
       #The percentage bars
       default_mr_start = perc_mr_existing
       default_t2_start = perc_t2_existing
       perc_mr_combined = perc_mr_existing+perc_mr_new
       perc_t2_combined = perc_t2_existing+perc_t2_new
-      console.log("combined, ", perc_mr_combined)
       if perc_mr_combined >= 22 and perc_mr_combined <= 30
         perc_mr_new_start = default_mr_start
         perc_mr_new_end = perc_mr_combined
@@ -345,7 +342,7 @@ class ArrayOverviewTab extends ReportTab
           class: 'existing'
         }
         {
-          name: 'Existing <strong>(0.3%)</strong> / New '
+          name: 'Existing <strong>(0.3%)</strong> / Collection '
           bg: "#588e3f"
           start: perc_mr_new_start
           end: perc_mr_new_end
@@ -373,7 +370,7 @@ class ArrayOverviewTab extends ReportTab
           class: 'existing'
         }
         {
-          name: 'Existing <strong>(0.3%)</strong> / New '
+          name: 'Existing <strong>(0.3%)</strong> / Collection '
           bg: '#588e3f'
           start: perc_t2_new_start
           end: perc_t2_new_end
@@ -391,70 +388,111 @@ class ArrayOverviewTab extends ReportTab
           value: perc_t2_unprotected
         }
       ]
-      x = d3.scale.linear()
-        .domain([0, 30])
-        .range([0, 400])
+      if hasMarineReserves
+        if hasType2MPAs
+          index = 2
+        else
+          index = 1
+        @drawMarineReservePercentBars(perc_ranges, index)
+      
+      if hasType2MPAs
+        if hasMarineReserves
+          index = 3
+        else
+          index = 1
+        @drawType2PercentBars(perc_t2_ranges, index)
 
-      el = @$('.viz')[2]
-      chart = d3.select(el)
-      chart.selectAll("div.range")
-        .data(perc_ranges)
-      .enter().append("div")
-        .style("width", (d) -> x(d.end - d.start) + 'px')
-        .attr("class", (d) -> "range " + d.class)
-        .append("span")
-          .attr("class", (d) -> "label-"+d.class)
-          .style("left", (d) -> x(d.label_start)+'px')
-          .html((d) -> (
-                          if d.name 
-                            return d.name+"<strong>  ("+d.value+"%)</strong>"
-                          else
-                            return ''
-                       ))
+  drawType2Bars: (t2ranges, index) =>
+    el = @$('.viz')[index]
+    x = d3.scale.linear()
+      .domain([0, 62])
+      .range([0, 400])
+    chart = d3.select(el)
+    chart.selectAll("div.range")
+      .data(t2ranges)
+    .enter().append("div")
+      .style("width", (d) -> x(d.end - d.start) + 'px')
+      .attr("class", (d) -> "range " + d.class)
+      .append("span")
+      .style("left", (d) -> x(d.label_start)+'px')
+        .attr("class", (d) -> "label-"+d.class)
+        .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
+
+  drawMarineReserveBars: (ranges, index) =>
+    el = @$('.viz')[index]
+    x = d3.scale.linear()
+      .domain([0, 62])
+      .range([0, 400])
     
-      chart.selectAll("div.max_marker")
-        .data([30])
-      .enter().append("div")
-        .attr("class", "max_marker")
-        .text((d) -> "")
-        .style("left", (d) -> x(d) + 'px')
+    chart = d3.select(el)
+    chart.selectAll("div.range")
+      .data(ranges)
+    .enter().append("div")
+      .style("width", (d) -> x(d.end - d.start) + 'px')
+      .attr("class", (d) -> "range " + d.class)
+      .append("span")
+      .style("left", (d) -> x(d.label_start)+'px')
+        .attr("class", (d) -> "label-"+d.class)
+        .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
-      chart.selectAll("div.max_label")
-        .data([29])
-      .enter().append("div")
-        .attr("class", "max_label")
-        .text((d) -> "30%")
-        .style("left", (d) -> x(d) + 'px')
+  drawType2PercentBars: (perc_t2_ranges, index) =>
+    el = @$('.viz')[index]
+    x = d3.scale.linear()
+      .domain([0, 30])
+      .range([0, 400])
+    chart = d3.select(el)
+    chart.selectAll("div.range")
+      .data(perc_t2_ranges)
+    .enter().append("div")
+      .style("width", (d) -> x(d.end - d.start) + 'px')
+      .attr("class", (d) -> "range " + d.class)
+      .append("span")
+        .attr("class", (d) -> "label-"+d.class)
+        .style("left", (d) -> x(d.label_start)+'px')
+        .html((d) -> if d.name then (d.name+"<strong>  ("+d.value+"%)</strong>") else '')
 
-      el = @$('.viz')[3]
-      chart = d3.select(el)
-      chart.selectAll("div.range")
-        .data(perc_t2_ranges)
-      .enter().append("div")
-        .style("width", (d) -> x(d.end - d.start) + 'px')
-        .attr("class", (d) -> "range " + d.class)
-        .append("span")
-          .attr("class", (d) -> "label-"+d.class)
-          .style("left", (d) -> x(d.label_start)+'px')
-          .html((d) -> (
-                          if d.name
-                            return d.name+"<strong>  ("+d.value+"%)</strong>"
-                          else
-                            return ''
-                       ))
+    chart.selectAll("div.max_marker")
+      .data([30])
+    .enter().append("div")
+      .attr("class", "max_marker")
+      .text((d) -> "")
+      .style("left", (d) -> x(d) + 'px')
 
-      chart.selectAll("div.max_marker")
-        .data([30])
-      .enter().append("div")
-        .attr("class", "max_marker")
-        .text((d) -> "")
-        .style("left", (d) -> x(d) + 'px')
+    chart.selectAll("div.max_label")
+      .data([29])
+    .enter().append("div")
+      .attr("class", "max_label")
+      .text((d) -> "30%")
+      .style("left", (d) -> x(d) + 'px')
+      
+  drawMarineReservePercentBars: (perc_ranges, index) =>
+    x = d3.scale.linear()
+      .domain([0, 30])
+      .range([0, 400])
+  
+    el = @$('.viz')[index]
+    chart = d3.select(el)
+    chart.selectAll("div.range")
+      .data(perc_ranges)
+    .enter().append("div")
+      .style("width", (d) -> x(d.end - d.start) + 'px')
+      .attr("class", (d) -> "range " + d.class)
+      .append("span")
+        .attr("class", (d) -> "label-"+d.class)
+        .style("left", (d) -> x(d.label_start)+'px')
+        .html((d) -> if d.name then (d.name+"<strong>  ("+d.value+"%)</strong>") else '')
+  
+    chart.selectAll("div.max_marker")
+      .data([30])
+    .enter().append("div")
+      .attr("class", "max_marker")
+      .text((d) -> "")
+      .style("left", (d) -> x(d) + 'px')
 
-      chart.selectAll("div.max_label")
-        .data([29])
-      .enter().append("div")
-        .attr("class", "max_label")
-        .text((d) -> "30%")
-        .style("left", (d) -> x(d) + 'px')
-
+    chart.selectAll("div.max_label")
+      .data([29])
+    .enter().append("div")
+      .attr("class", "max_label")
+      .text((d) -> "30%")
+      .style("left", (d) -> x(d) + 'px')
 module.exports = ArrayOverviewTab
