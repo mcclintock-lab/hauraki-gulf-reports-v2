@@ -68,7 +68,7 @@ class EnvironmentTab extends ReportTab
     ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
-    ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
+    ecosystemServices = ['','Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
     if window.d3
       d3IsPresent = true
     else
@@ -103,7 +103,6 @@ class EnvironmentTab extends ReportTab
       sensitiveAreas: sensitiveAreas 
       hasSensitiveAreas: sensitiveAreas?.length > 0
 
-
       protectedMammals:protectedMammals
       hasProtectedMammals:protectedMammals?.length > 0
 
@@ -135,6 +134,7 @@ class EnvironmentTab extends ReportTab
 
   renderEcosystemServices: () =>
     name = @$('.chosen').val()
+    @$('.default-chosen-selection').hide()
     if name == "Ecosystem Productivity"
       @$('.protection-ecosystem-productivity').show()
       @$('.protection-nutrient-recycling').hide()

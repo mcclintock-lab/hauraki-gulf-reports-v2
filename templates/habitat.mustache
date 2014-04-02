@@ -201,6 +201,82 @@
   {{/d3IsPresent}}
 </div>
 {{/hasSensitiveAreas}}
+<div class="reportSection" class="tableContainer">
+  <h4>Ecosystem Services</h4>
+    <p>
+      Percent overlap of the proposed protection areas for three types of Regulating and Supporting Ecosystem Services. Note: Provisioning Services are included in the Fisheries reports. 
+      <a href="http://www.aucklandcouncil.govt.nz/SiteCollectionDocuments/aboutcouncil/planspoliciespublications/technicalpublications/tr2010033ecosystemfunctioninggoodsandservicesinthecoastalenvironment.pdf" 
+      target="_blank">Read more information on Ecosystem Services</a>
+    </p>
+    <p>
+      <select class="chosen">
+        <option class="default-chosen-selection" label="Select an Ecosystem Service"></option>
+        {{#ecosystemServices}}
+          <option value="{{.}}">{{.}}</option>
+        {{/ecosystemServices}}
+      </select>
+    </p>
+  <div class="protection-nutrient-recycling">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:200px;">Nutrient Recycling Value</th>
+          <th>Area (Ha)</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#nutrientRecycling}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/nutrientRecycling}}
+      </tbody>
+    </table>
+  </div>
+  <div class="protection-biogenic-habitat">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:200px;">Biogenic Habitat Value</th>
+          <th>Area (Ha)</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#biogenicHabitat}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/biogenicHabitat}}
+      </tbody>
+    </table>
+  </div>
+  <div class="protection-ecosystem-productivity">
+  <table>
+    <thead>
+      <tr>
+        <th style="width:200px;">Ecosystem Productivity Value</th>
+        <th>Area (Ha)</th>
+        <th>Percent</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#ecosystemProductivity}}
+      <tr>
+        <td>{{Class}}</td>
+        <td>{{AreaInHa}}</td>
+        <td>{{Percent}}</td>
+      </tr>
+      {{/ecosystemProductivity}}
+    </tbody>
+  </table>
+  </div>
+</div>
 
 {{#hasProtectedMammals}}
 <div class="reportSection tableContainer">
@@ -279,81 +355,7 @@
 </div>
 {{/adjacentProtectedAreas}}
 
-<div class="reportSection" class="tableContainer">
-  <h4>Ecosystem Services</h4>
-    <p>
-      Percent overlap of the proposed protection areas for three types of Regulating and Supporting Ecosystem Services. Note: Provisioning Services are included in the Fisheries reports. 
-      <a href="http://www.aucklandcouncil.govt.nz/SiteCollectionDocuments/aboutcouncil/planspoliciespublications/technicalpublications/tr2010033ecosystemfunctioninggoodsandservicesinthecoastalenvironment.pdf" 
-      target="_blank">Read more information on Ecosystem Services</a>
-    </p>
-    <p>
-      <select class="chosen">
-        {{#ecosystemServices}}
-        <option value="{{.}}">{{.}}</option>
-        {{/ecosystemServices}}
-      </select>
-    </p>
-  <div class="protection-nutrient-recycling">
-    <table>
-      <thead>
-        <tr>
-          <th style="width:200px;">Nutrient Recycling Value</th>
-          <th>Area (Ha)</th>
-          <th>Percent</th>
-        </tr>
-      </thead>
-      <tbody>
-      {{#nutrientRecycling}}
-        <tr>
-          <td>{{Class}}</td>
-          <td>{{AreaInHa}}</td>
-          <td>{{Percent}}</td>
-        </tr>
-        {{/nutrientRecycling}}
-      </tbody>
-    </table>
-  </div>
-  <div class="protection-biogenic-habitat">
-    <table>
-      <thead>
-        <tr>
-          <th style="width:200px;">Biogenic Habitat Value</th>
-          <th>Area (Ha)</th>
-          <th>Percent</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#biogenicHabitat}}
-        <tr>
-          <td>{{Class}}</td>
-          <td>{{AreaInHa}}</td>
-          <td>{{Percent}}</td>
-        </tr>
-        {{/biogenicHabitat}}
-      </tbody>
-    </table>
-  </div>
-  <div class="protection-ecosystem-productivity">
-  <table>
-    <thead>
-      <tr>
-        <th style="width:200px;">Ecosystem Productivity Value</th>
-        <th>Area (Ha)</th>
-        <th>Percent</th>
-      </tr>
-    </thead>
-    <tbody>
-    {{#ecosystemProductivity}}
-      <tr>
-        <td>{{Class}}</td>
-        <td>{{AreaInHa}}</td>
-        <td>{{Percent}}</td>
-      </tr>
-      {{/ecosystemProductivity}}
-    </tbody>
-  </table>
-  </div>
-</div>
+
 
 
 

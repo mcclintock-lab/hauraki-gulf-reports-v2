@@ -106,6 +106,7 @@ class AquacultureHabitatTab extends ReportTab
 
   renderAquacultureEcosystemServices: () =>
     name = @$('.aquaculture-chosen').val()
+    @$('.default-chosen-selection').hide()
     if name == "Ecosystem Productivity"
       @$('.aquaculture-ecosystem-productivity').show()
       @$('.aquaculture-nutrient-recycling').hide()

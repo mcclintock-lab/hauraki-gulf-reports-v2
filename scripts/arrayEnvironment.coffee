@@ -239,6 +239,7 @@ class ArrayEnvironmentTab extends ReportTab
 
   renderProtectionEcosystemServices: () =>
     name = @$('.protection-chosen').val()
+    @$('.default-chosen-selection-protection').hide()
     if name == "Ecosystem Productivity"
       @$('.protection-ecosystem-productivity').show()
       @$('.protection-nutrient-recycling').hide()
@@ -254,6 +255,7 @@ class ArrayEnvironmentTab extends ReportTab
 
   renderAquacultureEcosystemServices: () =>
     name = @$('.aquaculture-chosen').val()
+    @$('.default-chosen-selection-aquaculture').hide()
     if name == "Ecosystem Productivity"
       @$('.aquaculture-ecosystem-productivity').show()
       @$('.aquaculture-nutrient-recycling').hide()

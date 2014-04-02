@@ -368,6 +368,9 @@
 .aquaculture-biogenic-habitat {
   display: none;
 }
+.aquaculture-ecosystem-productivity {
+  display: none;
+}
 .single-column {
   text-align: left;
 }

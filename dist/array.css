@@ -540,6 +540,9 @@
 .protection-biogenic-habitat {
   display: none;
 }
+.protection-ecosystem-productivity {
+  display: none;
+}
 .single-column {
   text-align: left;
 }
@@ -547,6 +550,9 @@
   display: none;
 }
 .aquaculture-biogenic-habitat {
+  display: none;
+}
+.aquaculture-ecosystem-productivity {
   display: none;
 }
 .sketch-attribute-table {
