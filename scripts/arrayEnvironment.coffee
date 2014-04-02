@@ -39,10 +39,15 @@ class ArrayEnvironmentTab extends ReportTab
         habitatsInTypeTwos = _.filter habitats, (row) -> row.MPA_TYPE is 'MPA2' 
         habitatsInTypeTwoCount = habitatsInTypeTwos?.length
 
+        """
         representationData = _.filter habitats, (row) -> row.MPA_TYPE is 'ALL_TYPES' 
         hasRepresentationData = representationData?.length > 0
         representedCount = representationData?.length
         representationData = _.sortBy representationData, (row) -> row.HAB_TYPE
+        """
+        representedCount = 0
+        representationData = []
+        hasRepresentationData = false
 
         hasTypeTwoData = habitatsInTypeTwos.length > 0
 
@@ -59,13 +64,16 @@ class ArrayEnvironmentTab extends ReportTab
         protectionEcosystemProductivity = @recordSet('EcosystemServices', 'EcosystemProductivity', PROTECTION_ID).toArray()
         protectionNutrientRecycling = @recordSet('EcosystemServices', 'NutrientRecycling', PROTECTION_ID).toArray()
         protectionBiogenicHabitat = @recordSet('EcosystemServices', 'BiogenicHabitat', PROTECTION_ID).toArray()
-        protectionSensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas', PROTECTION_ID).toArray()
-        protectionSensitiveAreas = _.sortBy protectionSensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
-        hasProtectionSensitiveAreas = hasProtectionSensitiveAreas?.length > 0
-        protectionSensitiveAreas.reverse()
       catch error
-        hasProtectionSensitiveAreas = false
-      
+        
+      hasProtectionSensitiveAreas = false
+      protectionSensitiveAreas = []
+      """
+      protectionSensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas', PROTECTION_ID).toArray()
+      protectionSensitiveAreas = _.sortBy protectionSensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
+      hasProtectionSensitiveAreas = hasProtectionSensitiveAreas?.length > 0
+      protectionSensitiveAreas.reverse()
+      """
 
       try
         protectionProtectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals', PROTECTION_ID).toArray()
@@ -91,6 +99,7 @@ class ArrayEnvironmentTab extends ReportTab
         hasProtectionShorebirdSites = false
 
     if hasAquacultureClasses
+      """
       try
         aquacultureSensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas',AQUACULTURE_ID).toArray()
 
@@ -99,6 +108,8 @@ class ArrayEnvironmentTab extends ReportTab
         aquacultureSensitiveAreas.reverse()
       catch e
         hasAquacultureSensitiveAreas = false
+      """
+      aquacultureSensitiveAreas = []
       #hide them for now
       hasAquacultureSensitiveAreas = false
       try
@@ -220,9 +231,9 @@ class ArrayEnvironmentTab extends ReportTab
     #make sure this comes before paging, otherwise pages won't be there  
     @setupReserveHabitatSorting(habitatsInReserves)
     @setupType2HabitatSorting(habitatsInTypeTwos)
-    @setupHabitatRepresentationSorting(representationData)
-    @setupSensitiveHabitatSorting(protectionSensitiveAreas, 'prot')
-    @setupSensitiveHabitatSorting(aquacultureSensitiveAreas, 'aq')
+    #@setupHabitatRepresentationSorting(representationData)
+    #@setupSensitiveHabitatSorting(protectionSensitiveAreas, 'prot')
+    #@setupSensitiveHabitatSorting(aquacultureSensitiveAreas, 'aq')
     @setupAquacultureHabitatSorting(aquacultureHabitats)
     @enableTablePaging()
 

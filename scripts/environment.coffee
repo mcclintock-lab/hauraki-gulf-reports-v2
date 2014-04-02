@@ -20,14 +20,14 @@ class EnvironmentTab extends ReportTab
     isCollection = @model.isCollection()
     habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
 
-    sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
+    #sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
     #commented out for now
     #near_terrestrial_protected = @recordSet('NearTerrestrialProtected', 'NearTerrestrialProtected').bool('Adjacent')
     near_terrestrial_protected = false
-    sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
-    sensitiveAreas.reverse()
-    
+    #sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
+    #sensitiveAreas.reverse()
+    sensitiveAreas = []
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
     habitatsInTypeTwos = _.filter habitats, (row) ->
@@ -35,8 +35,8 @@ class EnvironmentTab extends ReportTab
     representationData = _.filter habitats, (row) ->
       row.MPA_TYPE is 'ALL_TYPES' 
 
-    representationData = _.sortBy representationData, (row) -> row.HAB_TYPE
-
+    #representationData = _.sortBy representationData, (row) -> row.HAB_TYPE
+    representationData = []
     protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
     protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
     protectedMammals.reverse()
@@ -128,8 +128,8 @@ class EnvironmentTab extends ReportTab
     #make sure this comes before paging, otherwise pages won't be there  
     @setupReserveHabitatSorting(habitatsInReserves)
     @setupType2HabitatSorting(habitatsInTypeTwos)
-    @setupHabitatRepresentationSorting(representationData)
-    @setupSensitiveHabitatSorting(sensitiveAreas)
+    #@setupHabitatRepresentationSorting(representationData)
+    #@setupSensitiveHabitatSorting(sensitiveAreas)
     @enableTablePaging()
    
 
