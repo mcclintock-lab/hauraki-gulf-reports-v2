@@ -252,45 +252,55 @@ class OverviewTab extends ReportTab
           .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
       #The percentage bars
+      default_mr_start = perc_mr_existing
+      default_t2_start = perc_t2_existing
       perc_mr_combined = perc_mr_existing+perc_mr_new
       perc_t2_combined = perc_t2_existing+perc_t2_new
-
+      console.log("combined, ", perc_mr_combined)
       if perc_mr_combined >= 22 and perc_mr_combined <= 30
-        perc_mr_new_start = 0
+        perc_mr_new_start = default_mr_start
         perc_mr_new_end = perc_mr_combined
         perc_mr_unprotected_label_start = 20
       else if perc_mr_combined > 30
-        perc_mr_new_start = 0
+        perc_mr_new_start = default_mr_start
         perc_mr_new_end = 30
         perc_mr_unprotected_label_start = 21
       else
-        perc_mr_new_start = perc_mr_combined
+        perc_mr_new_start = default_mr_start
         perc_mr_new_end = perc_mr_combined
         perc_mr_unprotected_label_start = perc_mr_new_start
 
       if perc_t2_combined >= 22 and perc_t2_combined <= 30
-        perc_t2_new_start = 0
+        perc_t2_new_start = default_t2_start
         perc_t2_new_end = perc_t2_combined
         perc_t2_unprotected_label_start = 20
       else if perc_t2_combined > 30
-        perc_t2_new_start = 0
+        perc_t2_new_start = default_t2_start
         perc_t2_new_end = 30
         perc_t2_unprotected_label_start = 20
       else
-        perc_t2_new_start = perc_t2_combined
+        perc_t2_new_start = default_t2_start
         perc_t2_new_end = perc_t2_combined
         perc_t2_unprotected_label_start = perc_t2_new_start
+
 
       perc_mr_unprotected = 100 - perc_mr_combined
       perc_t2_unprotected = 100 - perc_t2_combined
       perc_ranges = [
         {
-          name: 'Existing <strong>(0.3%)</strong> / New'
+          name: ''
           bg: "#8e5e50"
           start: 0
+          end: perc_mr_existing
+          class: 'existing'
+        }
+        {
+          name: 'Existing <strong>(0.3%)</strong> / New '
+          bg: "#588e3f"
+          start: perc_mr_new_start
           end: perc_mr_new_end
           label_start: 0
-          class: 'existing'
+          class: 'proposed'
           value: perc_mr_new
         }
         {
@@ -306,11 +316,18 @@ class OverviewTab extends ReportTab
 
       perc_t2_ranges = [
         {
-          name: 'Existing <strong>(0.3%)</strong> / New'
-          bg: '#588e3f'
+          name: ''
+          bg: "#8e5e50"
           start: 0
-          end: perc_t2_new_end
+          end: perc_t2_existing
           class: 'existing'
+        }
+        {
+          name: 'Existing <strong>(0.3%)</strong> / New '
+          bg: '#588e3f'
+          start: perc_t2_new_start
+          end: perc_t2_new_end
+          class: 'proposed'
           value: perc_t2_new
           label_start: 0
         }
@@ -324,6 +341,7 @@ class OverviewTab extends ReportTab
           value: perc_t2_unprotected
         }
       ]
+
       x = d3.scale.linear()
         .domain([0, 30])
         .range([0, 400])
@@ -338,8 +356,13 @@ class OverviewTab extends ReportTab
         .append("span")
           .attr("class", (d) -> "label-"+d.class)
           .style("left", (d) -> x(d.label_start)+'px')
-          .html((d) -> d.name+"<strong>  ("+d.value+"%)</strong>")
-      
+          .html((d) -> (
+                          if d.name 
+                            return d.name+"<strong>  ("+d.value+"%)</strong>"
+                          else
+                            return ''
+                       ))
+    
       chart.selectAll("div.max_marker")
         .data([30])
       .enter().append("div")
@@ -364,7 +387,12 @@ class OverviewTab extends ReportTab
         .append("span")
           .attr("class", (d) -> "label-"+d.class)
           .style("left", (d) -> x(d.label_start)+'px')
-          .html((d) -> d.name+"<strong>  ("+d.value+"%)</strong>")
+          .html((d) -> (
+                          if d.name
+                            return d.name+"<strong>  ("+d.value+"%)</strong>"
+                          else
+                            return ''
+                       ))
 
       chart.selectAll("div.max_marker")
         .data([30])
