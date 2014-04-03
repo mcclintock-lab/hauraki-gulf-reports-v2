@@ -5,7 +5,7 @@ MIN_SIZE = 10000
 
 class AquacultureActivitiesTab extends ReportTab
   # this is the name that will be displayed in the Tab
-  name: 'Activities'
+  name: 'Activities & Uses'
   className: 'aquacultureActivities'
   timeout: 120000
   template: templates.aquacultureActivities
@@ -15,8 +15,6 @@ class AquacultureActivitiesTab extends ReportTab
     'OverlapWithRecreationalUses'
     'OverlapWithHeritageUses'
   ]
-
-
 
   render: () ->
     isCollection = @model.isCollection()

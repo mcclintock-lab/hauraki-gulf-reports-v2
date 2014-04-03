@@ -10,7 +10,7 @@ MIN_SIZE = 10000
 
 class ArrayActivitiesTab extends ReportTab
   # this is the name that will be displayed in the Tab
-  name: 'Activities'
+  name: 'Activities & Uses'
   className: 'arrayActivities'
   timeout: 120000
   template: templates.arrayActivities
@@ -20,8 +20,6 @@ class ArrayActivitiesTab extends ReportTab
     'OverlapWithRecreationalUses'
     'OverlapWithHeritageUses'
   ]
-
-
 
   render: () ->
     aquacultureZones = @getChildren AQUACULTURE_ID

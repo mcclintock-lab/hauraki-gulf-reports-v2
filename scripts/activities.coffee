@@ -5,7 +5,7 @@ MIN_SIZE = 10000
 
 class ActivitiesTab extends ReportTab
   # this is the name that will be displayed in the Tab
-  name: 'Activities'
+  name: 'Activities & Uses'
   className: 'activities'
   timeout: 120000
   template: templates.activities
