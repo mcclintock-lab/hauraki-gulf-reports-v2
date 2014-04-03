@@ -30,53 +30,59 @@ class ArrayActivitiesTab extends ReportTab
 
     if hasAquacultureClasses
       try
-        aquacultureExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses', AQUACULTURE_ID).toArray()
+        aquacultureExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
         hasAquacultureExistingUseConflicts = aquacultureExistingUses?.length > 0
+        aquacultureRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
+        aquacultureAllExistingUses = aquacultureExistingUses.concat(aquacultureRecreationalUses)
+        hasAquacultureAllExistingUses = aquacultureAllExistingUses?.length > 0
       catch error
         hasAquacultureExistingUseConflicts = false
       try
-        aquacultureOverlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages', AQUACULTURE_ID).bool('OVERLAPS')
-        hasAquacultureOverlapWithMooringsAndAnchroages = aquacultureOverlapWithMooringsAndAnchorages?.length > 0
+        hasAquacultureOverlapWithMooringsAndAnchorages =  @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
       catch error
-        hasAquacultureOverlapWithMooringsAndAnchroages = false
+        hasAquacultureOverlapWithMooringsAndAnchorages = false
       try
-        aquacultureRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses', AQUACULTURE_ID).toArray()
-        hasAquacultureRecreationalUseConflicts = aquacultureRecreationalUses?.length > 0
+        
       catch error
         hasAquacultureRecreationalUseConflicts = false
-      aquacultureHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
-      hasAquacultureHeritageUses = aquacultureHeritageUses?.length > 0
+
+      aquacultureNumShipwrecks = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_SHIPS')
+      hasAquacultureShipwrecks = aquacultureNumShipwrecks > 0
+
+      aquacultureNumHistoricPlaces = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_HIST')
+      hasAquacultureHistoricPlaces = aquacultureNumHistoricPlaces > 0
+      
+      aquacultureNumArcheologicalSites = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_ARCHEO')
+      hasAquacultureArcheologicalSites = aquacultureNumArcheologicalSites > 0
+
+      hasAquacultureHeritageUses = hasAquacultureShipwrecks or hasAquacultureArcheologicalSites or hasAquacultureHistoricPlaces
 
     if hasProtectionClasses
 
       try
-        protectionExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses', PROTECTION_ID).toArray()
+        protectionExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
         hasProtectionExistingUseConflicts = protectionExistingUses?.length > 0
+        protectionRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
+        
+        protectionAllExistingUses = protectionExistingUses.concat(protectionRecreationalUses)
+        hasProtectionAllExistingUses = protectionAllExistingUses?.length > 0
       catch error
         hasProtectionExistingUseConflicts = false
       try
-        protectionOverlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages', PROTECTION_ID).bool('OVERLAPS')
-        hasProtectionOverlapWithMooringsAndAnchorages = protectionOverlapWithMooringsAndAnchorages?.length > 0
+        hasProtectionOverlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages', PROTECTION_ID).bool('OVERLAPS')
       catch error
         hasProtectionOverlapWithMooringsAndAnchorages = false
-      try
-        protectionRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses', PROTECTION_ID).toArray()
-        hasProtectionRecreationalUseConflicts = protectionRecreationalUses?.length > 0
-      catch error
-        hasProtectionRecreationalUseConflicts = false
 
-    protectionNumShipwrecks = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_SHIPS')
-    hasProtectionShipwrecks = protectionNumShipwrecks > 0
+      protectionNumShipwrecks = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_SHIPS')
+      hasProtectionShipwrecks = protectionNumShipwrecks > 0
 
-    protectionNumHistoricPlaces = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_HIST')
-    hasProtectionHistoricPlaces = protectionNumHistoricPlaces > 0
-    
-    protectionNumArcheologicalSites = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_ARCHEO')
-    hasProtectionArcheologicalSites = protectionNumArcheologicalSites > 0
-
-    hasProtectionHeritageUses = hasProtectionShipwrecks or hasProtectionArcheologicalSites or hasProtectionHistoricPlaces
-
+      protectionNumHistoricPlaces = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_HIST')
+      hasProtectionHistoricPlaces = protectionNumHistoricPlaces > 0
       
+      protectionNumArcheologicalSites = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_ARCHEO')
+      hasProtectionArcheologicalSites = protectionNumArcheologicalSites > 0
+
+      hasProtectionHeritageUses = hasProtectionShipwrecks or hasProtectionArcheologicalSites or hasProtectionHistoricPlaces
 
     context =
       isCollection: true
@@ -86,22 +92,28 @@ class ArrayActivitiesTab extends ReportTab
       admin: @project.isAdmin window.user
 
       hasAquacultureClasses: hasAquacultureClasses
-      aquacultureExistingUses: aquacultureExistingUses
-      hasAquacultureExistingUseConflicts: hasAquacultureExistingUseConflicts
-      aquacultureOverlapWithMooringsAndAnchorages: aquacultureOverlapWithMooringsAndAnchorages
-      hasAquacultureOverlapWithMooringsAndAnchroages: hasAquacultureOverlapWithMooringsAndAnchroages
+      aquacultureAllExistingUses: aquacultureAllExistingUses
+      hasAquacultureAllExistingUses: hasAquacultureAllExistingUses
+
+      hasAquacultureOverlapWithMooringsAndAnchorages: hasAquacultureOverlapWithMooringsAndAnchorages
       aquacultureRecreationalUses: aquacultureRecreationalUses
       hasAquacultureRecreationalUseConflicts: hasAquacultureRecreationalUseConflicts
-      aquacultureHeritageUses: aquacultureHeritageUses
+      
       hasAquacultureHeritageUses: hasAquacultureHeritageUses
+      aquacultureNumShipwrecks: aquacultureNumShipwrecks
+      hasAquacultureShipwrecks: hasAquacultureShipwrecks
+
+      aquacultureNumHistoricPlaces: aquacultureNumHistoricPlaces
+      hasAquacultureHistoricPlaces: hasAquacultureHistoricPlaces
+
+      aquacultureNumArcheologicalSites: aquacultureNumArcheologicalSites
+      hasAquacultureArcheologicalSites: hasAquacultureArcheologicalSites
 
       hasProtectionClasses: hasProtectionClasses
-      protectionExistingUses: protectionExistingUses
-      hasProtectionExistingUseConflicts: hasProtectionExistingUseConflicts
-      protectionOverlapWithMooringsAndAnchorages: protectionOverlapWithMooringsAndAnchorages
+      protectionAllExistingUses: protectionAllExistingUses
+      hasProtectionAllExistingUses: hasProtectionAllExistingUses
+
       hasProtectionOverlapWithMooringsAndAnchorages: hasProtectionOverlapWithMooringsAndAnchorages
-      protectionRecreationalUses: protectionRecreationalUses
-      hasProtectionRecreationalUseConflicts: hasProtectionRecreationalUseConflicts
       
       hasProtectionHeritageUses: hasProtectionHeritageUses
       protectionNumShipwrecks: protectionNumShipwrecks

@@ -21,13 +21,22 @@ class AquacultureActivitiesTab extends ReportTab
 
     aquacultureExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
     hasAquacultureExistingUseConflicts = aquacultureExistingUses?.length > 0
-  
-    aquacultureOverlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
-    hasAquacultureOverlapWithMooringsAndAnchroages = aquacultureOverlapWithMooringsAndAnchorages?.length > 0
     aquacultureRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
-    hasAquacultureRecreationalUseConflicts = aquacultureRecreationalUses?.length > 0
-    aquacultureHeritageUses = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').toArray()
-    hasAquacultureHeritageUses = protectionHeritageUses?.length > 0
+    aquacultureAllExistingUses = aquacultureExistingUses.concat(aquacultureRecreationalUses)
+    hasAquacultureAllExistingUses = aquacultureAllExistingUses?.length > 0
+
+    hasAquacultureOverlapWithMooringsAndAnchorages =  @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
+
+    aquacultureNumShipwrecks = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_SHIPS')
+    hasAquacultureShipwrecks = aquacultureNumShipwrecks > 0
+
+    aquacultureNumHistoricPlaces = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_HIST')
+    hasAquacultureHistoricPlaces = aquacultureNumHistoricPlaces > 0
+    
+    aquacultureNumArcheologicalSites = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_ARCHEO')
+    hasAquacultureArcheologicalSites = aquacultureNumArcheologicalSites > 0
+
+    hasAquacultureHeritageUses = hasAquacultureShipwrecks or hasAquacultureArcheologicalSites or hasAquacultureHistoricPlaces
 
     context =
       isCollection: isCollection
@@ -36,14 +45,22 @@ class AquacultureActivitiesTab extends ReportTab
       attributes: @model.getAttributes()
       admin: @project.isAdmin window.user
 
-      aquacultureExistingUses: aquacultureExistingUses
-      hasAquacultureExistingUseConflicts: hasAquacultureExistingUseConflicts
-      aquacultureOverlapWithMooringsAndAnchorages: aquacultureOverlapWithMooringsAndAnchorages
-      hasAquacultureOverlapWithMooringsAndAnchroages: hasAquacultureOverlapWithMooringsAndAnchroages
-      aquacultureRecreationalUses: aquacultureRecreationalUses
-      hasAquacultureRecreationalUseConflicts: hasAquacultureRecreationalUseConflicts
-      aquacultureHeritageUses: aquacultureHeritageUses
+      aquacultureAllExistingUses: aquacultureAllExistingUses
+      hasAquacultureAllExistingUses: hasAquacultureAllExistingUses
+
+      hasAquacultureOverlapWithMooringsAndAnchorages: hasAquacultureOverlapWithMooringsAndAnchorages
+
+
       hasAquacultureHeritageUses: hasAquacultureHeritageUses
+
+      aquacultureNumShipwrecks: aquacultureNumShipwrecks
+      hasAquacultureShipwrecks: hasAquacultureShipwrecks
+
+      aquacultureNumHistoricPlaces: aquacultureNumHistoricPlaces
+      hasAquacultureHistoricPlaces: hasAquacultureHistoricPlaces
+
+      aquacultureNumArcheologicalSites: aquacultureNumArcheologicalSites
+      hasAquacultureArcheologicalSites: hasAquacultureArcheologicalSites
 
     @$el.html @template.render(context, templates)
     @enableTablePaging()

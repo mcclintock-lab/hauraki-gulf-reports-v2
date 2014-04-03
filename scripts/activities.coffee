@@ -24,11 +24,14 @@ class ActivitiesTab extends ReportTab
 
     protectionExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
     hasProtectionExistingUseConflicts = protectionExistingUses?.length > 0
+    protectionRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
+    
+    protectionAllExistingUses = protectionExistingUses.concat(protectionRecreationalUses)
+    hasProtectionAllExistingUses = protectionAllExistingUses?.length > 0
 
     hasProtectionOverlapWithMooringsAndAnchorages = @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
 
-    protectionRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
-    hasProtectionRecreationalUseConflicts = protectionRecreationalUses?.length > 0
+
 
     protectionNumShipwrecks = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_SHIPS')
     hasProtectionShipwrecks = protectionNumShipwrecks > 0
@@ -47,11 +50,10 @@ class ActivitiesTab extends ReportTab
       attributes: @model.getAttributes()
       admin: @project.isAdmin window.user
 
-      protectionExistingUses: protectionExistingUses
-      hasProtectionExistingUseConflicts: hasProtectionExistingUseConflicts
+      protectionAllExistingUses: protectionAllExistingUses
+      hasProtectionAllExistingUses: hasProtectionAllExistingUses
       hasProtectionOverlapWithMooringsAndAnchorages: hasProtectionOverlapWithMooringsAndAnchorages
-      protectionRecreationalUses: protectionRecreationalUses
-      hasProtectionRecreationalUseConflicts: hasProtectionRecreationalUseConflicts
+      
 
       hasProtectionHeritageUses: hasProtectionHeritageUses
       protectionNumShipwrecks: protectionNumShipwrecks

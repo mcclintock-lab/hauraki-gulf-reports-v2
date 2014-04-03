@@ -6,34 +6,85 @@
 </div>
 {{/sketchClass.deleted}}
 
+<div class="reportSection tableContainer">
+  <h4>Existing Use Conflicts <a href="#" data-toggle-node="52d5af09c03e516417000274" data-visible="false">show layer</a></h4>
+    {{#hasAquacultureAllExistingUses}}
+      <p class="large">
+        <strong>Your sketch overlaps, or is close to, identified existing uses.</strong>
+      </p>
+      <table data-paging="10">
+        <thead>
+          <tr>
+            <th class="single-column">Existing Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#aquacultureAllExistingUses}}
+            <tr>
+              <td>{{FEAT_TYPE}}</td>
+            </tr>
+          {{/aquacultureAllExistingUses}}
+        </tbody>
+      </table>
+  {{/hasAquacultureAllExistingUses}}
+  {{^hasAquacultureAllExistingUses}}
+      <p class="large">
+        <strong>No</strong> aquaculture areas overlap with existing uses.
+      </p>
+  {{/hasAquacultureAllExistingUses}}
+</div>
+
   <div class="reportSection tableContainer">
-    <h4>Existing Use Conflicts <a href="#" data-toggle-node="52d5af09c03e516417000274" data-visible="false">show layer</a></h4>
-      {{#hasAquacultureExistingUseConflicts}}
+    <h4>Heritage Values <a href="#" data-toggle-node="52d5b094c03e5164170003ca" data-visible="false">show layer</a></h4>
+      {{#hasAquacultureHeritageUses}}
         <p class="large">
-          <strong>One or more sketches overlap with, or are near, existing uses that are in conflict with the aquaculture.</strong>
+          <strong>One or more sketches overlap, or are in the vicinity of, an area that has been identified as having cultural heritage values</strong>.
         </p>
-        <table data-paging="10"> <!-- data-paging... activates paging  -->
+        <table data-paging="10"> 
           <thead>
             <tr>
-              <th class="single-column">Existing Use</th>
+              <th>Heritage Value</th>
+              <th>Number of Sites</th>
             </tr>
           </thead>
           <tbody>
-            {{#aquacultureExistingUses}}
+            {{#hasAquacultureShipwrecks}}
               <tr>
-                <td>{{FEAT_TYPE}}</td>
+                <td>Shipwrecks</td>
+                <td>{{aquacultureNumShipwrecks}}</td>
               </tr>
-            {{/aquacultureExistingUses}}
+            {{/hasAquacultureShipwrecks}}
+            {{#hasAquacultureHistoricPlaces}}
+              <tr>
+                <td>Historic Places</td>
+                <td>{{aquacultureNumHistoricPlaces}}</td>
+              </tr>
+            {{/hasAquacultureHistoricPlaces}}
+            {{#hasAquacultureArcheologicalSites}}
+              <tr>
+                <td>Archeological Sites</td>
+                <td>{{aquacultureNumArcheologicalSites}}</td>
+              </tr>
+            {{/hasAquacultureArcheologicalSites}}
           </tbody>
         </table>
-    {{/hasAquacultureExistingUseConflicts}}
-    {{^hasAquacultureExistingUseConflicts}}
-        <p class="large">
-          <strong>No</strong> aquaculture areas overlap with existing uses.
-        </p>
-    {{/hasAquacultureExistingUseConflicts}}
+    {{/hasAquacultureHeritageUses}}
+    {{^hasAquacultureHeritageUses}}
+      <p class="large">
+        <strong>No</strong> aquaculture areas overlap with heritage areas identified as having <strong>cultural heritage values</strong>.
+      </p>
+    {{/hasAquacultureHeritageUses}}
   </div>
 
+{{#hasAquacultureOverlapWithMooringsAndAnchorages}}
+  <div class="reportSection">
+    <h4>Mooring/Anchorage Areas </h4>
+        <p class="large green-check">
+          <strong>One more more aquaculture areas overlap with sites that are identified as good for Mooring and Anchorages</strong>.
+        </p>
+  </div>
+{{/hasAquacultureOverlapWithMooringsAndAnchorages}}
+<!--
   <div class="reportSection tableContainer">
     <h4>Recreational Uses</h4>
       {{#hasAquacultureRecreationalUseConflicts}}
@@ -61,50 +112,7 @@
       </p>
     {{/hasAquacultureRecreationalUseConflicts}}
   </div>
-
-  <div class="reportSection tableContainer">
-    <h4>Heritage Uses <a href="#" data-toggle-node="52d5b094c03e5164170003ca" data-visible="false">show layer</a></h4>
-      {{#hasAquacultureHeritageUses}}
-        <p class="large">
-          <strong>One or more sketches overlap, or are in the vicinity of, an area that has been identified as having cultural heritage values</strong>.
-        </p>
-        <table data-paging="10"> <!-- data-paging... activates paging  -->
-          <thead>
-            <tr>
-              <th class="single-column">Heritage Use</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#aquacultureHeritageUses}}
-              <tr>
-                <td>{{NAME}}</td>
-              </tr>
-            {{/aquacultureHeritageUses}}
-          </tbody>
-        </table>
-    {{/hasAquacultureHeritageUses}}
-    {{^hasAquacultureHeritageUses}}
-      <p class="large">
-        <strong>No</strong> aquaculture areas overlap with heritage uses.
-      </p>
-    {{/hasAquacultureHeritageUses}}
-  </div>
-
-  <div class="reportSection">
-    <h4>Mooring/Anchorage Areas </h4>
-      {{#hasAquacultureOverlapWithMooringsAndAnchorages}}
-        <p class="large green-check">
-          <strong>One more more aquaculture areas overlap with sites that are identified as good for Mooring and Anchorages</strong>.
-        </p>
-      {{/hasAquacultureOverlapWithMooringsAndAnchorages}}
-      {{^hasAquacultureOverlapWithMooringsAndAnchorages}}
-        <p class="large">
-          <strong>No</strong> aquaculture areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
-        </p>
-      {{/hasAquacultureOverlapWithMooringsAndAnchorages}}
-  </div>
-
-
+-->
 
 
 

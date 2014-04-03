@@ -8,9 +8,9 @@
 
 <div class="reportSection tableContainer">
   <h4>Existing Use Conflicts <a href="#" data-toggle-node="52d5af09c03e516417000274" data-visible="false">show layer</a></h4>
-    {{#hasProtectionExistingUseConflicts}}
+    {{#hasProtectionAllExistingUses}}
       <p class="large">
-        <strong> One or more sketches overlap with, or are near, existing uses that are in conflict with the purposes of the protection.</strong>
+        <strong>Your sketch overlaps, or is close to, identified existing uses.</strong>
       </p>
       <table data-paging="10"> <!-- data-paging... activates paging  -->
         <thead>
@@ -19,21 +19,72 @@
           </tr>
         </thead>
         <tbody>
-          {{#protectionExistingUses}}
+          {{#protectionAllExistingUses}}
             <tr>
               <td>{{FEAT_TYPE}}</td>
             </tr>
-          {{/protectionExistingUses}}
+          {{/protectionAllExistingUses}}
         </tbody>
       </table>
-  {{/hasProtectionExistingUseConflicts}}
-  {{^hasProtectionExistingUseConflicts}}
+  {{/hasProtectionAllExistingUses}}
+  {{^hasProtectionAllExistingUses}}
     <p class="large">
       <strong>No</strong> protection classes overlap with existing uses.
     </p>
-  {{/hasProtectionExistingUseConflicts}}
+  {{/hasProtectionAllExistingUses}}
 </div>
 
+<div class="reportSection tableContainer">
+  <h4>Heritage Values <a href="#" data-toggle-node="52d5b094c03e5164170003ca" data-visible="false">show layer</a></h4>
+    {{#hasProtectionHeritageUses}}
+      <p class="large">
+        <strong>One or more sketches overlap, or are in the vicinity of, an area that has been identified as having cultural heritage values</strong>.
+      </p>
+      <table data-paging="10"> 
+        <thead>
+          <tr>
+            <th>Heritage Value</th>
+            <th>Number of Sites</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#hasProtectionShipwrecks}}
+            <tr>
+              <td>Shipwrecks</td>
+              <td>{{protectionNumShipwrecks}}</td>
+            </tr>
+          {{/hasProtectionShipwrecks}}
+          {{#hasProtectionHistoricPlaces}}
+            <tr>
+              <td>Historic Places</td>
+              <td>{{protectionNumHistoricPlaces}}</td>
+            </tr>
+          {{/hasProtectionHistoricPlaces}}
+          {{#hasProtectionArcheologicalSites}}
+            <tr>
+              <td>Archeological Sites</td>
+              <td>{{protectionNumArcheologicalSites}}</td>
+            </tr>
+          {{/hasProtectionArcheologicalSites}}
+        </tbody>
+      </table>
+  {{/hasProtectionHeritageUses}}
+  {{^hasProtectionHeritageUses}}
+    <p class="large">
+      <strong>No</strong> protection classes overlap with areas identified as having cultural heritage values.
+    </p>
+  {{/hasProtectionHeritageUses}}
+</div>
+{{#hasProtectionOverlapWithMooringsAndAnchorages}}
+  <div class="reportSection">
+    <h4>Mooring/Anchorage Areas</h4>
+      <p class="large green-check">
+        <strong>One more more protection areas overlap with sites that are identified as good for Mooring and Anchorages</strong>.
+      </p>
+  </div>
+{{/hasProtectionOverlapWithMooringsAndAnchorages}}
+<!--
+Combined with existing uses for now
 <div class="reportSection tableContainer">
   <h4>Recreational Uses</h4>
     {{#hasProtectionRecreationalUseConflicts}}
@@ -62,62 +113,4 @@
     </p>
   {{/hasProtectionRecreationalUseConflicts}}
 </div>
-
-<div class="reportSection tableContainer">
-  <h4>Heritage Uses <a href="#" data-toggle-node="52d5b094c03e5164170003ca" data-visible="false">show layer</a></h4>
-    {{#hasProtectionHeritageUses}}
-      <p class="large">
-        <strong>One or more sketches overlap, or are in the vicinity of, an area that has been identified as having cultural heritage values</strong>.
-      </p>
-      <table data-paging="10"> <!-- data-paging... activates paging  -->
-        <thead>
-          <tr>
-            <th>Heritage Use</th>
-            <th>Number of Sites</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#hasProtectionShipwrecks}}
-            <tr>
-              <td>Shipwrecks</td>
-              <td>{{protectionNumShipwrecks}}</td>
-            </tr>
-          {{/hasProtectionShipwrecks}}
-          {{#hasProtectionHistoricPlaces}}
-            <tr>
-              <td>Historic Places</td>
-              <td>{{protectionNumHistoricPlaces}}</td>
-            </tr>
-          {{/hasProtectionHistoricPlaces}}
-          {{#hasProtectionArcheologicalSites}}
-            <tr>
-              <td>Archeological Sites</td>
-              <td>{{protectionNumArcheologicalSites}}</td>
-            </tr>
-          {{/hasProtectionArcheologicalSites}}
-        </tbody>
-      </table>
-  {{/hasProtectionHeritageUses}}
-  {{^hasProtectionHeritageUses}}
-    <p class="large">
-      <strong>No</strong> protection classes overlap with heritage uses.
-    </p>
-  {{/hasProtectionHeritageUses}}
-</div>
-
-
-  <div class="reportSection">
-    <h4>Mooring/Anchorage Areas</h4>
-    {{#hasProtectionOverlapWithMooringsAndAnchorages}}
-      <p class="large green-check">
-        <strong>One more more protection areas overlap with sites that are identified as good for Mooring and Anchorages</strong>.
-      </p>
-    {{/hasProtectionOverlapWithMooringsAndAnchorages}}
-    {{^hasProtectionOverlapWithMooringsAndAnchorages}}
-      <p class="large">
-        <strong>No</strong> protection areas overlap with sites that are identified as good for <strong>Mooring and Anchorages</strong>.
-      </p>
-    {{/hasProtectionOverlapWithMooringsAndAnchorages}}
-  </div>
-
-
+-->
