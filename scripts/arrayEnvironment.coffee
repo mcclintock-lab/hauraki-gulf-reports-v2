@@ -399,15 +399,16 @@ class ArrayEnvironmentTab extends ReportTab
     if event
       parent = $(event.currentTarget).parent()
       newTargetName = event.currentTarget.className
-      targetStr = tableName+" th.sorting_col a"   
-      oldTargetName = @$(targetStr)[0].className
-      
-      if newTargetName != oldTargetName
-        #remove it from old 
-        headerName = tableName+" th.sorting_col"
-        @$(headerName).removeClass(sortingClass)
-        #and add it to new
-        parent.addClass(sortingClass)
+      targetStr = tableName+" th.sorting_col a"  
+      if @$(targetStr) and @$(targetStr)[0] 
+        oldTargetName = @$(targetStr)[0].className
+        
+        if newTargetName != oldTargetName
+          #remove it from old 
+          headerName = tableName+" th.sorting_col"
+          @$(headerName).removeClass(sortingClass)
+          #and add it to new
+          parent.addClass(sortingClass)
      
   getSortDir: (targetColumn) =>
      sortup = @$('.'+targetColumn).hasClass("sort_up")

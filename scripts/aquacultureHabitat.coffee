@@ -185,14 +185,15 @@ class AquacultureHabitatTab extends ReportTab
       parent = $(event.currentTarget).parent()
       newTargetName = event.currentTarget.className
       targetStr = tableName+" th.sorting_col a"   
-      oldTargetName = @$(targetStr)[0].className
-      
-      if newTargetName != oldTargetName
-        #remove it from old 
-        headerName = tableName+" th.sorting_col"
-        @$(headerName).removeClass(sortingClass)
-        #and add it to new
-        parent.addClass(sortingClass)
+      if @$(targetStr) and @$(targetStr)[0]
+        oldTargetName = @$(targetStr)[0].className
+        
+        if newTargetName != oldTargetName
+          #remove it from old 
+          headerName = tableName+" th.sorting_col"
+          @$(headerName).removeClass(sortingClass)
+          #and add it to new
+          parent.addClass(sortingClass)
      
   getSortDir: (targetColumn) =>
      sortup = @$('.'+targetColumn).hasClass("sort_up")
@@ -226,7 +227,7 @@ class AquacultureHabitatTab extends ReportTab
     el = @$(tableName)[0]
     hab_table = d3.select(el)
     active_page = hab_table.selectAll(".active a")
-    if active_page[0][0]
+    if active_page and active_page[0] and active_page[0][0]
       active_page[0][0].click()
 
 module.exports = AquacultureHabitatTab

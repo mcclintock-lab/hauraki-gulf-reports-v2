@@ -257,9 +257,8 @@ class EnvironmentTab extends ReportTab
       parent = $(event.currentTarget).parent()
       newTargetName = event.currentTarget.className
       targetStr = tableName+" th.sorting_col a"   
-      if @$(targetStr)
+      if @$(targetStr) and @$(targetStr)[0]
         oldTargetName = @$(targetStr)[0].className
-        
         if newTargetName != oldTargetName
           #remove it from old 
           headerName = tableName+" th.sorting_col"
