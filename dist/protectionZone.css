@@ -380,15 +380,15 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffa5c696', endColorstr='#ffb3cfa7', GradientType=0);
 }
 .overview .viz > div.range.proposed {
-  background: #588e3f;
-  background-color: #4b7936;
-  background-image: -moz-linear-gradient(top, #426b2f, #588e3f);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#426b2f), to(#588e3f));
-  background-image: -webkit-linear-gradient(top, #426b2f, #588e3f);
-  background-image: -o-linear-gradient(top, #426b2f, #588e3f);
-  background-image: linear-gradient(to bottom, #426b2f, #588e3f);
+  background: #9aba8c;
+  background-color: #89af79;
+  background-image: -moz-linear-gradient(top, #7ea76c, #9aba8c);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#7ea76c), to(#9aba8c));
+  background-image: -webkit-linear-gradient(top, #7ea76c, #9aba8c);
+  background-image: -o-linear-gradient(top, #7ea76c, #9aba8c);
+  background-image: linear-gradient(to bottom, #7ea76c, #9aba8c);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff426b2f', endColorstr='#ff588e3f', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff7ea76c', endColorstr='#ff9aba8c', GradientType=0);
 }
 .overview .viz > div.range.unprotected {
   background: #e5cace;
@@ -414,15 +414,15 @@
   margin-top: 30px;
 }
 .overview .viz > div.range.t2proposed {
-  background: #588e3f;
-  background-color: #4b7936;
-  background-image: -moz-linear-gradient(top, #426b2f, #588e3f);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#426b2f), to(#588e3f));
-  background-image: -webkit-linear-gradient(top, #426b2f, #588e3f);
-  background-image: -o-linear-gradient(top, #426b2f, #588e3f);
-  background-image: linear-gradient(to bottom, #426b2f, #588e3f);
+  background: #9aba8c;
+  background-color: #89af79;
+  background-image: -moz-linear-gradient(top, #7ea76c, #9aba8c);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#7ea76c), to(#9aba8c));
+  background-image: -webkit-linear-gradient(top, #7ea76c, #9aba8c);
+  background-image: -o-linear-gradient(top, #7ea76c, #9aba8c);
+  background-image: linear-gradient(to bottom, #7ea76c, #9aba8c);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff426b2f', endColorstr='#ff588e3f', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff7ea76c', endColorstr='#ff9aba8c', GradientType=0);
   margin-top: 30px;
 }
 .overview .viz > div.range.t2unprotected {
