@@ -63,8 +63,6 @@ class EnvironmentTab extends ReportTab
     else
       habitatsInReservesCount = 0
 
-
-    
     ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
@@ -147,7 +145,8 @@ class EnvironmentTab extends ReportTab
       @$('.protection-ecosystem-productivity').hide()
       @$('.protection-nutrient-recycling').hide()
       @$('.protection-biogenic-habitat').show()
-
+  """
+  these are temporarily disabled. not sure if they will stay so
   setupSensitiveHabitatSorting: (sensitiveAreas) =>
     tbodyName = '.hab_sensitive_values'
     tableName = '.hab_sensitive_table'
@@ -175,33 +174,30 @@ class EnvironmentTab extends ReportTab
       @renderSort('hab_rep_num_type2', tableName, representationData, event, "NEW_SIZE", tbodyName, true, @getHabitatRepString)
 
     @renderSort('hab_rep_type', tableName, representationData, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRepString)
-
+  """
   setupReserveHabitatSorting: (habitatsInReserves) =>
     tbodyName = '.reserve_values'
     tableName = '.reserve_hab_table'
-
-    @$('.hab_reserve_new').click (event) =>
-      @renderSort('hab_reserve_new', tableName, habitatsInReserves, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
-    @$('.hab_reserve_existing').click (event) =>
-      @renderSort('hab_reserve_existing',tableName, habitatsInReserves, event, "EX_PERC", tbodyName, true, @getHabitatRowString)
     @$('.hab_reserve_type').click (event) =>
       @renderSort('hab_reserve_type', tableName, habitatsInReserves, event, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
-    @$('.hab_reserve_total').click (event) =>
-      @renderSort('hab_reserve_total', tableName, habitatsInReserves, event, "CB_PERC", tbodyName, true, @getHabitatRowString)
+    @$('.hab_reserve_new_area').click (event) =>
+      @renderSort('hab_reserve_new_area', tableName, habitatsInReserves, event, "NEW_SIZE", tbodyName, true, @getHabitatRowString)
+    @$('.hab_reserve_new_perc').click (event) =>
+      @renderSort('hab_reserve_new_perc',tableName, habitatsInReserves, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
 
     @renderSort('hab_reserve_type', tableName, habitatsInReserves, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
 
   setupType2HabitatSorting: (type2Habitats) =>
     tbodyName = '.type2_values'
     tableName = '.type2_hab_table'
-    @$('.hab_type2_new').click (event) =>
-      @renderSort('hab_type2_new',  tableName, type2Habitats, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
-    @$('.hab_type2_existing').click (event) =>
-      @renderSort('hab_type2_existing',tableName, type2Habitats, event, "EX_PERC", tbodyName, true, @getHabitatRowString)
+
     @$('.hab_type2_type').click (event) =>
       @renderSort('hab_type2_type', tableName, type2Habitats, event, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
-    @$('.hab_type2_total').click (event) =>
-      @renderSort('hab_type2_total', tableName, type2Habitats, event, "CB_PERC", tbodyName, true, @getHabitatRowString)
+    @$('.hab_type2_new_area').click (event) =>
+      @renderSort('hab_type2_new_area',  tableName, type2Habitats, event, "NEW_SIZE", tbodyName, true, @getHabitatRowString)
+    @$('.hab_type2_new_perc').click (event) =>
+      @renderSort('hab_type2_new_perc',  tableName, type2Habitats, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
+
 
     @renderSort('hab_type2_type', tableName, type2Habitats, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
 
@@ -242,16 +238,18 @@ class EnvironmentTab extends ReportTab
     if event
       event.stopPropagation()
 
+  """
+  temporarily disabled
   #table row for habitat representation
   getSensitiveAreaString: (d) =>
     return "<td>"+d.SA_NAME+"</td>"+"<td>"+d.SA_TYPE+"</td>"+"<td>"+d.CLPD_AREA+"</td>"+"<td>"+d.PERC_AREA+"</td>"
   #table row for habitat representation
   getHabitatRepString: (d) =>
     return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.CB_PERC+"</td>"+"<td>"+d.REP_COUNT+"</td>"+"<td>"+d.NEW_SIZE+"</td>"
-
+  """
   #table row for habitat representation
   getHabitatRowString: (d) =>
-    return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_PERC+"</td>"+"<td>"+d.CB_PERC+"</td>"
+    return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.NEW_SIZE+"</td>"+"<td>"+d.NEW_PERC+"</td>"
 
   setSortingColor: (event, tableName) =>
     sortingClass = "sorting_col"

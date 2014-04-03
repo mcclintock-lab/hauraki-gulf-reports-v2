@@ -7,74 +7,93 @@
     target="_blank">MPA Policy 2005</a>).
   </p>
 </div>
-
-<div class="reportSection tableContainer">
-  <h4>Habitats Protected in Marine Reserves</h4>
-  {{#d3IsPresent}}
-    <table data-paging="10" class="reserve_hab_table"> 
-      <thead>
-        <tr>
-          <th class="sorting_col" style="width:180px;"><a class="hab_reserve_type sort_up" href="#">Habitats</a></th>
-          <th><a  class="hab_reserve_existing sort_down" href="#" >% In Existing Marine Reserves</a></th>
-          <th><a class="hab_reserve_new sort_down" href="#">% In New Marine Reserves</a></th>
-          <th style="width:50px;"><a class="hab_reserve_total sort_down"  href="#">Total</a></th>
-        </tr>
-      </thead>
-      <tbody class="reserve_values"></tbody>
-    </table>
-    <p>
-        <strong>{{habitatsInReservesCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
-        are protected in the Marine Reserves.
-    </p>
-  {{/d3IsPresent}}
-  {{^d3IsPresent}}
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th style="width:180px;">Habitats</th>
-          <th>% In Existing Marine Reserves</th>
-          <th>% In New Marine Reserves</th>
-          <th style="width:50px;">Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#habitatsInReserves}}
-        <tr>
-          <td>{{HAB_TYPE}}</td>
-          <td>{{EX_PERC}}</td>
-          <td>{{NEW_PERC}}</td>
-          <td>{{CB_PERC}}</td>
-        </tr>
-        {{/habitatsInReserves}}
-        {{^hasReserveData}}
-          <tr>
-            <td colspan="4" style='text-align:center;'>None</td>
-          </tr>
-        {{/hasReserveData}}
-      </tbody>
-      <tfoot>
-        <p>
-          <strong>{{habitatsInReservesCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
-          are protected in the Marine Reserves.
-        </p>
-      </tfoot>
-    </table>
-  {{/d3IsPresent}}
-</div>
-
-<div class="reportSection tableContainer">
-  <h4>Habitats Protected in Type-2 Protected Areas</h4>
-  {{#d3IsPresent}}
-      <table data-paging="10" class="type2_hab_table">
+{{#hasReserveData}}
+  <div class="reportSection tableContainer">
+    <h4>Habitats Protected in Marine Reserves <a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></h4>
+    {{#d3IsPresent}}
+      <table data-paging="20" class="reserve_hab_table"> 
         <thead>
           <tr>
-            <th class="sorting_col" style="width:180px;"><a class="hab_type2_type sort_up" href="#">Habitats</a></th>
-            <th><a  class="hab_type2_existing sort_down" href="#" >% In New Type-2 Protected Areas</a></th>
-            <th><a class="hab_type2_new sort_down" href="#">% In Existing Type-2 Protected Areas</a></th>
-            <th style="width:50px;"><a class="hab_type2_total sort_down"  href="#">Total</a></th>
+            <th class="sorting_col" style="width:250px;"><a class="hab_reserve_type sort_up" href="#">Habitat Type</a></th>
+            <th><a  class="hab_reserve_new_area sort_down" href="#" >Area (ha)</a></th>
+            <th><a class="hab_reserve_new_perc sort_down" href="#">Area (%)</a></th>
           </tr>
         </thead>
-        <tbody class="type2_values">
+        <tbody class="reserve_values"></tbody>
+      </table>
+      <p>
+          <strong>{{habitatsInReservesCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
+          are protected in the Marine Reserves.
+      </p>
+    {{/d3IsPresent}}
+    {{^d3IsPresent}}
+      <table data-paging="10">
+        <thead>
+          <tr>
+            <th style="width:250px;">Habitats</th>
+            <th>Area (ha)</th>
+            <th>Area (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#habitatsInReserves}}
+          <tr>
+            <td>{{HAB_TYPE}}</td>
+            <td>{{NEW_SIZE}}</td>
+            <td>{{NEW_PERC}}</td>
+          </tr>
+          {{/habitatsInReserves}}
+        </tbody>
+        <tfoot>
+          <p>
+            <strong>{{habitatsInReservesCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
+            are protected in the Marine Reserves.
+          </p>
+        </tfoot>
+      </table>
+    {{/d3IsPresent}}
+  </div>
+{{/hasReserveData}}
+
+{{#hasTypeTwoData}}
+  <div class="reportSection tableContainer">
+    <h4>Habitats Protected in Type-2 Protected Areas <a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></h4>
+    {{#d3IsPresent}}
+        <table data-paging="20" class="type2_hab_table">
+          <thead>
+            <tr>
+              <th class="sorting_col" style="width:250px;"><a class="hab_type2_type sort_up" href="#">Habitat Type</a></th>
+              <th><a  class="hab_type2_new_area sort_down" href="#" >Area (ha)</a></th>
+              <th><a class="hab_type2_new_perc sort_down" href="#">Area (%)</a></th>
+            </tr>
+          </thead>
+          <tbody class="type2_values">
+          </tbody>
+          <tfoot>
+            <p>
+              <strong>{{habitatsInTypeTwoCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
+              are protected in a Type-2 Protected Area.
+            </p>
+          </tfoot>
+        </table>
+    {{/d3IsPresent}}
+    {{^d3IsPresent}}
+      <table data-paging="10">
+        <thead>
+          <tr>
+            <th style="width:250px;">Habitat Type</th>
+            <th>Area (ha)</th>
+            <th>Area (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#habitatsInTypeTwos}}
+          <tr>
+            <td>{{HAB_TYPE}}</td>
+            <td>{{NEW_SIZE}}</td>
+            <td>{{NEW_AREA}}</td>
+          </tr>
+          {{/habitatsInTypeTwos}}
         </tbody>
         <tfoot>
           <p>
@@ -82,43 +101,10 @@
             are protected in a Type-2 Protected Area.
           </p>
         </tfoot>
-      </table>
-  {{/d3IsPresent}}
-  {{^d3IsPresent}}
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th style="width:180px;">Habitats</th>
-          <th>% In New Type-2 Protected Areas</th>
-          <th>% In Existing Type-2 Protected Areas</th>
-          <th style="width:50px;">Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#habitatsInTypeTwos}}
-        <tr>
-          <td>{{HAB_TYPE}}</td>
-          <td>{{NEW_PERC}}</td>
-          <td>{{EX_PERC}}</td>
-          <td>{{CB_PERC}}</td>
-        </tr>
-        {{/habitatsInTypeTwos}}
-        {{^hasTypeTwoData}}
-        <tr>
-          <td colspan="4" style='text-align:left;'>None</td>
-        </tr>
-        {{/hasTypeTwoData}}
-      </tbody>
-      <tfoot>
-        <p>
-          <strong>{{habitatsInTypeTwoCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
-          are protected in a Type-2 Protected Area.
-        </p>
-      </tfoot>
-   </table>
-  {{/d3IsPresent}}
-</div>
-
+     </table>
+    {{/d3IsPresent}}
+  </div>
+{{/hasTypeTwoData}}
 {{#hasRepresentationData}}
   <div class="reportSection tableContainer">
     <h4>Habitat Representation</h4>

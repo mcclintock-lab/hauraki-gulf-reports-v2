@@ -39,15 +39,11 @@ class ArrayEnvironmentTab extends ReportTab
         habitatsInTypeTwos = _.filter habitats, (row) -> row.MPA_TYPE is 'MPA2' 
         habitatsInTypeTwoCount = habitatsInTypeTwos?.length
 
-        """
+        
         representationData = _.filter habitats, (row) -> row.MPA_TYPE is 'ALL_TYPES' 
         hasRepresentationData = representationData?.length > 0
         representedCount = representationData?.length
         representationData = _.sortBy representationData, (row) -> row.HAB_TYPE
-        """
-        representedCount = 0
-        representationData = []
-        hasRepresentationData = false
 
         hasTypeTwoData = habitatsInTypeTwos.length > 0
 
@@ -231,7 +227,7 @@ class ArrayEnvironmentTab extends ReportTab
     #make sure this comes before paging, otherwise pages won't be there  
     @setupReserveHabitatSorting(habitatsInReserves)
     @setupType2HabitatSorting(habitatsInTypeTwos)
-    #@setupHabitatRepresentationSorting(representationData)
+    @setupHabitatRepresentationSorting(representationData)
     #@setupSensitiveHabitatSorting(protectionSensitiveAreas, 'prot')
     #@setupSensitiveHabitatSorting(aquacultureSensitiveAreas, 'aq')
     @setupAquacultureHabitatSorting(aquacultureHabitats)
