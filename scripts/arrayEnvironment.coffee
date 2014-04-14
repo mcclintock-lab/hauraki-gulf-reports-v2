@@ -148,7 +148,7 @@ class ArrayEnvironmentTab extends ReportTab
       catch e
         hasAquacultureHabitats = false
 
-    ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
+    ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat Formation']
     if window.d3
       d3IsPresent = true
     else

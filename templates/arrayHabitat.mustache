@@ -201,12 +201,78 @@
       {{/d3IsPresent}}
     </div>
   {{/hasProtectionSensitiveAreas}}
+  {{#hasProtectionProtectedMammals}}
+  <div class="reportSection tableContainer">
+    <h4>Marine Mammals in Protection Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+        <th>Top 10 Species Present</th>
+        <th>Number of Sighting Events</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#protectionProtectedMammals}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>{{Count}}</td>
+        </tr>
+        {{/protectionProtectedMammals}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasProtectionProtectedMammals}}
+
+  {{#hasProtectionSeabirdBreedingSites}}
+  <div class="reportSection tableContainer">
+    <h4>Seabirds in Protection Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Number of Breeding Sites</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#protectionSeabirdBreedingSites}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>{{Count}}</td>
+        </tr>
+        {{/protectionSeabirdBreedingSites}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasProtectionSeabirdBreedingSites}}
+
+
+  {{#hasProtectionShorebirdSites}}
+  <div class="reportSection tableContainer">
+    <h4>Shorebird Sites in Protection Zones</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Number of Shorebird Sites</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#protectionShorebirdSites}}
+        <tr>
+          <td>{{Name}}</td>
+          <td>{{Count}}</td>
+        </tr>
+        {{/protectionShorebirdSites}}
+      </tbody>
+    </table>
+  </div>
+  {{/hasProtectionShorebirdSites}}
+
   <div class="reportSection" class="tableContainer">
     <h4>Ecosystem Services in Protection Zones</h4>
+      <strong>What are Ecosystem Services?</strong>
       <p>
-        Percent overlap of the proposed protection areas for three types of Regulating and Supporting Ecosystem Services. Note: Provisioning Services are included in the Fisheries reports. 
-        <a href="http://www.aucklandcouncil.govt.nz/SiteCollectionDocuments/aboutcouncil/planspoliciespublications/technicalpublications/tr2010033ecosystemfunctioninggoodsandservicesinthecoastalenvironment.pdf" 
-        target="_blank">Read more information on Ecosystem Services</a>
+        Ecosystem services are the benefits people obtain from ecosystems. These include provisioning, regulating, and cultural services that directly affect people and the supporting services needed to maintain other services (Millennium Ecosystem Assessment 2005). Visit the following link for <a href="http://en.wikipedia.org/wiki/Ecosystem_services" target="_blank"> a general decription of Ecosystem Services</a>, and <a href="http://www.unep.org/ecosystemmanagement/portals/7/Images/schema.gif" target="_blank">this diagram</a> shows the relationship between the different services. The Aukland Regional Council has also produced a <a href="http://www.aucklandcouncil.govt.nz/SiteCollectionDocuments/aboutcouncil/planspoliciespublications/technicalpublications/tr2010033ecosystemfunctioninggoodsandservicesinthecoastalenvironment.pdf" target="_blank">scientific report on NZ Coastal Ecosystem Services</a>. The tables below show the overlap of your Sketch with different levels of three Regulating and Supporting Ecosystem Services. Note: Provisioning Services are included in the Fisheries reports.
       </p>
       <p>
         <select class="protection-chosen">
@@ -277,74 +343,9 @@
     </table>
     </div>
   </div>
-  {{#hasProtectionProtectedMammals}}
-  <div class="reportSection tableContainer">
-    <h4>Marine Mammals in Protection Zones</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-        <th>Top 10 Species Present</th>
-        <th>Number of Sighting Events</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#protectionProtectedMammals}}
-        <tr>
-          <td>{{Name}}</td>
-          <td>{{Count}}</td>
-        </tr>
-        {{/protectionProtectedMammals}}
-      </tbody>
-    </table>
-  </div>
-  {{/hasProtectionProtectedMammals}}
-
-  {{#hasProtectionSeabirdBreedingSites}}
-  <div class="reportSection tableContainer">
-    <h4>Seabirds in Protection Zones</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Number of Breeding Sites</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#protectionSeabirdBreedingSites}}
-        <tr>
-          <td>{{Name}}</td>
-          <td>{{Count}}</td>
-        </tr>
-        {{/protectionSeabirdBreedingSites}}
-      </tbody>
-    </table>
-  </div>
-  {{/hasProtectionSeabirdBreedingSites}}
-
-
-  {{#hasProtectionShorebirdSites}}
-  <div class="reportSection tableContainer">
-    <h4>Shorebird Sites in Protection Zones</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Number of Shorebird Sites</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#protectionShorebirdSites}}
-        <tr>
-          <td>{{Name}}</td>
-          <td>{{Count}}</td>
-        </tr>
-        {{/protectionShorebirdSites}}
-      </tbody>
-    </table>
-  </div>
-  {{/hasProtectionShorebirdSites}}
-
-
+  {{^hasAquacultureClasses}}
+    <div style="height:50px;"></div>
+  {{/hasAquacultureClasses}}
   {{/hasProtectionClasses}}
 {{#hasAquacultureClasses}}
   <p>
@@ -440,80 +441,7 @@
       {{/d3IsPresent}}
     </div>
   {{/hasAquacultureSensitiveAreas}}
-  <div class="reportSection" class="tableContainer">
-    <h4>Ecosystem Services in Aquaculture Zones</h4>
-      <p>
-        Percent overlap of the proposed aquaculture areas for three types of ecosystem services.
-      </p>
-      <p>
-        <select class="aquaculture-chosen">
-          <option class="default-chosen-selection-aquaculture" label="Select an Ecosystem Service"></option>
-          {{#aquacultureEcosystemServices}}
-            <option value="{{.}}">{{.}}</option>
-          {{/aquacultureEcosystemServices}}
-        </select>
-      </p>
-    <div class="aquaculture-nutrient-recycling">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:200px;">Nutrient Recycling Value</th>
-            <th>Area (Ha)</th>
-            <th>Percent</th>
-          </tr>
-        </thead>
-        <tbody>
-        {{#aquacultureNutrientRecycling}}
-          <tr>
-            <td>{{Class}}</td>
-            <td>{{AreaInHa}}</td>
-            <td>{{Percent}}</td>
-          </tr>
-          {{/aquacultureNutrientRecycling}}
-        </tbody>
-      </table>
-    </div>
-    <div class="aquaculture-biogenic-habitat">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:200px;">Biogenic Habitat Value</th>
-            <th>Area (Ha)</th>
-            <th>Percent</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#aquacultureBiogenicHabitat}}
-          <tr>
-            <td>{{Class}}</td>
-            <td>{{AreaInHa}}</td>
-            <td>{{Percent}}</td>
-          </tr>
-          {{/aquacultureBiogenicHabitat}}
-        </tbody>
-      </table>
-    </div>
-    <div class="aquaculture-ecosystem-productivity">
-    <table>
-      <thead>
-        <tr>
-          <th style="width:200px;">Ecosystem Productivity Value</th>
-          <th>Area (Ha)</th>
-          <th>Percent</th>
-        </tr>
-      </thead>
-      <tbody>
-      {{#aquacultureEcosystemProductivity}}
-        <tr>
-          <td>{{Class}}</td>
-          <td>{{AreaInHa}}</td>
-          <td>{{Percent}}</td>
-        </tr>
-        {{/aquacultureEcosystemProductivity}}
-      </tbody>
-    </table>
-    </div>
-  </div>
+
   {{#hasAquacultureProtectedMammals}}
     <div class="reportSection tableContainer">
       <h4>Marine Mammals in Aquaculture Zones</h4>
@@ -616,6 +544,82 @@
     </p>
   </div>
   {{/isCloseToProtectedAreas}}
+  <div class="reportSection" class="tableContainer">
+    <h4>Ecosystem Services in Aquaculture Zones</h4>
+      <strong>What are Ecosystem Services?</strong>
+      <p>
+        Ecosystem services are the benefits people obtain from ecosystems. These include provisioning, regulating, and cultural services that directly affect people and the supporting services needed to maintain other services (Millennium Ecosystem Assessment 2005). Visit the following link for <a href="http://en.wikipedia.org/wiki/Ecosystem_services" target="_blank"> a general decription of Ecosystem Services</a>, and <a href="http://www.unep.org/ecosystemmanagement/portals/7/Images/schema.gif" target="_blank">this diagram</a> shows the relationship between the different services. The Aukland Regional Council has also produced a <a href="http://www.aucklandcouncil.govt.nz/SiteCollectionDocuments/aboutcouncil/planspoliciespublications/technicalpublications/tr2010033ecosystemfunctioninggoodsandservicesinthecoastalenvironment.pdf" target="_blank">scientific report on NZ Coastal Ecosystem Services</a>. The tables below show the overlap of your Sketch with different levels of three Regulating and Supporting Ecosystem Services. Note: Provisioning Services are included in the Fisheries reports.
+      </p>
+      <p>
+        <select class="aquaculture-chosen">
+          <option class="default-chosen-selection-aquaculture" label="Select an Ecosystem Service"></option>
+          {{#aquacultureEcosystemServices}}
+            <option value="{{.}}">{{.}}</option>
+          {{/aquacultureEcosystemServices}}
+        </select>
+      </p>
+    <div class="aquaculture-nutrient-recycling">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:200px;">Nutrient Recycling Value</th>
+            <th>Area (Ha)</th>
+            <th>Percent</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#aquacultureNutrientRecycling}}
+          <tr>
+            <td>{{Class}}</td>
+            <td>{{AreaInHa}}</td>
+            <td>{{Percent}}</td>
+          </tr>
+          {{/aquacultureNutrientRecycling}}
+        </tbody>
+      </table>
+    </div>
+    <div class="aquaculture-biogenic-habitat">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:200px;">Biogenic Habitat Value</th>
+            <th>Area (Ha)</th>
+            <th>Percent</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#aquacultureBiogenicHabitat}}
+          <tr>
+            <td>{{Class}}</td>
+            <td>{{AreaInHa}}</td>
+            <td>{{Percent}}</td>
+          </tr>
+          {{/aquacultureBiogenicHabitat}}
+        </tbody>
+      </table>
+    </div>
+    <div class="aquaculture-ecosystem-productivity">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:200px;">Ecosystem Productivity Value</th>
+          <th>Area (Ha)</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#aquacultureEcosystemProductivity}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/aquacultureEcosystemProductivity}}
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div style="height:50px;"></div>
 {{/hasAquacultureClasses}}
 
 

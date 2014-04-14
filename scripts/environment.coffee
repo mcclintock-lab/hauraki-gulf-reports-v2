@@ -66,7 +66,7 @@ class EnvironmentTab extends ReportTab
     ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
-    ecosystemServices = ['','Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat']
+    ecosystemServices = ['','Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat Formation']
     if window.d3
       d3IsPresent = true
     else

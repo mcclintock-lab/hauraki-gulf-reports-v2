@@ -111,80 +111,7 @@
   </table>
 </div>
 {{/hasSensitiveAreas}}
-  <div class="reportSection" class="tableContainer">
-    <h4>Ecosystem Services</h4>
-      <p>
-        Percent overlap of the proposed aquaculture areas for three types of ecosystem services.
-      </p>
-      <p>
-        <select class="aquaculture-chosen">
-          <option class="default-chosen-selection" label="Select an Ecosystem Service"></option>
-          {{#aquacultureEcosystemServices}}
-          <option value="{{.}}">{{.}}</option>
-          {{/aquacultureEcosystemServices}}
-        </select>
-      </p>
-    <div class="aquaculture-nutrient-recycling">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:200px;">Nutrient Recycling Value</th>
-            <th>Area (Ha)</th>
-            <th>Percent</th>
-          </tr>
-        </thead>
-        <tbody>
-        {{#aquacultureNutrientRecycling}}
-          <tr>
-            <td>{{Class}}</td>
-            <td>{{AreaInHa}}</td>
-            <td>{{Percent}}</td>
-          </tr>
-          {{/aquacultureNutrientRecycling}}
-        </tbody>
-      </table>
-    </div>
-    <div class="aquaculture-biogenic-habitat">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:200px;">Biogenic Habitat Value</th>
-            <th>Area (Ha)</th>
-            <th>Percent</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#aquacultureBiogenicHabitat}}
-          <tr>
-            <td>{{Class}}</td>
-            <td>{{AreaInHa}}</td>
-            <td>{{Percent}}</td>
-          </tr>
-          {{/aquacultureBiogenicHabitat}}
-        </tbody>
-      </table>
-    </div>
-    <div class="aquaculture-ecosystem-productivity">
-    <table>
-      <thead>
-        <tr>
-          <th style="width:200px;">Ecosystem Productivity Value</th>
-          <th>Area (Ha)</th>
-          <th>Percent</th>
-        </tr>
-      </thead>
-      <tbody>
-      {{#aquacultureEcosystemProductivity}}
-        <tr>
-          <td>{{Class}}</td>
-          <td>{{AreaInHa}}</td>
-          <td>{{Percent}}</td>
-        </tr>
-        {{/aquacultureEcosystemProductivity}}
-      </tbody>
-    </table>
-    </div>
-  </div>
+
 {{#hasProtectedMammals}}
 <div class="reportSection tableContainer">
   <h4>Marine Mammals</h4>
@@ -261,5 +188,80 @@
   </p>
 </div>
 {{/adjacentProtectedAreas}}
-
+  <div class="reportSection" class="tableContainer">
+    <h4>Ecosystem Services</h4>
+      <strong>What are Ecosystem Services?</strong>
+      <p>
+        Ecosystem services are the benefits people obtain from ecosystems. These include provisioning, regulating, and cultural services that directly affect people and the supporting services needed to maintain other services (Millennium Ecosystem Assessment 2005). Visit the following link for <a href="http://en.wikipedia.org/wiki/Ecosystem_services" target="_blank"> a general decription of Ecosystem Services</a>, and <a href="http://www.unep.org/ecosystemmanagement/portals/7/Images/schema.gif" target="_blank">this diagram</a> shows the relationship between the different services. The Aukland Regional Council has also produced a <a href="http://www.aucklandcouncil.govt.nz/SiteCollectionDocuments/aboutcouncil/planspoliciespublications/technicalpublications/tr2010033ecosystemfunctioninggoodsandservicesinthecoastalenvironment.pdf" target="_blank">scientific report on NZ Coastal Ecosystem Services</a>. The tables below show the overlap of your Sketch with different levels of three Regulating and Supporting Ecosystem Services. Note: Provisioning Services are included in the Fisheries reports.
+      </p>
+      <p>
+        <select class="aquaculture-chosen">
+          <option class="default-chosen-selection" label="Select an Ecosystem Service"></option>
+          {{#aquacultureEcosystemServices}}
+          <option value="{{.}}">{{.}}</option>
+          {{/aquacultureEcosystemServices}}
+        </select>
+      </p>
+    <div class="aquaculture-nutrient-recycling">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:200px;">Nutrient Recycling Value</th>
+            <th>Area (Ha)</th>
+            <th>Percent</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#aquacultureNutrientRecycling}}
+          <tr>
+            <td>{{Class}}</td>
+            <td>{{AreaInHa}}</td>
+            <td>{{Percent}}</td>
+          </tr>
+          {{/aquacultureNutrientRecycling}}
+        </tbody>
+      </table>
+    </div>
+    <div class="aquaculture-biogenic-habitat">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:200px;">Biogenic Habitat Value</th>
+            <th>Area (Ha)</th>
+            <th>Percent</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#aquacultureBiogenicHabitat}}
+          <tr>
+            <td>{{Class}}</td>
+            <td>{{AreaInHa}}</td>
+            <td>{{Percent}}</td>
+          </tr>
+          {{/aquacultureBiogenicHabitat}}
+        </tbody>
+      </table>
+    </div>
+    <div class="aquaculture-ecosystem-productivity">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:200px;">Ecosystem Productivity Value</th>
+          <th>Area (Ha)</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#aquacultureEcosystemProductivity}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/aquacultureEcosystemProductivity}}
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div style="height:50px;"></div>
 
