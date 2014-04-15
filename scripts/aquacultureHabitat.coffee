@@ -172,7 +172,7 @@ class AquacultureHabitatTab extends ReportTab
 
     @setSortingColor(event, tableName)
     #fire the event for the active page if pagination is present
-    @firePagination(tableName)
+    #@firePagination(tableName)
     if event
       event.stopPropagation()
 
@@ -186,7 +186,6 @@ class AquacultureHabitatTab extends ReportTab
       parent = $(event.currentTarget).parent()
       newTargetName = event.currentTarget.className
       targetStr = tableName+" th.sorting_col a"   
-      console.log("!!!!!!!!!!!!!!target str: ", targetStr)
       if @$(targetStr) and @$(targetStr)[0]
         oldTargetName = @$(targetStr)[0].className
         
@@ -217,7 +216,6 @@ class AquacultureHabitatTab extends ReportTab
 
   setNewSortDir: (targetColumn, sortUp) =>
     #and switch it
-    console.log("target column is ", targetColumn)
     if sortUp
       @$('.'+targetColumn).removeClass('sort_up')
       @$('.'+targetColumn).addClass('sort_down')

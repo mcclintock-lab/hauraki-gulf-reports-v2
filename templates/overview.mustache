@@ -32,16 +32,25 @@
   {{#d3IsPresent}}
     <div class="reportSection tableContainer">
       <h4>Representation of Habitats</h4>
+      <p class="large" style="margin-left:10px;padding-bottom:0px;margin-bottom:0px;"><strong>Number of Habitats</strong></p>
+      <p class="large" style="margin-left:10px;">
+        There are <strong>62</strong> habitats in the planning region, and your sketch includes <strong>{{NUM_HABS}}</strong>. For more information on the Habitat Classification see the <a href="http://www.doc.govt.nz/Documents/conservation/marine-and-coastal/marine-protected-areas/mpa-classification-protection-standard.pdf" target="_blank">
+        Marine Protected Areas Classification and Protection Standard</a>
+      </p>
       {{#isMarineReserve}}
-        <div class="large-header">Habitats Present</div>
+        <div class="large-header">Habitats Present in <strong> Marine Reserves</strong>:</div>
+        <div class="viz" style="position:relative;"></div>
+        <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Marine Reserves</strong>:</div>
         <div class="viz" style="position:relative;"></div>
       {{/isMarineReserve}}
       {{#isType2}}
-        <div class="large-header">Habitats Present</strong>:</div>
+        <div class="large-header">Habitats Present in <strong>Type-2 Protected Areas</strong>:</div>
+        <div class="viz" style="position:relative;"></div>
+        <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Type-2 Protected Areas</strong>:</div>
         <div class="viz" style="position:relative;"></div>
       {{/isType2}}
-      <p style="margin-left:10px;">
-        There are a total of <strong>62</strong> habitats in the study area. The light green shows the number of habitats currently found within existing {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}}, and the dark green the number of additional habitat types that would be added. The red shows the number of habitats that are not yet represented.
+      <p class="large" style="margin-left:10px;">
+        The above graphs show the number, and relative area, of habitats that are currently protected by {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}} within the Hauraki Gulf (in light green) and the number of additional habitat types that would be protected by your Sketch (in dark green). The number of habitats that are not represented at all in {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}} are shown in red.
       </p>
     </div>
   {{/d3IsPresent}}
@@ -87,21 +96,9 @@
     </table>
     </div>
   {{/d3IsPresent}}
+  <!--
   <div class="reportSection tableContainer">
     <h4>Percent of Hauraki Gulf Marine Park Protected</h4>
-    {{#d3IsPresent}}
-      {{#isMarineReserve}}
-        <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Marine Reserves</strong>:</div>
-        <div class="viz" style="position:relative;"></div>
-      {{/isMarineReserve}}
-      {{#isType2}}
-        <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Type-2 Protected Areas</strong>:</div>
-        <div class="viz" style="position:relative;"></div>
-      {{/isType2}}
-      <p style="margin-left:10px;">
-        The graph shows the percent of the Gulf protected in existing {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}} in light green, and the additional percentage that would be added from your sketch are shown in dark green. Note the scale only goes to 30% to increase readability at low values.
-      </p>
-    {{/d3IsPresent}}
     {{^d3IsPresent}}
       <table data-paging="10"> <!-- data-paging... activates paging  -->
         <thead>
@@ -140,6 +137,7 @@
           </tr>
         </tfoot>
       </table>
+      -->
     {{/d3IsPresent}}
 </div>
 
