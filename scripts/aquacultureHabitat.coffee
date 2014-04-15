@@ -213,11 +213,11 @@ class AquacultureHabitatTab extends ReportTab
     else
       #when there is no event, first time table is filled
       targetColumn = name
-
     return targetColumn
 
   setNewSortDir: (targetColumn, sortUp) =>
     #and switch it
+    console.log("target column is ", targetColumn)
     if sortUp
       @$('.'+targetColumn).removeClass('sort_up')
       @$('.'+targetColumn).addClass('sort_down')
