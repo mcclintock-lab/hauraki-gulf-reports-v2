@@ -27,6 +27,7 @@
           are protected in the Marine Reserves.
       </p>
     {{/d3IsPresent}}
+    
     {{^d3IsPresent}}
       <table data-paging="10">
         <thead>
@@ -203,7 +204,7 @@
   {{/hasProtectionSensitiveAreas}}
   {{#hasProtectionProtectedMammals}}
   <div class="reportSection tableContainer">
-    <h4>Marine Mammals in Protection Zones</h4>
+    <h4>Marine Mammals</h4>
     <table data-paging="10">
       <thead>
         <tr>
@@ -225,7 +226,7 @@
 
   {{#hasProtectionSeabirdBreedingSites}}
   <div class="reportSection tableContainer">
-    <h4>Seabirds in Protection Zones</h4>
+    <h4>Seabirds</h4>
     <table data-paging="10">
       <thead>
         <tr>
@@ -248,7 +249,7 @@
 
   {{#hasProtectionShorebirdSites}}
   <div class="reportSection tableContainer">
-    <h4>Shorebird Sites in Protection Zones</h4>
+    <h4>Shorebird Sites</h4>
     <table data-paging="10">
       <thead>
         <tr>
@@ -269,7 +270,7 @@
   {{/hasProtectionShorebirdSites}}
 
   <div class="reportSection" class="tableContainer">
-    <h4>Ecosystem Services in Protection Zones</h4>
+    <h4>Ecosystem Services</h4>
       <strong>What are Ecosystem Services?</strong>
       <p>
         Ecosystem services are the benefits people obtain from ecosystems. These include provisioning, regulating, and cultural services that directly affect people and the supporting services needed to maintain other services (Millennium Ecosystem Assessment 2005). Visit the following link for <a href="http://en.wikipedia.org/wiki/Ecosystem_services" target="_blank"> a general decription of Ecosystem Services</a>, and <a href="http://www.unep.org/ecosystemmanagement/portals/7/Images/schema.gif" target="_blank">this diagram</a> shows the relationship between the different services. The Aukland Regional Council has also produced a <a href="http://www.aucklandcouncil.govt.nz/SiteCollectionDocuments/aboutcouncil/planspoliciespublications/technicalpublications/tr2010033ecosystemfunctioninggoodsandservicesinthecoastalenvironment.pdf" target="_blank">scientific report on NZ Coastal Ecosystem Services</a>. The tables below show the overlap of your Sketch with different levels of three Regulating and Supporting Ecosystem Services. Note: Provisioning Services are included in the Fisheries reports.
@@ -353,38 +354,32 @@
     habitats, ecosystems, and uses impacted by the aquaculture areas.
   </p>
   <div class="reportSection tableContainer">
-    <h4>Habitats in Aquaculture Areas</h4>
+    <h4>Habitats</h4>
     {{#d3IsPresent}}
         <table data-paging="10" class="aquaculture_hab_table"> 
         <thead>
           <tr>
-            <th class="sorting_col" style="width:180px;"><a class="hab_aquaculture_type sort_up" href="#">Habitats</a></th>
-            <th><a class="hab_aquaculture_existing sort_down" href="#" >In Existing Aquaculture Area (ha)</a></th>
-            <th><a class="hab_aquaculture_existing_perc sort_down" href="#" >% In Existing Aquaculture Area</a></th>
-            <th><a class="hab_aquaculture_new sort_down" href="#">In New Aquaculture Area (ha)</a></th>
-            <th><a class="hab_aquaculture_new_perc sort_down" href="#">% In New Aquaculture Areas</a></th>
+            <th class="sorting_col" style="width:180px;"><a class="hab_aquaculture_type sort_up" href="#">Habitat Type</a></th>
+            <th><a class="hab_aquaculture_new sort_down" href="#">Area of Habitat Present (ha)</a></th>
+            <th><a class="hab_aquaculture_new_perc sort_down" href="#">% of Habitat in the Gulf</a></th>
           </tr>
         </thead>
         <tbody class="aquaculture_values"></tbody>
       </table>
     {{/d3IsPresent}}
     {{^d3IsPresent}}
-      <table data-paging="10"> <!-- data-paging... activates paging  -->
+      <table data-paging="10">
         <thead>
           <tr>
-            <th style="width:180px;">Habitats</th>
-            <th>In Existing Aquaculture Area (ha)</th>
-            <th>% In Existing Aquaculture Areas</th>
-            <th>In New Aquaculture Area (ha)</th>
-            <th>% In New Aquaculture Areas</th>
+            <th style="width:180px;">Habitat Type</th>
+            <th>Area of Habitat Present (ha)</th>
+            <th>% of Habitat in the Gulf</th>
           </tr>
         </thead>
         <tbody>
           {{#aquacultureHabitats}}
           <tr>
-            <td>{{HAB_TYPE}}</td>
-            <td>{{EX_SIZE}}</td>
-            <td>{{EX_PERC}}</td>        
+            <td>{{HAB_TYPE}}</td>      
             <td>{{NEW_SIZE}}</td>
             <td>{{NEW_PERC}}</td>
           </tr>
@@ -444,7 +439,7 @@
 
   {{#hasAquacultureProtectedMammals}}
     <div class="reportSection tableContainer">
-      <h4>Marine Mammals in Aquaculture Zones</h4>
+      <h4>Marine Mammals</h4>
       <table data-paging="10">
         <thead>
           <tr>
@@ -467,7 +462,7 @@
   {{#hasAquacultureSeabirdBreedingSites}}
     <div class="reportSection tableContainer">
 
-      <h4>Seabirds in Aquaculture Zones</h4>
+      <h4>Seabirds</h4>
       <table data-paging="10">
         <thead>
           <tr>
@@ -490,7 +485,7 @@
 
   {{#hasAquacultureShorebirdSites}}
     <div class="reportSection tableContainer">
-      <h4>Shorebird Sites in Aquaculture Zones</h4>
+      <h4>Shorebird Sites</h4>
       <table data-paging="10">
         <thead>
           <tr>
@@ -545,7 +540,7 @@
   </div>
   {{/isCloseToProtectedAreas}}
   <div class="reportSection" class="tableContainer">
-    <h4>Ecosystem Services in Aquaculture Zones</h4>
+    <h4>Ecosystem Services</h4>
       <strong>What are Ecosystem Services?</strong>
       <p>
         Ecosystem services are the benefits people obtain from ecosystems. These include provisioning, regulating, and cultural services that directly affect people and the supporting services needed to maintain other services (Millennium Ecosystem Assessment 2005). Visit the following link for <a href="http://en.wikipedia.org/wiki/Ecosystem_services" target="_blank"> a general decription of Ecosystem Services</a>, and <a href="http://www.unep.org/ecosystemmanagement/portals/7/Images/schema.gif" target="_blank">this diagram</a> shows the relationship between the different services. The Aukland Regional Council has also produced a <a href="http://www.aucklandcouncil.govt.nz/SiteCollectionDocuments/aboutcouncil/planspoliciespublications/technicalpublications/tr2010033ecosystemfunctioninggoodsandservicesinthecoastalenvironment.pdf" target="_blank">scientific report on NZ Coastal Ecosystem Services</a>. The tables below show the overlap of your Sketch with different levels of three Regulating and Supporting Ecosystem Services. Note: Provisioning Services are included in the Fisheries reports.

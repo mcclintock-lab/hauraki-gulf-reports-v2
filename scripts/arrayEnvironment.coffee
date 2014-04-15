@@ -272,11 +272,12 @@ class ArrayEnvironmentTab extends ReportTab
     @$('.hab_aquaculture_type').click (event) =>
       @renderSort('hab_aquaculture_type', tableName, pdata, event, "HAB_TYPE", tbodyName, false, habitatFunction)
 
+    """
     @$('.hab_aquaculture_existing').click (event) =>
       @renderSort('hab_aquaculture_existing',  tableName, pdata, event, "EX_SIZE", tbodyName, true, habitatFunction)
     @$('.hab_aquaculture_existing_perc').click (event) =>
       @renderSort('hab_aquaculture_existing_perc',  tableName, pdata, event, "EX_PERC", tbodyName, true, habitatFunction)      
-    
+    """
     @$('.hab_aquaculture_new').click (event) =>
       @renderSort('hab_aquaculture_new',tableName, pdata, event, "NEW_SIZE", tbodyName, true, habitatFunction)
     @$('.hab_aquaculture_new_perc').click (event) =>
@@ -381,7 +382,7 @@ class ArrayEnvironmentTab extends ReportTab
       
   #table row for habitat representation
   getAquacultureHabitatRowString: (d) =>
-    return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_SIZE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_SIZE+"</td>"+"<td>"+d.NEW_PERC+"</td>"
+    return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.NEW_SIZE+"</td>"+"<td>"+d.NEW_PERC+"</td>"
 
   #table row for habitat representation
   getSensitiveAreaString: (d) =>

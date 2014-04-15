@@ -44,33 +44,27 @@
       <table data-paging="10" class="aquaculture_hab_table"> 
       <thead>
         <tr>
-          <th class="sorting_col" style="width:180px;"><a class="hab_aquaculture_type sort_up" href="#">Habitats</a></th>
-          <th><a class="hab_aquaculture_existing sort_down" href="#" >In Existing Aquaculture Area (ha)</a></th>
-          <th><a class="hab_aquaculture_existing_perc sort_down" href="#" >% In Existing Aquaculture Area</a></th>
-          <th><a class="hab_aquaculture_new sort_down" href="#">In New Aquaculture Area (ha)</a></th>
-          <th><a class="hab_aquaculture_new_perc sort_down" href="#">% In New Aquaculture Areas</a></th>
+          <th class="sorting_col" style="width:200px;"><a class="hab_aquaculture_type sort_up" href="#">Habitat Type</a></th>
+          <th><a class="hab_aquaculture_new sort_down" href="#">Area of Habitat Present (ha)</a></th>
+          <th><a class="hab_aquaculture_new_perc sort_down" href="#">% of Habitat in the Gulf</a></th>
         </tr>
       </thead>
       <tbody class="aquaculture_values"></tbody>
     </table>
   {{/d3IsPresent}}
   {{^d3IsPresent}}
-    <table data-paging="10"> <!-- data-paging... activates paging  -->
+    <table data-paging="10">
       <thead>
         <tr>
-          <th style="width:180px;">Habitats</th>
-          <th>In Existing Aquaculture Area (ha)</th>
-          <th>% In Existing Aquaculture Areas</th>
-          <th>In New Aquaculture Area (ha)</th>
-          <th>% In New Aquaculture Areas</th>
+          <th style="width:200px;">Habitat Type</th>
+          <th>Area of Habitat Present (ha)</th>
+          <th>% of Habitat in the Gulf</th>
         </tr>
       </thead>
       <tbody>
         {{#aquacultureHabitats}}
         <tr>
-          <td>{{HAB_TYPE}}</td>
-          <td>{{EX_SIZE}}</td>
-          <td>{{EX_PERC}}</td>        
+          <td>{{HAB_TYPE}}</td>    
           <td>{{NEW_SIZE}}</td>
           <td>{{NEW_PERC}}</td>
         </tr>

@@ -8,7 +8,7 @@
 
 {{#hasProtectionClasses}}
   <div class="reportSection tableContainer">
-    <h4>Existing Uses (Protection Zones)</h4>
+    <h4>Existing Uses</h4>
       {{#hasProtectionAllExistingUses}}
         <p class="large">
           A sketch in your collection overlaps, or is close to, identified existing uses.
@@ -80,9 +80,12 @@
 
 {{#hasProtectionOverlapWithMooringsAndAnchorages}}
   <div class="reportSection">
-    <h4>Mooring/Anchorage Areas</h4>
+    <h4>Mooring and Anchorage Areas</h4>
       <p class="large green-check">
         <strong>One more more protection areas overlap with sites that are identified as good for Mooring and Anchorages</strong>.
+      </p>
+      <p style="margin-left:50px;">
+        <a href="#" data-toggle-node="53191b6deb1fe0ac0d0b2031" data-visible="false">Show Coastal Marine Management Areas</a>
       </p>
   </div>
 {{/hasProtectionOverlapWithMooringsAndAnchorages}}
@@ -90,7 +93,7 @@
 
 {{#hasAquacultureClasses}}
   <div class="reportSection tableContainer">
-    <h4>Existing Uses (Aquaculture Zones)</h4>
+    <h4>Existing Uses</h4>
       {{#hasAquacultureAllExistingUses}}
         <p class="large">
           <strong>Your sketch overlaps, or is close to, an identified existing use.</strong>
@@ -118,7 +121,7 @@
   </div>
 
   <div class="reportSection tableContainer">
-    <h4>Heritage Values (Aquaculture Zones)<a href="#" data-toggle-node="52d5b094c03e5164170003ca" data-visible="false">show layer</a></h4>
+    <h4>Heritage Values<a href="#" data-toggle-node="52d5b094c03e5164170003ca" data-visible="false">show layer</a></h4>
       {{#hasAquacultureHeritageUses}}
         <p class="large">
           <strong>One or more sketches overlap, or are in the vicinity of, an area that has been identified as having cultural heritage values</strong>.
@@ -151,6 +154,7 @@
             {{/hasAquacultureArcheologicalSites}}
           </tbody>
         </table>
+        
     {{/hasAquacultureHeritageUses}}
     {{^hasAquacultureHeritageUses}}
       <p class="large">
@@ -161,9 +165,12 @@
   
 {{#hasAquacultureOverlapWithMooringsAndAnchorages}}
   <div class="reportSection">
-    <h4>Mooring/Anchorage Areas </h4>
+    <h4>Mooring and Anchorage Areas </h4>
         <p class="large green-check">
           <strong>One more more aquaculture areas overlap with sites that are identified as good for Mooring and Anchorages</strong>.
+        </p>
+        <p style="margin-left:50px;">
+          <a href="#" data-toggle-node="53191b6deb1fe0ac0d0b2031" data-visible="false">Show Coastal Marine Management Areas</a>
         </p>
   </div>
 {{/hasAquacultureOverlapWithMooringsAndAnchorages}}
@@ -171,7 +178,7 @@
 
 <!--
   <div class="reportSection tableContainer">
-    <h4>Recreational Use Conflicts (Aquaculture Zones)<a href="#" data-toggle-node="52d5a8cbc03e51641700009e" data-visible="false">show layer</a></h4>
+    <h4>Recreational Use Conflicts<a href="#" data-toggle-node="52d5a8cbc03e51641700009e" data-visible="false">show layer</a></h4>
       {{#hasAquacultureRecreationalUseConflicts}}
         <p class="large">
           A sketch in your collection overlaps, or is close to, identified existing uses.
@@ -201,7 +208,7 @@
 
 <!--
   <div class="reportSection tableContainer">
-    <h4>Recreational Uses Conflicts (Protection Zones)<a href="#" data-toggle-node="52d5a8cbc03e51641700009e" data-visible="false">show layer</a></h4>
+    <h4>Recreational Uses Conflicts<a href="#" data-toggle-node="52d5a8cbc03e51641700009e" data-visible="false">show layer</a></h4>
       {{#hasProtectionRecreationalUseConflicts}}
         <p class="large">
           One or more sketches overlap, or are in the vicinity of, an area that has been identified as having <strong>recreational value</strong>. 
@@ -221,6 +228,7 @@
             {{/protectionRecreationalUses}}
           </tbody>
         </table>
+
     {{/hasProtectionRecreationalUseConflicts}}
     {{^hasProtectionRecreationalUseConflicts}}
       <p class="large">
