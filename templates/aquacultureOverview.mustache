@@ -12,6 +12,13 @@
   </table>
 </div>
 {{/anyAttributes}}
+<div class="reportSection size">
+  <h4>Size</h4>
+  <p class="large">
+    This aquaculture sketch is <strong>{{totalSize}} ha</strong>.
+  </p>
+
+</div>
 <div class="reportSection tableContainer">
   <h4>Aquaculture</h4>
   <table>
@@ -31,21 +38,7 @@
         </tr>
       {{/aquacultureSizes}}
     </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4" class="paragraph" style="text-align:left;">
-          <p class="large">
-            {{#isCollection}}
-            New and existing aquaculture zones are
-            {{/isCollection}}
-            {{^isCollection}}
-            This aquaculture zone is
-            {{/isCollection}}
-            <strong>{{totalSize}}</strong> hectares.
-          </p>
-        </td>
-      </tr>
-    </tfoot>
+
   </table>
 </div>
 {{#hasProximity}}
