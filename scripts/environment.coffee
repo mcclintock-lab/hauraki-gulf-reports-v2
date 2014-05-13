@@ -285,7 +285,6 @@ class EnvironmentTab extends ReportTab
 
     return targetColumn
 
-
   setNewSortDir: (targetColumn, sortUp) =>
     #and switch it
     if sortUp

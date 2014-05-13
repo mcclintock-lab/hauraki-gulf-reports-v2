@@ -14,7 +14,7 @@ class ArrayEnvironmentTab extends ReportTab
   className: 'arrayEnvironment'
   timeout: 120000
   template: templates.arrayHabitat
-  dependencies: ['HabitatComprehensiveness', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies', 'ProximityToExistingProtectedAreas',]
+  dependencies: ['HabitatComprehensiveness', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies', 'ProximityToExistingProtectedAreas']
   UP: "up"
   DOWN: "down"
 
@@ -25,6 +25,8 @@ class ArrayEnvironmentTab extends ReportTab
 
     protectionZones = @getChildren PROTECTION_ID
     hasProtectionClasses = protectionZones?.length > 0
+    
+
     if hasProtectionClasses
       try
         #if its all aquaculture, this will be empty
@@ -332,10 +334,12 @@ class ArrayEnvironmentTab extends ReportTab
   setupType2HabitatSorting: (type2Habitats) =>
     tbodyName = '.type2_values'
     tableName = '.type2_hab_table'
-    @$('.hab_type2_new').click (event) =>
-      @renderSort('hab_type2_new',  tableName, type2Habitats, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
     @$('.hab_type2_existing').click (event) =>
       @renderSort('hab_type2_existing',tableName, type2Habitats, event, "EX_PERC", tbodyName, true, @getHabitatRowString)
+    @$('.hab_type2_new').click (event) =>
+      @renderSort('hab_type2_new',  tableName, type2Habitats, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
+
+
     @$('.hab_type2_type').click (event) =>
       @renderSort('hab_type2_type', tableName, type2Habitats, event, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
     @$('.hab_type2_total').click (event) =>
