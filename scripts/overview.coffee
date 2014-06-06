@@ -238,12 +238,25 @@ class OverviewTab extends ReportTab
           .style("width", (d) -> x(d.end - d.start) + 'px')
           .attr("class", (d) -> "range " + d.class)
           .append("span")
-          .style("left", (d) -> x(d.label_start)+'px')
+            .text((d) -> "#{d.name} (#{d.value})")
+            .style("left", (d) -> x(d.label_start)+'px')
             .attr("class", (d) -> "label-"+d.class)
-            .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
             
       else
-        @drawType2Bars(t2ranges)
+        el = @$('.viz')[0]
+        x = d3.scale.linear()
+          .domain([0, 62])
+          .range([0, 400])
+        chart = d3.select(el)
+        chart.selectAll("div.range")
+          .data(t2ranges)
+        .enter().append("div")
+          .style("width", (d) -> x(d.end - d.start) + 'px')
+          .attr("class", (d) -> "range " + d.class)
+          .append("span")
+            .text((d) -> "#{d.name} (#{d.value})")
+            .style("left", (d) -> x(d.label_start)+'px')
+            .attr("class", (d) -> "label-"+d.class)
 
       #The percentage bars
       default_mr_start = perc_mr_existing
