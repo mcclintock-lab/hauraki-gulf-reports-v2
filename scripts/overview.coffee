@@ -319,9 +319,12 @@ class OverviewTab extends ReportTab
         }
       ]
       if isMarineReserve
-        @drawMarineReservePercentBars(perc_ranges)
+        #@drawMarineReservePercentBars(perc_ranges)
+
+        console.log("do nothing")
       else 
-        @drawType2PercentBars(perc_t2_ranges)
+        console.log("do nothing")
+        #@drawType2PercentBars(perc_t2_ranges)
 
   drawType2Bars: (t2ranges) =>
     el = @$('.viz')[0]
