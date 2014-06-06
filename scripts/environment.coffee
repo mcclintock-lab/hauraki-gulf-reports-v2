@@ -220,7 +220,7 @@ class EnvironmentTab extends ReportTab
 
     el = @$(tbodyName)[0]
     hab_body = d3.select(el)
-    console.log("hab_body is ", hab_body)
+
     #remove old rows
     hab_body.selectAll("tr.hab_rows")
       .remove()
