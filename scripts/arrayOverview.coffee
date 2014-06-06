@@ -414,7 +414,7 @@ class ArrayOverviewTab extends ReportTab
       .style("width", (d) -> x(d.end - d.start) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
-      .style("left", (d) -> x(d.label_start)+'px')
+        .style("left", (d) -> if d.label_start then x(d.label_start)+'px' else '')
         .attr("class", (d) -> "label-"+d.class)
         .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
@@ -431,7 +431,7 @@ class ArrayOverviewTab extends ReportTab
       .style("width", (d) -> x(d.end - d.start) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
-      .style("left", (d) -> x(d.label_start)+'px')
+        .style("left", (d) -> if d.label_start then x(d.label_start)+'px' else '')
         .attr("class", (d) -> "label-"+d.class)
         .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
@@ -448,7 +448,7 @@ class ArrayOverviewTab extends ReportTab
       .attr("class", (d) -> "range " + d.class)
       .append("span")
         .attr("class", (d) -> "label-"+d.class)
-        .style("left", (d) -> x(d.label_start)+'px')
+        .style("left", (d) -> if d.label_start then x(d.label_start)+'px' else '')
         .html((d) -> if d.name then (d.name+"<strong>  ("+d.value+"%)</strong>") else '')
 
     chart.selectAll("div.max_marker")
@@ -479,7 +479,7 @@ class ArrayOverviewTab extends ReportTab
       .attr("class", (d) -> "range " + d.class)
       .append("span")
         .attr("class", (d) -> "label-"+d.class)
-        .style("left", (d) -> x(d.label_start)+'px')
+        .style("left", (d) -> if d.label_start then x(d.label_start)+'px' else '')
         .html((d) -> if d.name then (d.name+"<strong>  ("+d.value+"%)</strong>") else '')
   
     chart.selectAll("div.max_marker")
