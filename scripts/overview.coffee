@@ -226,9 +226,37 @@ class OverviewTab extends ReportTab
           }
         ]
       if isMarineReserve
-        @drawMarineReserveBars(ranges)
+        #@drawMarineReserveBars(ranges)
+        el = @$('.viz')[0]
+        x = d3.scale.linear()
+          .domain([0, 62])
+          .range([0, 400])
+        chart = d3.select(el)
+        chart.selectAll("div.range")
+          .data(ranges)
+        .enter().append("div")
+          .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
+          .attr("class", (d) -> "range " + d.class)
+          .append("span")
+            .text((d) -> "#{d.name} (#{d.value})")
+            .style("left", (d) -> x(d.label_start)+'px')
+            .attr("class", (d) -> "label-"+d.class)
       else
-        @drawType2Bars(t2ranges)
+        #@drawType2Bars(t2ranges)
+        el = @$('.viz')[0]
+        x = d3.scale.linear()
+          .domain([0, 62])
+          .range([0, 400])
+        chart = d3.select(el)
+        chart.selectAll("div.range")
+          .data(t2ranges)
+        .enter().append("div")
+          .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
+          .attr("class", (d) -> "range " + d.class)
+          .append("span")
+            .text((d) -> "#{d.name} (#{d.value})")
+            .style("left", (d) -> x(d.label_start)+'px')
+            .attr("class", (d) -> "label-"+d.class)
 
 
       #The percentage bars
@@ -320,9 +348,53 @@ class OverviewTab extends ReportTab
         }
       ]
       if isMarineReserve
-        @drawMarineReservePercentBars(perc_ranges)
+        #@drawMarineReservePercentBars(perc_ranges)
+        x = d3.scale.linear()
+          .domain([0, 30])
+          .range([0, 400])
+      
+        el = @$('.vizPerc')[0]
+        chart = d3.select(el)
+        chart.selectAll("div.range")
+          .data(perc_ranges)
+        .enter().append("div")
+          .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
+          .attr("class", (d) -> "range " + d.class)
+          .append("span")
+            .text((d) -> if d.name then "#{d.name}: (#{d.value})" else '')
+            .attr("class", (d) -> "label-"+d.class)
+            .style("left", (d) -> x(d.label_start)+'px')
       else 
-        @drawType2PercentBars(perc_t2_ranges)
+        #@drawType2PercentBars(perc_t2_ranges)
+
+        el = @$('.vizPerc')[0]
+        x = d3.scale.linear()
+          .domain([0, 30])
+          .range([0, 400])
+        chart = d3.select(el)
+        chart.selectAll("div.range")
+          .data(perc_t2_ranges)
+        .enter().append("div")
+          .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
+          .attr("class", (d) -> "range " + d.class)
+          .append("span")
+            .text((d) -> if d.name then "#{d.name}: (#{d.value})" else '')
+            .attr("class", (d) -> "label-"+d.class)
+            .style("left", (d) -> x(d.label_start)+'px')
+
+      chart.selectAll("div.max_marker")
+        .data([30])
+      .enter().append("div")
+        .attr("class", "max_marker")
+        .text((d) -> "")
+        .style("left", (d) -> x(d) + 'px')
+
+      chart.selectAll("div.max_label")
+        .data([29])
+      .enter().append("div")
+        .attr("class", "max_label")
+        .text((d) -> "30%")
+        .style("left", (d) -> x(d) + 'px')
 
   drawType2Bars: (t2ranges) =>
     el = @$('.viz')[0]
