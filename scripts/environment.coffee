@@ -223,12 +223,13 @@ class EnvironmentTab extends ReportTab
     #remove old rows
     hab_body.selectAll("tr.hab_rows")
       .remove()
+
     #add new rows (and data)
     hab_body.selectAll("tbody"+tbodyName)
       .data(data)
     .enter().insert("tr", ":first-child")
-    .attr("class", "hab_rows")
-    .html((d) -> getRowStringValue(d))
+      .attr("class", "hab_rows")
+      .html((d) -> "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.NEW_SIZE+"</td>"+"<td>"+d.NEW_PERC+"</td>")
     @setNewSortDir(targetColumn, sortUp)
 
     @setSortingColor(event, tableName)
