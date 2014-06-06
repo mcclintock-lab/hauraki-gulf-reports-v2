@@ -226,7 +226,22 @@ class OverviewTab extends ReportTab
           }
         ]
       if isMarineReserve
-        @drawMarineReserveBars(ranges)
+        #@drawMarineReserveBars(ranges)
+        el = @$('.viz')[0]
+        x = d3.scale.linear()
+          .domain([0, 62])
+          .range([0, 400])
+        chart = d3.select(el)
+        chart.selectAll("div.range")
+          .data(ranges)
+        .enter().append("div")
+          .style("width", (d) -> x(d.end - d.start) + 'px')
+          .attr("class", (d) -> "range " + d.class)
+          .append("span")
+          .style("left", (d) -> x(d.label_start)+'px')
+            .attr("class", (d) -> "label-"+d.class)
+            .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
+            
       else
         @drawType2Bars(t2ranges)
 
