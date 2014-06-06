@@ -296,7 +296,6 @@
         {{/nutrientRecycling}}
       </tbody>
     </table>
-   <!-- <p style="margin-left:5px;"><a href="#" data-toggle-node="" data-visible="false">show nutrient recycling layer</a></p> -->
   </div>
   <div class="protection-biogenic-habitat">
     <table>
@@ -317,29 +316,26 @@
         {{/biogenicHabitat}}
       </tbody>
     </table>
-    <!-- <p style="margin-left:5px;"><a href="#" data-toggle-node="" data-visible="false">show biogenic habitat layer</a></p> -->
   </div>
   <div class="protection-ecosystem-productivity">
-  <table>
-    <thead>
-      <tr>
-        <th style="width:200px;">Ecosystem Productivity Value</th>
-        <th>Area (Ha)</th>
-        <th>Percent</th>
-      </tr>
-    </thead>
-    <tbody>
-    {{#ecosystemProductivity}}
-      <tr>
-        <td>{{Class}}</td>
-        <td>{{AreaInHa}}</td>
-        <td>{{Percent}}</td>
-      </tr>
-      {{/ecosystemProductivity}}
-    </tbody>
-    
-  </table>
-  <!-- <p style="margin-left:5px;"><a href="#" data-toggle-node="" data-visible="false">show ecosystem productivity layer</a></p> -->
+    <table>
+      <thead>
+        <tr>
+          <th style="width:200px;">Ecosystem Productivity Value</th>
+          <th>Area (Ha)</th>
+          <th>Percent</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#ecosystemProductivity}}
+        <tr>
+          <td>{{Class}}</td>
+          <td>{{AreaInHa}}</td>
+          <td>{{Percent}}</td>
+        </tr>
+        {{/ecosystemProductivity}}
+      </tbody>
+    </table>
   </div>
 </div>
 <div style="height:50px;"></div>
