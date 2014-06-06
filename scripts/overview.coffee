@@ -226,37 +226,10 @@ class OverviewTab extends ReportTab
           }
         ]
       if isMarineReserve
-        #@drawMarineReserveBars(ranges)
-        el = @$('.viz')[0]
-        x = d3.scale.linear()
-          .domain([0, 62])
-          .range([0, 400])
-        chart = d3.select(el)
-        chart.selectAll("div.range")
-          .data(ranges)
-        .enter().append("div")
-          .style("width", (d) -> x(d.end - d.start) + 'px')
-          .attr("class", (d) -> "range " + d.class)
-          .append("span")
-            .text((d) -> "#{d.name} (#{d.value})")
-            .style("left", (d) -> x(d.label_start)+'px')
-            .attr("class", (d) -> "label-"+d.class)
-            
+        @drawMarineReserveBars(ranges)
       else
-        el = @$('.viz')[0]
-        x = d3.scale.linear()
-          .domain([0, 62])
-          .range([0, 400])
-        chart = d3.select(el)
-        chart.selectAll("div.range")
-          .data(t2ranges)
-        .enter().append("div")
-          .style("width", (d) -> x(d.end - d.start) + 'px')
-          .attr("class", (d) -> "range " + d.class)
-          .append("span")
-            .text((d) -> "#{d.name} (#{d.value})")
-            .style("left", (d) -> x(d.label_start)+'px')
-            .attr("class", (d) -> "label-"+d.class)
+        @drawType2Bars(t2ranges)
+
 
       #The percentage bars
       default_mr_start = perc_mr_existing
@@ -300,7 +273,7 @@ class OverviewTab extends ReportTab
           class: 'existing'
         }
         {
-          name: 'Existing <strong>(0.3%)</strong> / Additional '
+          name: 'Existing (0.3%) / Additional '
           bg: "#588e3f"
           start: perc_mr_new_start
           end: perc_mr_new_end
@@ -328,7 +301,7 @@ class OverviewTab extends ReportTab
           class: 'existing'
         }
         {
-          name: 'Existing <strong>(0.3%)</strong> / Additional '
+          name: 'Existing (0.3%) / Additional '
           bg: '#588e3f'
           start: perc_t2_new_start
           end: perc_t2_new_end
@@ -347,12 +320,9 @@ class OverviewTab extends ReportTab
         }
       ]
       if isMarineReserve
-        #@drawMarineReservePercentBars(perc_ranges)
-
-        console.log("do nothing")
+        @drawMarineReservePercentBars(perc_ranges)
       else 
-        console.log("do nothing")
-        #@drawType2PercentBars(perc_t2_ranges)
+        @drawType2PercentBars(perc_t2_ranges)
 
   drawType2Bars: (t2ranges) =>
     el = @$('.viz')[0]
@@ -366,16 +336,15 @@ class OverviewTab extends ReportTab
       .style("width", (d) -> x(d.end - d.start) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
-      .style("left", (d) -> x(d.label_start)+'px')
+        .text((d) -> "#{d.name} (#{d.value})")
+        .style("left", (d) -> x(d.label_start)+'px')
         .attr("class", (d) -> "label-"+d.class)
-        .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
   drawMarineReserveBars: (ranges) =>
     el = @$('.viz')[0]
     x = d3.scale.linear()
       .domain([0, 62])
       .range([0, 400])
-    
     chart = d3.select(el)
     chart.selectAll("div.range")
       .data(ranges)
@@ -383,9 +352,9 @@ class OverviewTab extends ReportTab
       .style("width", (d) -> x(d.end - d.start) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
-      .style("left", (d) -> x(d.label_start)+'px')
+        .text((d) -> "#{d.name} (#{d.value})")
+        .style("left", (d) -> x(d.label_start)+'px')
         .attr("class", (d) -> "label-"+d.class)
-        .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
   drawType2PercentBars: (perc_t2_ranges) =>
     el = @$('.vizPerc')[0]
@@ -399,9 +368,9 @@ class OverviewTab extends ReportTab
       .style("width", (d) -> x(d.end - d.start) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
+        .text((d) -> if d.name then "#{d.name} (#{d.value})" else '')
         .attr("class", (d) -> "label-"+d.class)
         .style("left", (d) -> x(d.label_start)+'px')
-        .html((d) -> if d.name then (d.name+"<strong>  ("+d.value+"%)</strong>") else '')
 
     chart.selectAll("div.max_marker")
       .data([30])
@@ -417,6 +386,7 @@ class OverviewTab extends ReportTab
       .text((d) -> "30%")
       .style("left", (d) -> x(d) + 'px')
       
+
   drawMarineReservePercentBars: (perc_ranges) =>
     x = d3.scale.linear()
       .domain([0, 30])
@@ -430,9 +400,9 @@ class OverviewTab extends ReportTab
       .style("width", (d) -> x(d.end - d.start) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
+        .text((d) -> if d.name then "#{d.name} (#{d.value})" else '')
         .attr("class", (d) -> "label-"+d.class)
         .style("left", (d) -> x(d.label_start)+'px')
-        .html((d) -> if d.name then (d.name+"<strong>  ("+d.value+"%)</strong>") else '')
   
     chart.selectAll("div.max_marker")
       .data([30])
