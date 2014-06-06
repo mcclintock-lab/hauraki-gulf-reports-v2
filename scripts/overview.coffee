@@ -238,8 +238,8 @@ class OverviewTab extends ReportTab
           .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
           .attr("class", (d) -> "range " + d.class)
           .append("span")
-            .text((d) -> "#{d.name} (#{d.value})")
-            .style("left", (d) -> x(d.label_start)+'px')
+            .text((d) -> "#{d.name}: (#{d.value})")
+            .style("left", (d) -> if d.label_start then x(d.label_start)+'px' else '')
             .attr("class", (d) -> "label-"+d.class)
       else
         #@drawType2Bars(t2ranges)
@@ -254,8 +254,8 @@ class OverviewTab extends ReportTab
           .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
           .attr("class", (d) -> "range " + d.class)
           .append("span")
-            .text((d) -> "#{d.name} (#{d.value})")
-            .style("left", (d) -> x(d.label_start)+'px')
+            .text((d) -> "#{d.name}: (#{d.value})")
+            .style("left", (d) -> if d.label_start then (x(d.label_start)+'px') else '')
             .attr("class", (d) -> "label-"+d.class)
 
 
@@ -363,7 +363,7 @@ class OverviewTab extends ReportTab
           .append("span")
             .text((d) -> if d.name then "#{d.name}: (#{d.value})" else '')
             .attr("class", (d) -> "label-"+d.class)
-            .style("left", (d) -> x(d.label_start)+'px')
+            .style("left", (d) -> if d.label_start then (x(d.label_start)+'px') else '')
       else 
         #@drawType2PercentBars(perc_t2_ranges)
 
@@ -380,7 +380,7 @@ class OverviewTab extends ReportTab
           .append("span")
             .text((d) -> if d.name then "#{d.name}: (#{d.value})" else '')
             .attr("class", (d) -> "label-"+d.class)
-            .style("left", (d) -> x(d.label_start)+'px')
+            .style("left", (d) -> if d.label_start then (x(d.label_start)+'px') else '')
 
       chart.selectAll("div.max_marker")
         .data([30])
@@ -408,7 +408,7 @@ class OverviewTab extends ReportTab
       .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
-        .text((d) -> "#{d.name} (#{d.value})")
+        .text((d) -> "#{d.name}: (#{d.value})")
         .style("left", (d) -> x(d.label_start)+'px')
         .attr("class", (d) -> "label-"+d.class)
 
@@ -424,7 +424,7 @@ class OverviewTab extends ReportTab
       .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
-        .text((d) -> "#{d.name} (#{d.value})")
+        .text((d) -> "#{d.name}: (#{d.value})")
         .style("left", (d) -> x(d.label_start)+'px')
         .attr("class", (d) -> "label-"+d.class)
 
