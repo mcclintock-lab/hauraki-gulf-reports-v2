@@ -220,16 +220,27 @@ class EnvironmentTab extends ReportTab
 
     el = @$(tbodyName)[0]
     hab_body = d3.select(el)
+    console.log("hab_body is ", hab_body)
     #remove old rows
     hab_body.selectAll("tr.hab_rows")
       .remove()
 
     #add new rows (and data)
-    hab_body.selectAll("tbody"+tbodyName)
-      .data(data)
-    .enter().insert("tr", ":first-child")
+    rows = hab_body.selectAll("tr")
+        .data(data)
+      .enter().insert("tr", ":first-child")
       .attr("class", "hab_rows")
-      .html((d) -> "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.NEW_SIZE+"</td>"+"<td>"+d.NEW_PERC+"</td>")
+
+    columns = ["HAB_TYPE", "NEW_SIZE", "NEW_PERC"]
+    cells = rows.selectAll("td")
+        .data((row, i) ->columns.map (column) -> (column: column, value: row[column]))
+      .enter()
+      .append("td").text((d, i) -> 
+        d.value
+      )    
+
+
+    #.html((d) -> "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.NEW_SIZE+"</td>"+"<td>"+d.NEW_PERC+"</td>")
     @setNewSortDir(targetColumn, sortUp)
 
     @setSortingColor(event, tableName)
