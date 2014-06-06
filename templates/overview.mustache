@@ -41,16 +41,16 @@
         <div class="large-header">Habitats Present in <strong> Marine Reserves</strong>:</div>
         <div class="viz" style="position:relative;"></div>
         <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Marine Reserves</strong>:</div>
-        <div class="viz" style="position:relative;"></div>
+        <div class="vizPerc" style="position:relative;"></div>
       {{/isMarineReserve}}
       {{#isType2}}
         <div class="large-header">Habitats Present in <strong>Type-2 Protected Areas</strong>:</div>
         <div class="viz" style="position:relative;"></div>
         <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Type-2 Protected Areas</strong>:</div>
-        <div class="viz" style="position:relative;"></div>
+        <div class="vizPerc" style="position:relative;"></div>
       {{/isType2}}
       <p class="large" style="margin-left:10px;">
-        The above graphs show the number, and relative area, of habitats that are currently protected by {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}} within the Hauraki Gulf (in light green) and the number of additional habitat types that would be protected by your Sketch (in dark green). The number of habitats that are not represented at all in {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}} are shown in red.
+        The graphs show the number, and relative area, of habitats that are currently protected by {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}} within the Hauraki Gulf (in light green) and the number of additional habitat types that would be protected by your Sketch (in dark green). The number of habitats that are not represented at all in {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protected Areas{{/isType2}} are shown in red.
       </p>
     </div>
   {{/d3IsPresent}}

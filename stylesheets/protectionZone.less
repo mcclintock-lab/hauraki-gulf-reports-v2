@@ -132,6 +132,137 @@
       }
     }
   }
+  
+  .vizPerc > div.range {
+    height:15px;
+    float:left;
+    margin-top:10px;
+    border-top:1px solid rgba(0,0,0,0.1);
+
+      &.existing {
+        @bg:#b3cfa7;
+        background:@bg;
+        #gradient > .vertical(darken(@bg, 5%), @bg);
+      }
+
+      &.proposed {
+        @bg:#9aba8c; 
+        background:@bg;
+        #gradient > .vertical(darken(@bg, 10%), @bg);
+      }
+
+      &.unprotected {
+        @bg:#e5cace;
+        background:@bg;
+        #gradient > .vertical(darken(@bg, 10%), @bg);
+
+      }
+      &.t2existing {
+        @bg:#b3cfa7;
+        background:@bg;
+        #gradient > .vertical(darken(@bg, 5%), @bg);
+        margin-top:30px;
+      }
+
+      &.t2proposed {
+        @bg:#9aba8c; 
+        background:@bg;
+        #gradient > .vertical(darken(@bg, 10%), @bg);
+        margin-top:30px;
+      }
+
+      &.t2unprotected {
+        @bg:#e5cace;
+        background:@bg;
+        #gradient > .vertical(darken(@bg, 10%), @bg);
+        margin-top:30px;
+
+      }
+
+    > span {
+      position:absolute;
+      top:18px;
+      font-size:12px;
+
+      span {
+        font-size:12px;
+        display:block;
+        color:#888;
+        margin-top:-3px;
+      }
+      &.label-unprotected{
+        margin-top:-28px;
+        text-align:right;
+      }
+      
+      &.label-existing{
+        margin-top:7px
+      }
+      &.label-proposed{
+        margin-top:7px
+      }
+      &.label-t2unprotected{
+        margin-top:30px;
+        text-align:right;
+      }
+      
+      &.label-t2existing{
+        margin-top:37px
+      }
+      &.label-t2proposed{
+        margin-top:37px
+      }
+    }
+  }
+  .vizPerc {
+    .clearfix();
+    margin-bottom:30px;
+    margin-left:20px;
+    margin-top:10px;
+
+    .max_label {
+      position:absolute;
+      top:-10px;
+      background:transparent;
+      float:none;
+      line-height:18px;
+      padding-left:-4px;
+      text-align:left;
+      text-shadow:1px 1px 1px rgba(0,0,0,0.2);
+
+      &:before {
+        font-family:'fontello';
+        margin-right:5px;
+        font-size:28px;
+        position:absolute;
+        top:5px;
+        left:-18px;
+        color:#4d4d4d;
+      }
+    }
+
+    .max_marker {
+      position:absolute;
+      top:4px;
+      background:transparent;
+      float:none;
+      line-height:18px;
+      padding-left:14px;
+      text-align:left;
+      text-shadow:1px 1px 1px rgba(0,0,0,0.2);
+
+      &:before {
+        font-family:'fontello';
+        content: '|';
+        margin-right:5px;
+        font-size:24px;
+        position:absolute;
+        top:6px;
+        left:-1px;
+        color:#4d4d4d;
+      }
+    }
+  }
 }
 
 .sorting_col {

@@ -357,7 +357,7 @@ class OverviewTab extends ReportTab
         .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
   drawType2PercentBars: (perc_t2_ranges) =>
-    el = @$('.viz')[1]
+    el = @$('.vizPerc')[0]
     x = d3.scale.linear()
       .domain([0, 30])
       .range([0, 400])
@@ -391,7 +391,7 @@ class OverviewTab extends ReportTab
       .domain([0, 30])
       .range([0, 400])
   
-    el = @$('.viz')[1]
+    el = @$('.vizPerc')[0]
     chart = d3.select(el)
     chart.selectAll("div.range")
       .data(perc_ranges)

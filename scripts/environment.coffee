@@ -198,7 +198,6 @@ class EnvironmentTab extends ReportTab
     @$('.hab_type2_new_perc').click (event) =>
       @renderSort('hab_type2_new_perc',  tableName, type2Habitats, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
 
-
     @renderSort('hab_type2_type', tableName, type2Habitats, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
 
 
