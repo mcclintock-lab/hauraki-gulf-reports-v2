@@ -411,29 +411,28 @@ class ArrayOverviewTab extends ReportTab
     chart.selectAll("div.range")
       .data(t2ranges)
     .enter().append("div")
-      .style("width", (d) -> x(d.end - d.start) + 'px')
+      .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
-        .style("left", (d) -> if d.label_start then x(d.label_start)+'px' else '')
+        .text((d) -> "#{d.name} (#{d.value})")
+        .style("left", (d) -> if d.label_start then (x(d.label_start)+'px') else '')
         .attr("class", (d) -> "label-"+d.class)
-        .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
   drawMarineReserveBars: (ranges, index) =>
     el = @$('.viz')[index]
     x = d3.scale.linear()
       .domain([0, 62])
       .range([0, 400])
-    
     chart = d3.select(el)
     chart.selectAll("div.range")
       .data(ranges)
     .enter().append("div")
-      .style("width", (d) -> x(d.end - d.start) + 'px')
+      .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
+        .text((d) -> "#{d.name} (#{d.value})")
         .style("left", (d) -> if d.label_start then x(d.label_start)+'px' else '')
         .attr("class", (d) -> "label-"+d.class)
-        .html((d) -> d.name+"<strong>  ("+d.value+")</strong>")
 
   drawType2PercentBars: (perc_t2_ranges, index) =>
     el = @$('.viz')[index]
@@ -444,13 +443,14 @@ class ArrayOverviewTab extends ReportTab
     chart.selectAll("div.range")
       .data(perc_t2_ranges)
     .enter().append("div")
-      .style("width", (d) -> x(d.end - d.start) + 'px')
+      .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
+        .text((d) -> if d.name then "#{d.name} (#{d.value})" else '')
         .attr("class", (d) -> "label-"+d.class)
-        .style("left", (d) -> if d.label_start then x(d.label_start)+'px' else '')
-        .html((d) -> if d.name then (d.name+"<strong>  ("+d.value+"%)</strong>") else '')
+        .style("left", (d) -> if d.label_start then (x(d.label_start)+'px') else '')
 
+    
     chart.selectAll("div.max_marker")
       .data([30])
     .enter().append("div")
@@ -475,13 +475,14 @@ class ArrayOverviewTab extends ReportTab
     chart.selectAll("div.range")
       .data(perc_ranges)
     .enter().append("div")
-      .style("width", (d) -> x(d.end - d.start) + 'px')
+      .style("width", (d) -> Math.round(x(d.end - d.start),0) + 'px')
       .attr("class", (d) -> "range " + d.class)
       .append("span")
+        .text((d) -> if d.name then "#{d.name} (#{d.value})" else '')
         .attr("class", (d) -> "label-"+d.class)
-        .style("left", (d) -> if d.label_start then x(d.label_start)+'px' else '')
-        .html((d) -> if d.name then (d.name+"<strong>  ("+d.value+"%)</strong>") else '')
+        .style("left", (d) -> if d.label_start then (x(d.label_start)+'px') else '')
   
+    
     chart.selectAll("div.max_marker")
       .data([30])
     .enter().append("div")
