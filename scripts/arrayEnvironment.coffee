@@ -371,11 +371,21 @@ class ArrayEnvironmentTab extends ReportTab
     hab_body.selectAll("tr.hab_rows")
       .remove()
     #add new rows (and data)
-    hab_body.selectAll("tbody"+tbodyName)
+    #.html((d) -> getRowStringValue(d))
+    
+    rows = hab_body.selectAll("tr")
       .data(data)
     .enter().insert("tr", ":first-child")
     .attr("class", "hab_rows")
-    .html((d) -> getRowStringValue(d))
+    
+    columns = getRowStringValue()
+    cells = rows.selectAll("td")
+        .data((row, i) ->columns.map (column) -> (column: column, value: row[column]))
+      .enter()
+      .append("td").text((d, i) -> 
+        d.value
+      )    
+
     @setNewSortDir(targetColumn, sortUp)
 
     @setSortingColor(event, tableName)
@@ -386,18 +396,23 @@ class ArrayEnvironmentTab extends ReportTab
       
   #table row for habitat representation
   getAquacultureHabitatRowString: (d) =>
-    return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.NEW_SIZE+"</td>"+"<td>"+d.NEW_PERC+"</td>"
+    return ["HAB_TYPE", "NEW_SIZE", "NEW_PERC"]
+    #return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.NEW_SIZE+"</td>"+"<td>"+d.NEW_PERC+"</td>"
 
   #table row for habitat representation
   getSensitiveAreaString: (d) =>
-    return "<td>"+d.SA_NAME+"</td>"+"<td>"+d.SA_TYPE+"</td>"+"<td>"+d.CLPD_AREA+"</td>"+"<td>"+d.PERC_AREA+"</td>"
+    return ["SA_NAME", "SA_TYPE", "CLPD_AREA", "PERC_AREA"]
+    #return "<td>"+d.SA_NAME+"</td>"+"<td>"+d.SA_TYPE+"</td>"+"<td>"+d.CLPD_AREA+"</td>"+"<td>"+d.PERC_AREA+"</td>"
   #table row for habitat representation
+
   getHabitatRepString: (d) =>
-    return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.CB_PERC+"</td>"+"<td>"+d.REP_COUNT+"</td>"+"<td>"+d.NEW_SIZE+"</td>"
+    return ["HAB_TYPE", "CB_PERC", "REP_COUNT", "NEW_SIZE"]
+    #return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.CB_PERC+"</td>"+"<td>"+d.REP_COUNT+"</td>"+"<td>"+d.NEW_SIZE+"</td>"
 
   #table row for habitat representation
   getHabitatRowString: (d) =>
-    return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_PERC+"</td>"+"<td>"+d.CB_PERC+"</td>"
+    return ["HAB_TYPE", "EX_PERC", "NEW_PERC", "CB_PERC"]
+    #return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_PERC+"</td>"+"<td>"+d.CB_PERC+"</td>"
 
   setSortingColor: (event, tableName) =>
     sortingClass = "sorting_col"
