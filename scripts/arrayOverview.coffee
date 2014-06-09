@@ -342,7 +342,7 @@ class ArrayOverviewTab extends ReportTab
           class: 'existing'
         }
         {
-          name: 'Existing <strong>(0.3%)</strong> / Additional '
+          name: 'Existing (0.3%) / Additional '
           bg: "#588e3f"
           start: perc_mr_new_start
           end: perc_mr_new_end
@@ -370,7 +370,7 @@ class ArrayOverviewTab extends ReportTab
           class: 'existing'
         }
         {
-          name: 'Existing <strong>(0.3%)</strong> / Additional '
+          name: 'Existing (0.3%) / Additional '
           bg: '#588e3f'
           start: perc_t2_new_start
           end: perc_t2_new_end
