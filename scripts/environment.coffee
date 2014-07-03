@@ -53,6 +53,13 @@ class EnvironmentTab extends ReportTab
     if hasTypeTwoData
       habitatsInTypeTwoCount = habitatsInTypeTwos?.length
       habitatsInTypeTwos = _.sortBy habitatsInTypeTwos, (row) -> row.HAB_TYPE
+      hasNewTypeTwoValues = false
+      for row in habitatsInTypeTwos
+        if row["NEW_SIZE"] > 0
+          hasNewTypeTwoValues = true
+          console.log("has new!")
+      if not hasNewTypeTwoValues
+        hasTypeTwoData = false
     else
       habitatsInTypeTwoCount = 0
 
@@ -60,6 +67,13 @@ class EnvironmentTab extends ReportTab
     if hasReserveData
       habitatsInReservesCount = habitatsInReserves?.length
       habitatsInReserves = _.sortBy habitatsInReserves, (row) -> row.HAB_TYPE
+      hasNewValues = false
+      for row in habitatsInReserves
+        if row["NEW_SIZE"] > 0
+          hasNewValues = true
+          console.log("has new!")
+      if not hasNewValues
+        hasReserveData = false
     else
       habitatsInReservesCount = 0
 
@@ -202,6 +216,7 @@ class EnvironmentTab extends ReportTab
 
 
   #do the sorting - should be table independent
+  #skip any that are less than 0.00
   renderSort: (name, tableName, pdata, event, sortBy, tbodyName, isFloat, getRowStringValue) =>
     if event
       event.preventDefault()
@@ -213,6 +228,7 @@ class EnvironmentTab extends ReportTab
       data = _.sortBy pdata, (row) ->  parseFloat(row[sortBy])
     else
       data = _.sortBy pdata, (row) -> row[sortBy]
+
 
     #flip sorting if needed
     if sortUp
