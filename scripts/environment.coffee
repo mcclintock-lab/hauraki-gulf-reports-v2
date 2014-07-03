@@ -57,7 +57,6 @@ class EnvironmentTab extends ReportTab
       for row in habitatsInTypeTwos
         if row["NEW_SIZE"] > 0
           hasNewTypeTwoValues = true
-          console.log("has new!")
       if not hasNewTypeTwoValues
         hasTypeTwoData = false
     else
@@ -71,7 +70,6 @@ class EnvironmentTab extends ReportTab
       for row in habitatsInReserves
         if row["NEW_SIZE"] > 0
           hasNewValues = true
-          console.log("has new!")
       if not hasNewValues
         hasReserveData = false
     else
@@ -81,6 +79,7 @@ class EnvironmentTab extends ReportTab
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
     ecosystemServices = ['','Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat Formation']
+
     if window.d3
       d3IsPresent = true
     else
@@ -223,6 +222,7 @@ class EnvironmentTab extends ReportTab
 
     targetColumn = @getSelectedColumn(event, name)
     sortUp = @getSortDir(targetColumn)
+
 
     if isFloat
       data = _.sortBy pdata, (row) ->  parseFloat(row[sortBy])

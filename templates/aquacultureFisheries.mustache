@@ -1,5 +1,7 @@
-<div class="reportSection tableContainer">
+<div class="reportSection">
   <h4>Commercial Fishing</h4>
+  <p class="no-data">No data available to report on.<p>
+  <!--
   <table data-paging="10">
     <thead>
       <tr>
@@ -25,6 +27,7 @@
       </tr>
     </tfoot>
   </table>
+  -->
 </div>
 
 <div class="reportSection tableContainer">
@@ -33,16 +36,20 @@
     <thead>
       <tr>
         <th>Name</th>
+        <!--
         <th>Affected Area (%)</th>
         <th>Level of Fishing Displaced (%)</th>
+        -->
       </tr>
     </thead>
     <tbody>
       {{#recreationalFishing}}
       <tr>
         <td>{{Name}}</td>
+        <!--
         <td>{{PERC_DISP}}</td>
         <td>{{LVL_DISP}}</td>
+        -->
       </tr>
       {{/recreationalFishing}}
     </tbody>
@@ -57,8 +64,10 @@
   </table>
 </div>
 
-<div class="reportSection tableContainer">
+<div class="reportSection">
   <h4>Customary Fishing</h4>
+  <p class="no-data">No data available to report on.<p>
+  <!--
   <table data-paging="10">
     <thead>
       <tr>
@@ -84,6 +93,7 @@
       </tr>
     </tfoot>
   </table>
+  -->
 </div>
 
 <div class="reportSection tableContainer">
@@ -92,7 +102,7 @@
     <thead>
       <tr>
         <th>Fish Stock</th>
-        <th>Catch Displaced (tonnss)</th>
+        <th>Catch Displaced (tonnes)</th>
         <th>Percent from Gulf</th>
         <th>Percent of TAC</th>
       </tr>
