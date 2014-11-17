@@ -57,6 +57,9 @@ module.exports = (grunt) ->
       array:
         files:
           'dist/array.css': 'stylesheets/array.less'
+      generic:
+        files:
+          'dist/generic.css': 'stylesheets/generic.less'
     browserify:
       protectionZone:
         src: 'scripts/protectionZone.coffee'
@@ -67,6 +70,9 @@ module.exports = (grunt) ->
       array:
         src: 'scripts/array.coffee'
         dest: 'dist/array.js'
+      generic:
+        src: 'scripts/generic.coffee'
+        dest: 'dist/generic.js'
       options:
         transform: ['coffeeify']
         debug: true

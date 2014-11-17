@@ -1,0 +1,27 @@
+
+{{#sketchClass.deleted}}
+<div class="alert alert-warn" style="margin-bottom:10px;">
+  This sketch was created using the "{{sketchClass.name}}" template, which is
+  no longer available. You will not be able to copy this sketch or make new
+  sketches of this type.
+</div>
+{{/sketchClass.deleted}}
+
+{{#anyAttributes}}
+<div class="reportSection">
+  <h4>{{sketchClass.name}}</h4>
+  {{>attributes/attributesTable}}
+  </table>
+</div>
+{{/anyAttributes}}
+
+<div class="reportSection size">
+  <h4>Size</h4>
+  <p class="large">
+    This protected area is <strong>{{SIZE}} ha</strong>.
+  </p>
+</div>
+
+
+
+
