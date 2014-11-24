@@ -59,17 +59,17 @@
         <div class="viz" style="position:relative;"></div>
       {{/hasMarineReserves}}
       {{#hasType2MPAs}}
-        <div class="large-header">Habitats Protected in <strong>Type-2 Protected Areas</strong>:</div>
+        <div class="large-header">Habitats Protected in <strong>Type-2 Protection Areas</strong>:</div>
         <div class="viz" style="position:relative;margin-bottom:40px;"></div>
       {{/hasType2MPAs}}
       <p style="margin-left:10px;">
-        There are a total of <strong>62</strong> habitats in the study area. The light green shows the number of habitats currently found within existing 
+        There are a total of <strong>46</strong> habitats in the study area. The light green shows the number of habitats currently found within existing 
         {{#hasBothPMZTypes}}
-          Marine Reserves and Type-2 Protected Areas,
+          Marine Reserves and Type-2 Protection Areas,
         {{/hasBothPMZTypes}}
         {{^hasBothPMZTypes}}
           {{#hasMarineReserves}}Marine Reserves,{{/hasMarineReserves}}
-          {{#hasType2MPAs}}Type-2 Protected Areas,{{/hasType2MPAs}}
+          {{#hasType2MPAs}}Type-2 Protection Areas,{{/hasType2MPAs}}
         {{/hasBothPMZTypes}}
         and the dark green the number of additional habitat types that would be added. The red shows the number of habitats that are not yet represented.
       </p>
@@ -98,7 +98,7 @@
         {{/hasMarineReserves}}
         {{#hasType2MPAs}}
           <tr>
-            <td>Number of Habitats Protected in Type 2 Protected Areas</td>
+            <td>Number of Habitats Protected in Type 2 Protection Areas</td>
             <td>{{HAB_COUNT_EXISTING_T2}}</td>
             <td>{{HAB_COUNT_PROPOSED_T2}}</td>
             <td>{{HAB_COUNT_COMBINED_T2}}</td>
@@ -109,13 +109,13 @@
         <tr>
           <td colspan="5" class="paragraph" style="text-align:left;">
             <p style="margin-left:10px;">
-              There are a total of <strong>62</strong> habitats in the study area. The light green shows the number of habitats currently found within existing 
+              There are a total of <strong>46</strong> habitats in the study area. The light green shows the number of habitats currently found within existing 
               {{#hasBothPMZTypes}}
-                Marine Reserves and Type-2 Protected Areas,
+                Marine Reserves and Type-2 Protection Areas,
               {{/hasBothPMZTypes}}
               {{^hasBothPMZTypes}}
                 {{#hasMarineReserves}}Marine Reserves,{{/hasMarineReserves}}
-                {{#hasType2MPAs}}Type-2 Protected Areas,{{/hasType2MPAs}}
+                {{#hasType2MPAs}}Type-2 Protection Areas,{{/hasType2MPAs}}
               {{/hasBothPMZTypes}}
               and the dark green the number of additional habitat types that would be added. The red shows the number of habitats that are not yet represented.
             </p>
@@ -133,16 +133,16 @@
         <div class="viz" style="position:relative;"></div>
       {{/hasMarineReserves}}
       {{#hasType2MPAs}}
-        <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Type-2 Protected Areas</strong>:</div>
+        <div class="large-header">Percent of Hauraki Gulf Protected in <strong>Type-2 Protection Areas</strong>:</div>
         <div class="viz" style="position:relative;margin-bottom:40px;"></div>
       {{/hasType2MPAs}}
       <p style="margin-left:10px;">
         The graph shows the percent of the Gulf protected in existing
         {{#hasBothPMZTypes}}
-          Marine Reserves and Type-2 Protected Areas
+          Marine Reserves and Type-2 Protection Areas
         {{/hasBothPMZTypes}}
         {{^hasBothPMZTypes}}
-          {{#hasMarineReserves}}Marine Reserves{{/hasMarineReserves}}{{#hasType2MPAs}}Type-2 Protected Areas{{/hasType2MPAs}}
+          {{#hasMarineReserves}}Marine Reserves{{/hasMarineReserves}}{{#hasType2MPAs}}Type-2 Protection Areas{{/hasType2MPAs}}
         {{/hasBothPMZTypes}}
         in light green, and the additional percentage that would be added from your sketch are shown in dark green. Note the scale only goes to 30% to increase readability at low values.
       </p>
@@ -181,10 +181,10 @@
             <p style="margin-left:10px;">
               The graph shows the percent of the Gulf protected in existing
               {{#hasBothPMZTypes}}
-                Marine Reserves and Type-2 Protected Areas
+                Marine Reserves and Type-2 Protection Areas
               {{/hasBothPMZTypes}}
               {{^hasBothPMZTypes}}
-                {{#hasMarineReserves}}Marine Reserves{{/hasMarineReserves}}{{#hasType2MPAs}}Type-2 Protected Areas{{/hasType2MPAs}}
+                {{#hasMarineReserves}}Marine Reserves{{/hasMarineReserves}}{{#hasType2MPAs}}Type-2 Protection Areas{{/hasType2MPAs}}
               {{/hasBothPMZTypes}}, 
               in light green, and the additional percentage that would be added from your sketch are shown in dark green. Note the scale only goes to 30% to increase readability at low values.
             </p>

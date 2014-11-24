@@ -91,7 +91,7 @@ class AquacultureHabitatTab extends ReportTab
       aquacultureHabitats: aquacultureHabitats
       hasAquacultureHabitats: hasAquacultureHabitats
       habitatsInAquacultureZones: habitatsInAquacultureZones
-      habitatsCount: 62
+      habitatsCount: 46
       d3IsPresent: d3IsPresent
 
     # @template is /templates/overview.mustache

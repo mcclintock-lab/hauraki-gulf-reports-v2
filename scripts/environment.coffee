@@ -92,7 +92,7 @@ class EnvironmentTab extends ReportTab
       attributes: @model.getAttributes()
       admin: @project.isAdmin window.user
       #fix this to get rid of hardcoded value
-      habitatsCount: 62
+      habitatsCount: 46
       hasReserveData: hasReserveData
       habitatsInReserves: habitatsInReserves
       habitatsInReservesCount: habitatsInReservesCount

@@ -166,7 +166,7 @@ class ArrayEnvironmentTab extends ReportTab
       hasProtectionClasses: hasProtectionClasses
 
       #protection only      
-      habitatsCount: 62
+      habitatsCount: 46
       hasReserveData: hasReserveData
       habitatsInReserves: habitatsInReserves
       habitatsInReservesCount: habitatsInReservesCount
