@@ -7,6 +7,42 @@
     target="_blank">MPA Policy 2005</a>).
   </p>
 </div>
+{{#hasCatchments}}
+<div class="reportSection">
+  <h4>Catchments</h4>
+  <p class="large">
+    The catchments within 5 km of this sketch have a total area of 
+    <strong>{{catchmentArea}} ha</strong>.
+  </p>
+  <p class="large" style="margin-bottom:0px;">
+    <strong>Remaining Indigenous Cover in Nearby Catchments</strong>
+  </p>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:250px;">Percent of Remaining Indigenous Cover in Catchment</th>
+            <th>Percent of Nearby Catchments in this Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#catchmentPercents}}
+          <tr><td>Less than 20</td><td>{{PERC_0}}</td></tr>
+          <tr><td>Between 20 and 40</td><td>{{PERC_20}}</td></tr>
+          <tr><td>Between 40 and 60</td><td>{{PERC_40}}</td></tr>
+          <tr><td>Between 60 and 80</td><td>{{PERC_60}}</td></tr>
+          <tr><td>Between 80 and 100</td><td>{{PERC_80}}</td></tr>
+          
+          {{/catchmentPercents}}
+        </tbody>
+      </table>
+</div>
+{{/hasCatchments}}
+{{^hasCatchments}}
+  <div class="reportSection">
+    <h4>Catchments</h4>
+    <p class="large">There are no catchments within 5 kms of this sketch.</p> 
+  </div>
+{{/hasCatchments}}
 {{#hasReserveData}}
   <div class="reportSection tableContainer">
     <h4>Habitats Within Your Sketch <a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></h4>

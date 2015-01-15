@@ -12,14 +12,14 @@ class EnvironmentTab extends ReportTab
   className: 'environment'
   timeout: 120000
   template: templates.habitat
-  dependencies: ['HabitatComprehensiveness', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies']
+  dependencies: ['Catchment', 'HabitatComprehensiveness', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies']
   UP: "up"
   DOWN: "down"
 
   render: () ->
     isCollection = @model.isCollection()
     habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
-
+    console.log("habitats: ", habitats)
     #sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
     #commented out for now
@@ -27,6 +27,12 @@ class EnvironmentTab extends ReportTab
     near_terrestrial_protected = false
     #sensitiveAreas = _.sortBy sensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
     #sensitiveAreas.reverse()
+
+    catchmentPercents =  @recordSet('Catchment', 'Catchment').toArray()
+    catchmentArea =  @recordSet('Catchment', 'CatchmentSize').data.value
+    #catchmentArea = parseFloat(catchmentArea)
+
+    hasCatchments = catchmentArea > 0
     sensitiveAreas = []
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
@@ -75,6 +81,8 @@ class EnvironmentTab extends ReportTab
     else
       habitatsInReservesCount = 0
 
+    console.log("hasTypeTwoData? ", hasTypeTwoData)
+    console.log("hasReserveData", hasReserveData)
     ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
@@ -91,6 +99,7 @@ class EnvironmentTab extends ReportTab
       sketchClass: @sketchClass.forTemplate()
       attributes: @model.getAttributes()
       admin: @project.isAdmin window.user
+
       #fix this to get rid of hardcoded value
       habitatsCount: 46
       hasReserveData: hasReserveData
@@ -128,6 +137,9 @@ class EnvironmentTab extends ReportTab
       nutrient_recycling: nutrient_recycling
       biogenic_habitat: biogenic_habitat
       d3IsPresent: d3IsPresent
+      catchmentPercents: catchmentPercents
+      catchmentArea: catchmentArea
+      hasCatchments: hasCatchments
 
     @$el.html @template.render(context, templates)
     @enableLayerTogglers()
