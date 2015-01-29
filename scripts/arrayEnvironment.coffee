@@ -14,7 +14,7 @@ class ArrayEnvironmentTab extends ReportTab
   className: 'arrayEnvironment'
   timeout: 120000
   template: templates.arrayHabitat
-  dependencies: ['HabitatComprehensiveness', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies', 'ProximityToExistingProtectedAreas']
+  dependencies: ['HabitatComprehensiveness', 'Catchment', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies', 'ProximityToExistingProtectedAreas']
   UP: "up"
   DOWN: "down"
 
@@ -25,7 +25,7 @@ class ArrayEnvironmentTab extends ReportTab
 
     protectionZones = @getChildren PROTECTION_ID
     hasProtectionClasses = protectionZones?.length > 0
-    
+    catchmentPercents =  @recordSet('Catchment', 'Catchment').toArray()
 
     if hasProtectionClasses
       try
@@ -216,6 +216,7 @@ class ArrayEnvironmentTab extends ReportTab
 
       #IE8/9 can't do d3 stuff
       d3IsPresent: d3IsPresent
+      catchmentPercents: catchmentPercents
 
     @$el.html @template.render(context, templates)
     @enableLayerTogglers()

@@ -345,6 +345,50 @@
     </table>
     </div>
   </div>
+<div class="reportSection">
+  <h4>Catchments <a href="#" data-toggle-node="54c94b76e2b49a023b001749" data-visible="false">show layer</a></h4>
+  <p style="margin-left:5px;">
+    The following table shows the remaining indigenous cover in catchments within 5 kilometers
+    of this collection. If there is more than 30% remaining indigenous cover, it also shows the percentage
+    of those catchments that are protected. More information can be found at the <a target="_blank" href="http://ourenvironment.scinfo.org.nz/ourenvironment#layers=lenz_tec,coastpoly,coastpoly,landscape_shaded_relief,topobasemap_monochrome_notext,topo_mono_hyb_relief,topo_hyb_relief,topobasemap_notext,po_grid_2193,text,wards,terr_auth,reg_councils,ext_gns_250K_faults,transport,water&activeLayer=lenz_tec">Our Environment website</a>.
+  </p>
+      <table>
+        <thead>
+          <tr>
+            <th width="30px"></th>
+            <th>% Indigenous Cover Left</th>
+            <th>Area (sq. km)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#catchmentPercents}}
+          <tr><td><div class="colorswatch" style="background-color:#FC0C1B;"></div></td>
+            <td>&lt 10% Indigenous Cover</td><td>{{AREA_10}}</td>
+          </tr>
+          <tr>
+            <td><div class="colorswatch" style="background-color:#FDA829;"></div></td>
+            <td>10% - 20% Indigenous Cover</td><td>{{AREA_20}}</td>
+          </tr>
+          <tr>
+            <td><div class="colorswatch" style="background-color:#FFFD37;"></div></td>
+            <td>20% - 30% Indigenous Cover</td><td>{{AREA_30}}</td>
+          </tr>
+          <tr>
+            <td><div class="colorswatch" style="background-color:#A821E3;"></div></td>
+            <td>&gt 30% Indigenous Cover with <10% Protected</td><td>{{AREA_30_10}}</td>
+          </tr>
+          <tr>
+            <td><div class="colorswatch"  style="background-color:#466487;"></div></td>
+            <td>&gt 30% Indigenous Cover with 10-20% Protected</td><td>{{AREA_30_20}}</td>
+          </tr>
+          <tr>
+            <td><div class="colorswatch" style="background-color:#EAFEC1;"></div></td>
+            <td>&gt 30% Indigenous Cover with &gt 20% Protected</td><td>{{AREA_30_20}}</td>
+          </tr>
+          {{/catchmentPercents}}
+        </tbody>
+      </table>
+</div>
   {{^hasAquacultureClasses}}
     <div style="height:50px;"></div>
   {{/hasAquacultureClasses}}

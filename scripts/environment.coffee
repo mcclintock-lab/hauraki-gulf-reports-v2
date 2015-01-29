@@ -29,10 +29,6 @@ class EnvironmentTab extends ReportTab
     #sensitiveAreas.reverse()
 
     catchmentPercents =  @recordSet('Catchment', 'Catchment').toArray()
-    catchmentArea =  @recordSet('Catchment', 'CatchmentSize').data.value
-    #catchmentArea = parseFloat(catchmentArea)
-
-    hasCatchments = catchmentArea > 0
     sensitiveAreas = []
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
@@ -138,8 +134,6 @@ class EnvironmentTab extends ReportTab
       biogenic_habitat: biogenic_habitat
       d3IsPresent: d3IsPresent
       catchmentPercents: catchmentPercents
-      catchmentArea: catchmentArea
-      hasCatchments: hasCatchments
 
     @$el.html @template.render(context, templates)
     @enableLayerTogglers()
