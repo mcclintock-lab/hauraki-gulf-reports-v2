@@ -13,14 +13,16 @@ class FisheriesTab extends ReportTab
   template: templates.fisheries
   # Dependencies will likely need to be changed to something like this to
   # support more GP services:
-  dependencies: ['FishingTool']
+  dependencies: ['FishingTool', 'SnapperFishing']
 
   render: () ->
     isCollection = @model.isCollection()
     
     recreationalFishing = @recordSet('FishingTool', 'RecreationalFishing').toArray()
-    customaryFishing = @recordSet('FishingTool', 'CustomaryFishing').toArray()
+    snapperFishing = @recordSet('SnapperFishing', 'SnapperFishing').data.value[0]
+
     commercialFishing = @recordSet('FishingTool', 'CommercialFishing').toArray()
+    console.log("snap", snapperFishing)
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
@@ -30,7 +32,7 @@ class FisheriesTab extends ReportTab
       admin: @project.isAdmin window.user
       commercialFishing: commercialFishing
       recreationalFishing: recreationalFishing
-      customaryFishing: customaryFishing
+      snapperFishing: snapperFishing
       totalFood: []
 
 

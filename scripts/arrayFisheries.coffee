@@ -18,7 +18,7 @@ class ArrayFisheriesTab extends ReportTab
   template: templates.arrayFisheries
   # Dependencies will likely need to be changed to something like this to
   # support more GP services:
-  dependencies: ['FishingTool']
+  dependencies: ['FishingTool', 'SnapperFishing']
 
   render: () ->
     aquacultureZones = @getChildren AQUACULTURE_ID
@@ -56,6 +56,10 @@ class ArrayFisheriesTab extends ReportTab
       hasProtectionCustomaryFishing = false
       hasProtectionCommercialFishing = false
 
+    try
+      snapperFishing = @recordSet('SnapperFishing', 'SnapperFishing').data.value[0]
+    catch err
+      console.log("couldn't load snapper fishing...")
 
     context =
       isCollection: true
@@ -81,6 +85,7 @@ class ArrayFisheriesTab extends ReportTab
       hasAquacultureCustomaryFishing: hasAquacultureCustomaryFishing
       hasAquacultureClasses: hasAquacultureClasses
       aquacultureTotalFood: []
+      snapperFishing: snapperFishing
 
 
     @$el.html @template.render(context, partials)
