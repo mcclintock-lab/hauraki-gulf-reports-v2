@@ -89,5 +89,6 @@ class ArrayFisheriesTab extends ReportTab
 
 
     @$el.html @template.render(context, partials)
-
+    @enableLayerTogglers()
+    
 module.exports = ArrayFisheriesTab

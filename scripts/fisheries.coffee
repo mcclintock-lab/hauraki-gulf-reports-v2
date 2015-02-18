@@ -36,5 +36,6 @@ class FisheriesTab extends ReportTab
 
 
     @$el.html @template.render(context, partials)
+    @enableLayerTogglers()
 
 module.exports = FisheriesTab
