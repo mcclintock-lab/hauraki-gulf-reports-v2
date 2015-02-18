@@ -1,45 +1,14 @@
 <div class="reportSection">
   <h4>Commercial Fishing</h4>
   <p class="no-data">No data available to report on.<p>
-  <!--
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Affected Area (%)</th>
-        <th>Level of Fishing Displaced (%)</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#commercialFishing}}
-      <tr>
-        <td>{{Name}}</td>
-        <td>{{PERC_DISP}}</td>
-        <td>{{LVL_DISP}}</td>
-      </tr>
-      {{/commercialFishing}}
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="6" class="paragraph" style="text-align:left;">
-          Note: as not all areas fished have the same fishing effort or catch, the “Level of Fishing Displaced” is a combination of the area being restricted and the catch that would normally be caught in that area.
-        </td>
-      </tr>
-    </tfoot>
-  </table>
-  -->
 </div>
 
 <div class="reportSection tableContainer">
-  <h4>Recreational Fishing</h4>
+  <h4>Recreational Fishing </h4>
   <table data-paging="10">
     <thead>
       <tr>
         <th>Name</th>
-        <!--
-        <th>Affected Area (%)</th>
-        <th>Level of Fishing Displaced (%)</th>
-        -->
       </tr>
     </thead>
     <tbody>
@@ -47,18 +16,19 @@
       {{#recreationalFishing}}
       <tr>
         <td>{{Name}}</td>
-        <!--
-        <td>{{PERC_DISP}}</td>
-        <td>{{LVL_DISP}}</td>
-        -->
       </tr>
       {{/recreationalFishing}}
     </tbody>
 
   </table>
+  <p>
+    <a href="#" data-toggle-node="5251cef278f2e76e2602f3f7" data-visible="false">show Recreational Fishing Effort (2004-2005) layer</a></br>
+    <a href="#" data-toggle-node="546ab6aeb510da6a07a754d3" data-visible="false">show Recreational Fishing Effort (2011-2012) layer</a></br>
+  </p>
 </div>
+
 <div class="reportSection">
-  <h4>Snapper Fishing</h4>
-  <p class="large">The sketch has an average snapper catch of <strong>{{snapperFishing}}</strong> kg per square kilometer.<p>
+  <h4>Snapper Fishing <a href="#" data-toggle-node="532ba7dbea4d2d254ba05726" data-visible="false">show layer</a></h4>
+  <p class="large">The sketch has an average annual snapper catch of <strong>{{snapperFishing}}</strong> kg per square kilometer.<p>
 </div>
 

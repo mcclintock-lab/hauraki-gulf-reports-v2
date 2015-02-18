@@ -20,9 +20,8 @@ class FisheriesTab extends ReportTab
     
     recreationalFishing = @recordSet('FishingTool', 'RecreationalFishing').toArray()
     snapperFishing = @recordSet('SnapperFishing', 'SnapperFishing').data.value[0]
-
     commercialFishing = @recordSet('FishingTool', 'CommercialFishing').toArray()
-    console.log("snap", snapperFishing)
+
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
