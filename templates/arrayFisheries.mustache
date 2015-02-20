@@ -1,66 +1,20 @@
-{{#hasProtectionClasses}}
-<div class="reportSection ">
-  <h4>Commercial Fishing</h4>
-  <p class="no-data">No data available to report on.<p>
-
-</div>
 <div class="reportSection tableContainer">
-  <h4>Recreational Fishing</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Name</th>
-
-      </tr>
-    </thead>
-    <tbody>
-      {{#protectionRecreationalFishing}}
-      <tr>
-        <td>{{Name}}</td>
-
-      </tr>
-      {{/protectionRecreationalFishing}}
-    </tbody>
-
-  </table>
+  <h4>Recreational Fishing </h4>
+    <p class="large">
+      The collection has a total of {{rec_total}} boats</strong> 
+      (at an average rate of <strong>{{rec_average}} boats per square kilometer</strong>). 
+      This represents <strong>{{rec_percent}}%</strong> of the total recreational boats in the Hauraki Gulf.
     <p>
     <a href="#" data-toggle-node="5251cef278f2e76e2602f3f7" data-visible="false">show Recreational Fishing Effort (2004-2005) layer</a></br>
     <a href="#" data-toggle-node="546ab6aeb510da6a07a754d3" data-visible="false">show Recreational Fishing Effort (2011-2012) layer</a></br>
   </p>
 </div>
 
-{{/hasProtectionClasses}}
-
-{{#hasAquacultureClasses}}
-<div class="reportSection">  
-  <p class="no-data">No data available to report on.<p>
-
-</div>
-
-<div class="reportSection tableContainer">
-  <h4>Recreational Fishing</h4>
-  <table data-paging="10">
-    <thead>
-      <tr>
-        <th>Name</th>
-
-      </tr>
-    </thead>
-    <tbody>
-      {{#aquacultureRecreationalFishing}}
-      <tr>
-        <td>{{Name}}</td>
-
-      </tr>
-      {{/aquacultureRecreationalFishing}}
-    </tbody>
-
-  </table>
-</div>
-
-
-{{/hasAquacultureClasses}}
 <div class="reportSection">
   <h4>Snapper Fishing <a href="#" data-toggle-node="532ba7dbea4d2d254ba05726" data-visible="false">show layer</a></h4>
-  <p class="large">The collection has an average annual snapper catch of <strong>{{snapperFishing}}</strong> kg per square kilometer.<p>
+      <p class="large">
+      The collection has a total average annual snapper catch of <strong>{{snapper_total}} kg</strong> 
+      (at an average rate of <strong>{{snapper_average}} kg per square kilometer</strong>). 
+      This represents <strong>{{snapper_percent}}%</strong> of the combined recreational and commercial snapper catch of the Hauraki Gulf.
+    <p>
 </div>

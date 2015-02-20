@@ -13,13 +13,22 @@ class FisheriesTab extends ReportTab
   template: templates.fisheries
   # Dependencies will likely need to be changed to something like this to
   # support more GP services:
-  dependencies: ['FishingTool', 'SnapperFishing']
+  dependencies: ['FishingTool', 'SeachangeFishing']
 
   render: () ->
     isCollection = @model.isCollection()
     
-    recreationalFishing = @recordSet('FishingTool', 'RecreationalFishing').toArray()
-    snapperFishing = @recordSet('SnapperFishing', 'SnapperFishing').data.value[0]
+
+
+    rec_average = @recordSet('SeachangeFishing', 'RecreationalAverage').data.value[0]
+    rec_total = @recordSet('SeachangeFishing', 'RecreationalTotal').data.value[0]
+    rec_percent = @recordSet('SeachangeFishing', 'RecreationalPercent').data.value[0]
+
+
+    snapper_average = @recordSet('SeachangeFishing', 'SnapperAverage').data.value[0]
+    snapper_total = @recordSet('SeachangeFishing', 'SnapperTotal').data.value[0]
+    snapper_percent = @recordSet('SeachangeFishing', 'SnapperPercent').data.value[0]
+
     commercialFishing = @recordSet('FishingTool', 'CommercialFishing').toArray()
 
     context =
@@ -30,9 +39,13 @@ class FisheriesTab extends ReportTab
       anyAttributes: @model.getAttributes().length > 0
       admin: @project.isAdmin window.user
       commercialFishing: commercialFishing
-      recreationalFishing: recreationalFishing
-      snapperFishing: snapperFishing
-      totalFood: []
+      snapper_average: snapper_average
+      snapper_total: snapper_total
+      snapper_percent: snapper_percent
+      rec_average: rec_average
+      rec_total: rec_total
+      rec_percent: rec_percent
+
 
 
     @$el.html @template.render(context, partials)
