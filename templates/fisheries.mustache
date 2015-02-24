@@ -22,5 +22,43 @@
 
 <div class="reportSection">
   <h4>Commercial Fishing</h4>
-  <p class="no-data">No data available to report on.<p>
+  <div>
+    <div class="in-report-header">Line Fishing &nbsp <a href="#" data-toggle-node="5446e28f56dfa554507e44f6" data-visible="false"> show line fishing layer</a></div>
+    <table> 
+      <thead>
+        <tr>
+          <th width="30px"></th>
+          <th width="150px">Average Annual Intensity</th>
+          <th>Percent in Sketch</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#line_fishing}}
+          <tr>
+            <tr><td><div class="colorswatch" style="{{COLOR}}"></div></td>
+            <td>{{CAT}}</td>
+            <td>{{PERC}}</td>
+          </tr>
+        {{/line_fishing}}
+      </tbody>
+    </table>
+    <div class="in-report-header">Trawl Fishing &nbsp <a href="#" data-toggle-node="5446e2cf56dfa554507e451c" data-visible="false">show trawl fishing layer</a></div>
+      <table> 
+      <thead>
+        <tr>
+          <th width="30px"></th>
+          <th width="150px">Average Annual Intensity</th>
+          <th>Percent in Sketch</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#trawl_fishing}}
+          <tr>
+            <tr><td><div class="colorswatch" style="{{COLOR}}"></div></td>
+            <td>{{CAT}}</td>
+            <td>{{PERC}}</td>
+          </tr>
+        {{/trawl_fishing}}
+      </tbody>
+    </table>
 </div>
