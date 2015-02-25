@@ -19,7 +19,7 @@ class EnvironmentTab extends ReportTab
   render: () ->
     isCollection = @model.isCollection()
     habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
-    console.log("habitats: ", habitats)
+   
     #sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
     #commented out for now
@@ -29,6 +29,7 @@ class EnvironmentTab extends ReportTab
     #sensitiveAreas.reverse()
 
     catchmentPercents =  @recordSet('Catchment', 'Catchment').toArray()
+    console.log("catchment: ", catchmentPercents)
     sensitiveAreas = []
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
@@ -77,8 +78,6 @@ class EnvironmentTab extends ReportTab
     else
       habitatsInReservesCount = 0
 
-    console.log("hasTypeTwoData? ", hasTypeTwoData)
-    console.log("hasReserveData", hasReserveData)
     ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
     nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()

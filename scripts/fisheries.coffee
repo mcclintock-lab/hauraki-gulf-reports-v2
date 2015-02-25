@@ -21,17 +21,21 @@ class FisheriesTab extends ReportTab
     rec_average = @recordSet('SeachangeFishing', 'RecreationalAverage').data.value[0]
     rec_total = @recordSet('SeachangeFishing', 'RecreationalTotal').data.value[0]
     rec_percent = @recordSet('SeachangeFishing', 'RecreationalPercent').data.value[0]
+    if rec_percent == 0
+      rec_percent = "< 1"
 
 
     snapper_average = @recordSet('SeachangeFishing', 'SnapperAverage').data.value[0]
     snapper_total = @recordSet('SeachangeFishing', 'SnapperTotal').data.value[0]
     snapper_percent = @recordSet('SeachangeFishing', 'SnapperPercent').data.value[0]
-
+    if snapper_percent == 0
+      snapper_percent = "< 1"
 
     line_fishing = @recordSet('SeachangeFishing', 'CommercialLineFishing').toArray()
     color_line_fishing = @addColorToIntensity line_fishing
     trawl_fishing = @recordSet('SeachangeFishing', 'CommercialTrawlFishing').toArray()
     color_trawl_fishing = @addColorToIntensity trawl_fishing
+
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
