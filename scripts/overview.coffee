@@ -32,7 +32,7 @@ class OverviewTab extends ReportTab
     isMarineReserve = !isType2
 
     HECTARES = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
-    size_sqkm = HECTARES*0.01
+    size_sqkm = Math.round(HECTARES*0.01)
     warningsRS = @recordSet('OverlapWithWarningAreas', 'OverlapWithWarningAreas')
     if warningsRS.toArray()?.length > 0
       hasWarnings = true
