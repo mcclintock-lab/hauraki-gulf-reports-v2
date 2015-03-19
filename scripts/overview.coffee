@@ -6,10 +6,6 @@ partials = []
 for key, val of _partials
   partials[key.replace('node_modules/seasketch-reporting-api/', '')] = val
 
-ids = require './ids.coffee'
-for key, value of ids
-  window[key] = value
-
 MIN_SIZE = 10000
 
 class OverviewTab extends ReportTab
@@ -52,7 +48,7 @@ class OverviewTab extends ReportTab
     hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
     hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
     hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
-
+    
 
     hc_existing_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('EXST_HAB')
     hc_proposed_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('SEL_HAB')    

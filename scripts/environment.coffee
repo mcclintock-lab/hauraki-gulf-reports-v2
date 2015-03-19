@@ -29,7 +29,7 @@ class EnvironmentTab extends ReportTab
     #sensitiveAreas.reverse()
 
     catchmentPercents =  @recordSet('Catchment', 'Catchment').toArray()
-    console.log("catchment: ", catchmentPercents)
+    
     sensitiveAreas = []
     habitatsInReserves = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA1' 
