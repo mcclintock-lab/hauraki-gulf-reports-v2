@@ -21,6 +21,7 @@ class FisheriesTab extends ReportTab
     rec_average = @recordSet('SeachangeFishing', 'RecreationalAverage').data.value[0]
     rec_total = @recordSet('SeachangeFishing', 'RecreationalTotal').data.value[0]
     rec_percent = @recordSet('SeachangeFishing', 'RecreationalPercent').data.value[0]
+    console.log("rec percent: ", rec_percent)
     if rec_percent == 0
       rec_percent = "< 1"
 

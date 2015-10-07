@@ -23,26 +23,27 @@ class AquacultureHabitatTab extends ReportTab
     # The @recordSet method contains some useful means to get data out of 
     # the monsterous RecordSet json. Checkout the seasketch-reporting-template
     # documentation for more info.
+    try
+      ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
+      nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
+      biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
+      ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat Formation']
     
-    ecosystem_productivity = @recordSet('EcosystemServices', 'EcosystemProductivity').toArray()
-    nutrient_recycling = @recordSet('EcosystemServices', 'NutrientRecycling').toArray()
-    biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
-    ecosystemServices = ['Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat Formation']
 
+      protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
+      protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
+      protectedMammals.reverse()
 
-    protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
-    protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
-    protectedMammals.reverse()
+      seabirdBreedingSites = @recordSet('ProtectedAndThreatenedSpecies', 'SeabirdBreedingSites').toArray()
+      seabirdBreedingSites = _.sortBy seabirdBreedingSites, (row) -> parseInt(row.Count)
+      seabirdBreedingSites.reverse()
 
-    seabirdBreedingSites = @recordSet('ProtectedAndThreatenedSpecies', 'SeabirdBreedingSites').toArray()
-    seabirdBreedingSites = _.sortBy seabirdBreedingSites, (row) -> parseInt(row.Count)
-    seabirdBreedingSites.reverse()
-
-    shorebirdSites = @recordSet('ProtectedAndThreatenedSpecies', 'ShorebirdPoints').toArray()
-    shorebirdSites = _.sortBy shorebirdSites, (row) -> parseInt(row.Count)
-    shorebirdSites.reverse()
-    proximityToProtectedAreas = @recordSet('ProximityToExistingProtectedAreas', 'ProximityToExistingProtectedAreas').toArray()
-
+      shorebirdSites = @recordSet('ProtectedAndThreatenedSpecies', 'ShorebirdPoints').toArray()
+      shorebirdSites = _.sortBy shorebirdSites, (row) -> parseInt(row.Count)
+      shorebirdSites.reverse()
+      proximityToProtectedAreas = @recordSet('ProximityToExistingProtectedAreas', 'ProximityToExistingProtectedAreas').toArray()
+    catch e
+    
     try
       aquacultureHabitats = @recordSet('HabitatComprehensiveness', 'AquacultureHabitatComprehensiveness').toArray()
       aquacultureHabitats = _.sortBy aquacultureHabitats, (row) -> row.HAB_TYPE

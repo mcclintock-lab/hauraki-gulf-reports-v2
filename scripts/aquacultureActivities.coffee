@@ -18,26 +18,26 @@ class AquacultureActivitiesTab extends ReportTab
 
   render: () ->
     isCollection = @model.isCollection()
+    try
+      aquacultureExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
+      hasAquacultureExistingUseConflicts = aquacultureExistingUses?.length > 0
+      aquacultureRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
+      aquacultureAllExistingUses = aquacultureExistingUses.concat(aquacultureRecreationalUses)
+      hasAquacultureAllExistingUses = aquacultureAllExistingUses?.length > 0
 
-    aquacultureExistingUses = @recordSet('OverlapWithExistingUses', 'OverlapWithExistingUses').toArray()
-    hasAquacultureExistingUseConflicts = aquacultureExistingUses?.length > 0
-    aquacultureRecreationalUses = @recordSet('OverlapWithRecreationalUses', 'OverlapWithRecreationalUses').toArray()
-    aquacultureAllExistingUses = aquacultureExistingUses.concat(aquacultureRecreationalUses)
-    hasAquacultureAllExistingUses = aquacultureAllExistingUses?.length > 0
+      hasAquacultureOverlapWithMooringsAndAnchorages =  @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
 
-    hasAquacultureOverlapWithMooringsAndAnchorages =  @recordSet('OverlapWithMooringsAndAnchorages', 'OverlapWithMooringsAndAnchorages').bool('OVERLAPS')
+      aquacultureNumShipwrecks = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_SHIPS')
+      hasAquacultureShipwrecks = aquacultureNumShipwrecks > 0
 
-    aquacultureNumShipwrecks = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_SHIPS')
-    hasAquacultureShipwrecks = aquacultureNumShipwrecks > 0
+      aquacultureNumHistoricPlaces = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_HIST')
+      hasAquacultureHistoricPlaces = aquacultureNumHistoricPlaces > 0
+      
+      aquacultureNumArcheologicalSites = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_ARCHEO')
+      hasAquacultureArcheologicalSites = aquacultureNumArcheologicalSites > 0
 
-    aquacultureNumHistoricPlaces = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_HIST')
-    hasAquacultureHistoricPlaces = aquacultureNumHistoricPlaces > 0
-    
-    aquacultureNumArcheologicalSites = @recordSet('OverlapWithHeritageUses', 'OverlapWithHeritageUses').int('N_ARCHEO')
-    hasAquacultureArcheologicalSites = aquacultureNumArcheologicalSites > 0
-
-    hasAquacultureHeritageUses = hasAquacultureShipwrecks or hasAquacultureArcheologicalSites or hasAquacultureHistoricPlaces
-
+      hasAquacultureHeritageUses = hasAquacultureShipwrecks or hasAquacultureArcheologicalSites or hasAquacultureHistoricPlaces
+    catch e
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()

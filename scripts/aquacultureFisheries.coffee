@@ -17,10 +17,11 @@ class AquacultureFisheriesTab extends ReportTab
 
   render: () ->
     isCollection = @model.isCollection()
-    
-    recreationalFishing = @recordSet('FishingTool', 'RecreationalFishing').toArray()
-    customaryFishing = @recordSet('FishingTool', 'CustomaryFishing').toArray()
-    commercialFishing = @recordSet('FishingTool', 'CommercialFishing').toArray()
+    try
+      recreationalFishing = @recordSet('FishingTool', 'RecreationalFishing').toArray()
+      customaryFishing = @recordSet('FishingTool', 'CustomaryFishing').toArray()
+      commercialFishing = @recordSet('FishingTool', 'CommercialFishing').toArray()
+    catch e
     context =
       isCollection: isCollection
       sketch: @model.forTemplate()
