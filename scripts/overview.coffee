@@ -6,6 +6,10 @@ partials = []
 for key, val of _partials
   partials[key.replace('node_modules/seasketch-reporting-api/', '')] = val
 
+ids = require './ids.coffee'
+for key, value of ids
+  window[key] = value
+
 MIN_SIZE = 10000
 
 class OverviewTab extends ReportTab
@@ -30,40 +34,51 @@ class OverviewTab extends ReportTab
 
     isType2 = (attr == 'MPA2')
     isMarineReserve = !isType2
-
+    scid = @sketchClass.id
+    console.log("scid: ", scid)
+    is_water_quality_zone = (scid == WQ_ID)
     HECTARES = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
     size_sqkm = Math.round(HECTARES*0.01)
-    warningsRS = @recordSet('OverlapWithWarningAreas', 'OverlapWithWarningAreas')
-    if warningsRS.toArray()?.length > 0
-      hasWarnings = true
-      warnings = warningsRS.raw('FEAT_TYPE')
-    else
+    try
+      warningsRS = @recordSet('OverlapWithWarningAreas', 'OverlapWithWarningAreas')
+      if warningsRS.toArray()?.length > 0
+        hasWarnings = true
+        warnings = warningsRS.raw('FEAT_TYPE')
+      else
+        hasWarnings = false
+        warnings = ""
+      #getting rid of warnings temporarily
       hasWarnings = false
       warnings = ""
-    #getting rid of warnings temporarily
-    hasWarnings = false
-    warnings = ""
+    catch error
+      hasWarnings = false
+      warnings = ""
+    try
+      hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
+      hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
+      hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
+      hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
+    catch error
 
-    hc_existing = @recordSet('HabitatCount', 'HabitatCount').float('EXST_HAB')
-    hc_proposed = @recordSet('HabitatCount', 'HabitatCount').float('SEL_HAB')
-    hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
-    hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
-    
+    try
+      hc_existing_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('EXST_HAB')
+      hc_proposed_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('SEL_HAB')    
+      hc_combined_t2 =@recordSet('HabitatCount', 'HabitatCountType2').float('CMBD_HAB')
+      hc_total_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('TOT_HAB')
+    catch error
 
-    hc_existing_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('EXST_HAB')
-    hc_proposed_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('SEL_HAB')    
-    hc_combined_t2 =@recordSet('HabitatCount', 'HabitatCountType2').float('CMBD_HAB')
-    hc_total_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('TOT_HAB')
+    try
+      HAB_PERC_MR_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_RES_PRC')
+      HAB_PERC_MR_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_RES_PRC')
+      HAB_PERC_MR_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_RES_PRC')
+    catch error
 
+    try
+      HAB_PERC_T2_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_HPA_PRC')
+      HAB_PERC_T2_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_HPA_PRC')
+      HAB_PERC_T2_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_HPA_PRC')
 
-    HAB_PERC_MR_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_RES_PRC')
-    HAB_PERC_MR_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_RES_PRC')
-    HAB_PERC_MR_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_RES_PRC')
-
-    HAB_PERC_T2_NEW = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('NW_HPA_PRC')
-    HAB_PERC_T2_EXISTING = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('EX_HPA_PRC')
-    HAB_PERC_T2_COMBINED = @recordSet('HabitatCountPercent', 'HabitatCountPercent').float('CB_HPA_PRC')
-
+    catch error
     #show tables instead of graph for IE
     if window.d3
       d3IsPresent = true
@@ -114,6 +129,7 @@ class OverviewTab extends ReportTab
 
       warnings: warnings
       hasWarnings: hasWarnings
+      is_water_quality_zone: is_water_quality_zone
 
     @$el.html @template.render(context, partials)
     @enableLayerTogglers()

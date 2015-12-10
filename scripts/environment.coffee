@@ -18,8 +18,10 @@ class EnvironmentTab extends ReportTab
 
   render: () ->
     isCollection = @model.isCollection()
-    habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
-   
+    try
+      habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
+    catch error
+      console.log("no habs...", error)
     #sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
     #commented out for now
@@ -66,6 +68,7 @@ class EnvironmentTab extends ReportTab
       habitatsInTypeTwoCount = 0
 
     hasReserveData = habitatsInReserves?.length > 0
+    console.log("has reserve data? ", hasReserveData)
     if hasReserveData
       habitatsInReservesCount = habitatsInReserves?.length
       habitatsInReserves = _.sortBy habitatsInReserves, (row) -> row.HAB_TYPE
@@ -96,7 +99,7 @@ class EnvironmentTab extends ReportTab
       admin: @project.isAdmin window.user
 
       #fix this to get rid of hardcoded value
-      habitatsCount: 46
+      habitatsCount: 43
       hasReserveData: hasReserveData
       habitatsInReserves: habitatsInReserves
       habitatsInReservesCount: habitatsInReservesCount

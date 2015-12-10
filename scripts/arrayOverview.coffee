@@ -196,7 +196,7 @@ class ArrayOverviewTab extends ReportTab
     perc_mr_new, perc_t2_existing, perc_t2_new, hasMarineReserves, hasType2MPAs) ->
     # Check if d3 is present. If not, we're probably dealing with IE
     if window.d3
-      max_value = 46
+      max_value = 43
       twothirds_max = 33
       new_mr_habs = combined-existing
       unprotected_mr_habs = max_value-combined
