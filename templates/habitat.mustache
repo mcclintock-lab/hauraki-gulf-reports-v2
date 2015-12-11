@@ -265,6 +265,29 @@
   </p>
 </div>
 {{/adjacentProtectedAreas}}
+{{#is_env_zone}}
+  <div class="reportSection" class="tableContainer">
+    <h4>Ecosystem Services</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th style="width:100px;">Habitat</th>
+          <th style="width:300px;">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#new_ecosystem_services}}
+        <tr>
+          <td>{{HAB_TYPE}}</td>
+          <td>{{DESCRIP}}</td>
+        </tr>
+        {{/new_ecosystem_services}}
+      </tbody>
+    </table>
+  </div>
+
+{{/is_env_zone}}
+{{^is_env_zone}}
 <div class="reportSection" class="tableContainer">
   <h4>Ecosystem Services</h4>
       <strong>What are Ecosystem Services?</strong>
@@ -340,6 +363,7 @@
     </table>
   </div>
 </div>
+{{/is_env_zone}}
 <div class="reportSection">
   <h4>Catchments <a href="#" data-toggle-node="54c94b76e2b49a023b001749" data-visible="false">show layer</a></h4>
   <p style="margin-left:5px;">

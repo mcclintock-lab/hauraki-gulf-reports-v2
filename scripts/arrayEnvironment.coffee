@@ -9,6 +9,9 @@ partials = []
 for key, val of _partials
   partials[key.replace('node_modules/seasketch-reporting-api/', '')] = val
 
+ids = require './ids.coffee'
+for key, value of ids
+  window[key] = value
 class ArrayEnvironmentTab extends ReportTab
   name: 'Environment'
   className: 'arrayEnvironment'
@@ -62,6 +65,12 @@ class ArrayEnvironmentTab extends ReportTab
         protectionEcosystemProductivity = @recordSet('EcosystemServices', 'EcosystemProductivity', PROTECTION_ID).toArray()
         protectionNutrientRecycling = @recordSet('EcosystemServices', 'NutrientRecycling', PROTECTION_ID).toArray()
         protectionBiogenicHabitat = @recordSet('EcosystemServices', 'BiogenicHabitat', PROTECTION_ID).toArray()
+        scid = @sketchClass.id
+        is_env_zone = (scid == WQ_ID)
+        new_ecosystem_services =  @recordSet('HabitatComprehensiveness', 'EcosystemServices').toArray()
+        new_ecosystem_services = _.sortBy new_ecosystem_services, (row) -> row.HAB_TYPE
+        
+
       catch error
         
       hasProtectionSensitiveAreas = false
@@ -217,6 +226,8 @@ class ArrayEnvironmentTab extends ReportTab
       #IE8/9 can't do d3 stuff
       d3IsPresent: d3IsPresent
       catchmentPercents: catchmentPercents
+      new_ecosystem_services: new_ecosystem_services
+      is_env_zone: is_env_zone
 
     @$el.html @template.render(context, templates)
     @enableLayerTogglers()

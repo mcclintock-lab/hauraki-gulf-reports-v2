@@ -6,6 +6,9 @@ partials = []
 for key, val of _partials
   partials[key.replace('node_modules/seasketch-reporting-api/', '')] = val
 
+ids = require './ids.coffee'
+for key, value of ids
+  window[key] = value
 
 class EnvironmentTab extends ReportTab
   name: 'Environment'
@@ -17,6 +20,7 @@ class EnvironmentTab extends ReportTab
   DOWN: "down"
 
   render: () ->
+
     isCollection = @model.isCollection()
     try
       habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
@@ -86,6 +90,16 @@ class EnvironmentTab extends ReportTab
     biogenic_habitat = @recordSet('EcosystemServices', 'BiogenicHabitat').toArray()
     ecosystemServices = ['','Ecosystem Productivity', 'Nutrient Recycling', 'Biogenic Habitat Formation']
 
+    
+    try
+      scid = @sketchClass.id
+      is_env_zone = (scid == WQ_ID)
+      console.log("is env zone? ", is_env_zone)
+      new_ecosystem_services =  @recordSet('HabitatComprehensiveness', 'EcosystemServices').toArray()
+      new_ecosystem_services = _.sortBy new_ecosystem_services, (row) -> row.HAB_TYPE
+    catch error
+      console.log("unable to load ecosystem services...")
+      
     if window.d3
       d3IsPresent = true
     else
@@ -134,6 +148,8 @@ class EnvironmentTab extends ReportTab
       ecosystem_productivity: ecosystem_productivity
       nutrient_recycling: nutrient_recycling
       biogenic_habitat: biogenic_habitat
+      new_ecosystem_services: new_ecosystem_services
+      is_env_zone: is_env_zone
       d3IsPresent: d3IsPresent
       catchmentPercents: catchmentPercents
 
@@ -196,6 +212,7 @@ class EnvironmentTab extends ReportTab
 
     @renderSort('hab_rep_type', tableName, representationData, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRepString)
   """
+  
   setupReserveHabitatSorting: (habitatsInReserves) =>
     tbodyName = '.reserve_values'
     tableName = '.reserve_hab_table'
@@ -336,5 +353,5 @@ class EnvironmentTab extends ReportTab
     if active_page and active_page[0] and active_page[0][0]
       active_page[0][0].click()
 
-
+    
 module.exports = EnvironmentTab
