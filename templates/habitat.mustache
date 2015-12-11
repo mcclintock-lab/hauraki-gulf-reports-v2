@@ -10,7 +10,7 @@
 -->
 {{#hasReserveData}}
   <div class="reportSection tableContainer">
-    <h4>Habitats Within Your Sketch <a href="#" data-toggle-node="538e4caabf86b14d7bf662d6" data-visible="false">show layer</a></h4>
+    <h4>Habitats Within Your Sketch <a href="#" data-toggle-node="54c84d5fe2b49a023bffed1c" data-visible="false">show layer</a></h4>
     {{#d3IsPresent}}
       <table data-paging="20" class="reserve_hab_table"> 
         <thead>
@@ -22,10 +22,12 @@
         </thead>
         <tbody class="reserve_values"></tbody>
       </table>
+      <!--
       <p>
           <strong>{{habitatsInReservesCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
           are protected in the Marine Reserves.
       </p>
+      -->
     {{/d3IsPresent}}
     {{^d3IsPresent}}
       <table data-paging="10">
@@ -45,12 +47,14 @@
           </tr>
           {{/habitatsInReserves}}
         </tbody>
+        <!--
         <tfoot>
           <p>
             <strong>{{habitatsInReservesCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
             are protected in the Marine Reserves.
           </p>
         </tfoot>
+        -->
       </table>
     {{/d3IsPresent}}
   </div>
@@ -58,7 +62,7 @@
 
 {{#hasTypeTwoData}}
   <div class="reportSection tableContainer">
-    <h4>Habitats Within Your Sketch <a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></h4>
+    <h4>Habitats Within Your Sketch <a href="#" data-toggle-node="54c84d5fe2b49a023bffed1c" data-visible="false">show layer</a></h4>
     {{#d3IsPresent}}
         <table data-paging="20" class="type2_hab_table">
           <thead>
@@ -70,12 +74,14 @@
           </thead>
           <tbody class="type2_values">
           </tbody>
+          <!--
           <tfoot>
             <p>
               <strong>{{habitatsInTypeTwoCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
               are protected in a Type-2 Protected Area.
             </p>
           </tfoot>
+          -->
         </table>
     {{/d3IsPresent}}
     {{^d3IsPresent}}
@@ -96,12 +102,14 @@
           </tr>
           {{/habitatsInTypeTwos}}
         </tbody>
+        <!--
         <tfoot>
           <p>
             <strong>{{habitatsInTypeTwoCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
             are protected in a Type-2 Protected Area.
           </p>
         </tfoot>
+        -->
      </table>
     {{/d3IsPresent}}
   </div>
@@ -365,7 +373,8 @@
 </div>
 {{/is_env_zone}}
 <div class="reportSection">
-  <h4>Catchments <a href="#" data-toggle-node="54c94b76e2b49a023b001749" data-visible="false">show layer</a></h4>
+  
+  <h4>Catchments <a href="#" data-toggle-node="5665fd9cc96d328d5292b435" data-visible="false">show layer</a></h4>
   <p style="margin-left:5px;">
     The following table shows the remaining indigenous cover in catchments within 5 kilometers
     of this sketch. If there is more than 30% remaining indigenous cover, it also shows the percentage
