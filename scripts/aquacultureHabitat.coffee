@@ -46,6 +46,7 @@ class AquacultureHabitatTab extends ReportTab
     
     try
       aquacultureHabitats = @recordSet('HabitatComprehensiveness', 'AquacultureHabitatComprehensiveness').toArray()
+      console.log(aquacultureHabitats)
       aquacultureHabitats = _.sortBy aquacultureHabitats, (row) -> row.HAB_TYPE
       habitatsInAquacultureZones = aquacultureHabitats?.length
       hasAquacultureHabitats = aquacultureHabitats?.length  > 0

@@ -30,17 +30,28 @@ class AquacultureOverviewTab extends ReportTab
     # The @recordSet method contains some useful means to get data out of 
     # the monsterous RecordSet json. Checkout the seasketch-reporting-template
     # documentation for more info.
+
     try
       aquacultureSizes = @recordSet('AquacultureSize', 'AquacultureSize').toArray()
-      aquacultureProximity = @recordSet('ProximityToExistingAquaculture', 'ProximityToExistingAquaculture').toArray()
-      totalSize = @recordSet('AquacultureSize', 'TotalSize').float('TOTAL_HA')
     catch Error
+      console.log("error with sizes ", Error)
+    try
+      totalSize = @recordSet('AquacultureSize', 'TotalSize').float('TOTAL_HA')
+    catch e
+      console.log("error with total size, ", e)  
+    try
+      aquacultureProximity = @recordSet('ProximityToExistingAquaculture', 'ProximityToExistingAquaculture').toArray()
+    catch e
+      console.log("error with prox ", e)
+      
+
       #there is a weird issue where this is coming through for a protection zone in IE9
       
     # I use this isCollection flag to customize the display. Another option
     # would be to have totally different Tab implementations for zones vs 
     # collections. I didn't do that here since they are so similar.
     isCollection = @model.isCollection()
+    
     if isCollection
       # @model is the client-side sketch representation, which has some
       # useful, if undocumented, methods like getChildren().
