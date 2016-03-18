@@ -31,13 +31,17 @@ class OverviewTab extends ReportTab
     # the monsterous RecordSet json. Checkout the seasketch-reporting-template
     # documentation for more info.
     attr = @model.getAttribute('MPA_TYPE')
-
-    isType2 = (attr == 'MPA2')
-    isMarineReserve = !isType2
+    
+    if attr == undefined
+      isNeitherType = true
+    else
+      isType2 = (attr == 'MPA2')
+      isMarineReserve = !isType2
     scid = @sketchClass.id
-    console.log("scid: ", scid)
+
     is_water_quality_zone = (scid == WQ_ID)
     HECTARES = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
+
     size_sqkm = Math.round(HECTARES*0.01)
     try
       warningsRS = @recordSet('OverlapWithWarningAreas', 'OverlapWithWarningAreas')
@@ -59,7 +63,7 @@ class OverviewTab extends ReportTab
       hc_combined =@recordSet('HabitatCount', 'HabitatCount').float('CMBD_HAB')
       hc_total = @recordSet('HabitatCount', 'HabitatCount').float('TOT_HAB')
     catch error
-
+      console.log("err: ", error)
     try
       hc_existing_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('EXST_HAB')
       hc_proposed_t2 = @recordSet('HabitatCount', 'HabitatCountType2').float('SEL_HAB')    
@@ -85,11 +89,17 @@ class OverviewTab extends ReportTab
     else
       d3IsPresent = false
 
+    console.log("num habs: ", hc_combined)
+    console.log("num habs t2: ", hc_combined_t2)
+
     if isMarineReserve
       num_habs = hc_combined
     else
       num_habs = hc_combined_t2
 
+    if isNeitherType
+      num_habs = Math.max(hc_combined, hc_combined_t2)
+      
     attributes = @model.getAttributes()
     
     context =
@@ -137,7 +147,7 @@ class OverviewTab extends ReportTab
 
   drawViz: (existing, proposed, combined, total, t2existing, t2proposed, t2combined, t2total, perc_mr_existing, perc_mr_new, perc_t2_existing, perc_t2_new, isMarineReserve, isType2) ->
     # Check if d3 is present. If not, we're probably dealing with IE
-    max_value = 46
+    max_value = 47
     twothirds_max = 33
     if window.d3
       new_mr_habs = combined-existing
@@ -335,7 +345,7 @@ class OverviewTab extends ReportTab
 
 
   drawType2Bars: (t2ranges) =>
-    max_value = 46
+    max_value = 47
     el = @$('.viz')[0]
     x = d3.scale.linear()
       .domain([0, max_value])
@@ -352,7 +362,7 @@ class OverviewTab extends ReportTab
         .attr("class", (d) -> "label-"+d.class)
 
   drawMarineReserveBars: (ranges) =>
-    max_value = 46
+    max_value = 47
     el = @$('.viz')[0]
     x = d3.scale.linear()
       .domain([0, max_value])

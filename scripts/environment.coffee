@@ -113,7 +113,7 @@ class EnvironmentTab extends ReportTab
       admin: @project.isAdmin window.user
 
       #fix this to get rid of hardcoded value
-      habitatsCount: 43
+      habitatsCount: 47
       hasReserveData: hasReserveData
       habitatsInReserves: habitatsInReserves
       habitatsInReservesCount: habitatsInReservesCount

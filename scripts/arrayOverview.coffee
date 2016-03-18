@@ -196,7 +196,7 @@ class ArrayOverviewTab extends ReportTab
     perc_mr_new, perc_t2_existing, perc_t2_new, hasMarineReserves, hasType2MPAs) ->
     # Check if d3 is present. If not, we're probably dealing with IE
     if window.d3
-      max_value = 43
+      max_value = 47
       twothirds_max = 33
       new_mr_habs = combined-existing
       unprotected_mr_habs = max_value-combined
@@ -405,7 +405,7 @@ class ArrayOverviewTab extends ReportTab
         @drawType2PercentBars(perc_t2_ranges, index)
 
   drawType2Bars: (t2ranges, index) =>
-    max_value = 46
+    max_value = 47
     el = @$('.viz')[index]
     x = d3.scale.linear()
       .domain([0, max_value])
@@ -422,10 +422,10 @@ class ArrayOverviewTab extends ReportTab
         .attr("class", (d) -> "label-"+d.class)
 
   drawMarineReserveBars: (ranges, index) =>
-    max_value = 46
+    max_value = 47
     el = @$('.viz')[index]
     x = d3.scale.linear()
-      .domain([0, 46])
+      .domain([0, max_value])
       .range([0, 400])
     chart = d3.select(el)
     chart.selectAll("div.range")
