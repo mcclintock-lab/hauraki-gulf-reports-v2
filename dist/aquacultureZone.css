@@ -362,6 +362,15 @@
 .reportView .reportSection.tableContainer p {
   padding: 10px;
 }
+.rule-of-thumb:before {
+  font-family: 'fontello';
+  color: '#8C001A';
+  content: "\6b";
+}
+.rule-of-thumb:after {
+  content: ' Rule of Thumb:';
+  font-style: italic;
+}
 .aquaculture-nutrient-recycling {
   display: none;
 }
@@ -378,4 +387,13 @@
   text-align: center;
   font-style: italic;
   margin-top: 5px;
+}
+.in-report-header {
+  font-weight: bold;
+  padding-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 3px;
+}
+.in-report-header > span {
+  margin-right: 15px;
 }

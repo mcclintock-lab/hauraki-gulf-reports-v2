@@ -12,13 +12,75 @@
   </table>
 </div>
 {{/anyAttributes}}
+{{#isCollection}}
+  <div class="reportSection size">
+    <h4>MPA Sizes</h4>
+      <table data-paging="10">
+        <thead>
+          <tr>
+            <th>MPA Name</th>
+            <th>Area </br>(sq. km.)</th>
+            <th style="width:100px;">Width (km)<sup>*</sup></th>
+            <th style="width:100px;">Coastline Length (km)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#prop_sizes}}
+          <tr class={{CSS_CLASS}}>
+            <td>{{NAME}}</td>
+            <td>{{SIZE_SQKM}}</td>
+            <td>{{MIN_DIM}}</td>
+            <td>{{COAST}}</td>
+          </tr>
+          {{/prop_sizes}}
+        </tbody>
+      </table>
+    <p class="large">
+      This combined area within the network accounts for <strong>{{area_percent}}%</strong> of the Hauraki Gulf area, and <strong>{{coastline_length_percent}}%</strong> of the Hauraki Gulf coastline.
+    </p>
+    <p>
+      <i><sup>*</sup>Rule of thumb: Square or circular shapes of MPAs help maintain the integrity of the protected area as  they limit adult spillover and facilitate compliance.
+      </i>
+    </p>
+  </div>
 
-<div class="reportSection size">
-  <h4>Size</h4>
-  <p class="large">
-    This sketch is <strong>{{SIZE}} ha ({{SIZE_KM}} square kilometers)</strong>.
-  </p>
-</div>
+{{/isCollection}}
+{{^isCollection}}
+    <div class="reportSection size">
+      <h4>MPA Size</h4>
+        <table data-paging="10">
+          <thead>
+            <tr>
+              <th>MPA Name</th>
+              <th>Area </br>(sq. km.)</th>
+              <th style="width:100px;">Width (km)</th>
+              <th style="width:100px;">Coastline Length (km)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#prop_sizes}}
+            <tr>
+              <td>{{NAME}}</td>
+              <td>{{SIZE_SQKM}}</td>
+              <td>{{MIN_DIM}}</td>
+              <td>{{COAST}}
+            </tr>
+            {{/prop_sizes}}
+          </tbody>
+        </table>
+      <p class="large">
+        This area within the MPA accounts for <strong>{{area_percent}}%</strong> of the Hauraki Gulf area, and <strong>{{coastline_length_percent}}%</strong> of the Hauraki Gulf coastline.
+      </p>
+      <p>
+        <span class="rule-of-thumb"></span>
+        <span>Square or circular shapes of MPAs help maintain the integrity of the protected area as  they limit adult spillover and facilitate compliance.</span>
+        
+      </p>
+    </div>
+
+
+
+{{/isCollection}}
 
 {{#hasWarnings}}
 <div class="reportSection size">
@@ -30,10 +92,10 @@
 {{/hasWarnings}}
   {{#d3IsPresent}}
     <div class="reportSection tableContainer">
-      <h4>Representation of Habitats</h4>
+      <h4>Representation of Physical Habitats</h4>
       <p class="large" style="margin-left:10px;padding-bottom:0px;margin-bottom:0px;"><strong>Number of Habitats</strong></p>
       <p class="large" style="margin-left:10px;">
-        There are <strong>47</strong> habitats in the planning region, and your sketch includes <strong>{{NUM_HABS}}</strong>. For more information on the habitats found in the Hauraki Gulf please see the <a target="_blank" href="http://ec2-54-252-228-85.ap-southeast-2.compute.amazonaws.com/metadata/haurakigulf/HGMSP_habitats_classification.html">layer description</a>.
+        There are <strong>47</strong> physical habitats in the planning region, and your sketch includes <strong>{{NUM_HABS}}</strong>. For more information on the habitats found in the Hauraki Gulf please see the <a target="_blank" href="http://ec2-54-252-228-85.ap-southeast-2.compute.amazonaws.com/metadata/haurakigulf/HGMSP_habitats_classification.html">layer description</a>.
       </p>
       {{^is_water_quality_zone}}
         {{#isMarineReserve}}
@@ -49,7 +111,7 @@
           <div class="vizPerc" style="position:relative;"></div>
         {{/isType2}}
         <p class="large" style="margin-left:10px;">
-          The graphs show the number, and relative area, of habitats that are currently protected by {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protection Areas{{/isType2}} within the Hauraki Gulf (in light green) and the number of additional habitat types that would be protected by your Sketch (in dark green). The number of habitats that are not represented at all in {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protection Areas{{/isType2}} are shown in red.
+          The graphs show the number, and relative area, of physical habitats that are currently protected by {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protection Areas{{/isType2}} within the Hauraki Gulf (in light green) and the number of additional habitat types that would be protected by your Sketch (in dark green). The number of habitats that are not represented at all in {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protection Areas{{/isType2}} are shown in red.
         </p>
         {{/is_water_quality_zone}}
     </div>
@@ -59,16 +121,16 @@
     {{#is_water_quality_zone}}
     <!-- if no d3 and this is the new habitat protection zone -->
       <div class="reportSection tableContainer">
-        <h4>Representation of Habitats</h4>
+        <h4>Representation of Physical Habitats</h4>
         <p class="large" style="margin-left:10px;padding-bottom:0px;margin-bottom:0px;"><strong>Number of Habitats</strong></p>
         <p class="large" style="margin-left:10px;">
-          There are <strong>47</strong> habitats in the planning region, and your sketch includes <strong>{{NUM_HABS}}</strong>. For more information on the habitats found in the Hauraki Gulf please see the <a target="_blank" href="http://ec2-54-252-228-85.ap-southeast-2.compute.amazonaws.com/metadata/haurakigulf/HGMSP_habitats_classification.html">layer description</a>.
+          There are <strong>47</strong> physical habitats in the planning region, and your sketch includes <strong>{{NUM_HABS}}</strong>. For more information on the habitats found in the Hauraki Gulf please see the <a target="_blank" href="http://ec2-54-252-228-85.ap-southeast-2.compute.amazonaws.com/metadata/haurakigulf/HGMSP_habitats_classification.html">layer description</a>.
         </p>
       </div>
     {{/is_water_quality_zone}}
     {{^is_water_quality_zone}}
       <div class="reportSection tableContainer">
-      <h4>Representation of Habitats</h4>
+      <h4>Representation of Physical Habitats</h4>
       <table data-paging="10"> <!-- data-paging... activates paging  -->
         <thead>
           <tr>
@@ -100,7 +162,7 @@
           <tr>
             <td colspan="5" class="paragraph" style="text-align:left;">
               <p style="margin-left:10px;">
-                There are a total of <strong>47</strong> habitats in the study area. The light green shows the number of habitats currently found within existing {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protection Areas{{/isType2}}, and the dark green the number of additional habitat types that would be added. The red shows the number of habitats that are not yet represented.
+                There are a total of <strong>47</strong> physical habitats in the study area. The light green shows the number of habitats currently found within existing {{#isMarineReserve}}Marine Reserves{{/isMarineReserve}}{{#isType2}}Type-2 Protection Areas{{/isType2}}, and the dark green the number of additional habitat types that would be added. The red shows the number of habitats that are not yet represented.
               </p>
             </td>
           </tr>

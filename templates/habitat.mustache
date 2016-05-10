@@ -10,7 +10,8 @@
 -->
 {{#hasReserveData}}
   <div class="reportSection tableContainer">
-    <h4>Habitats Within Your Sketch <a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></h4>
+    <h4>Habitats Within Your Sketch </h4>
+    <div class="in-report-header"><span>Physical Habitats</span><a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></div>
     {{#d3IsPresent}}
       <table data-paging="20" class="reserve_hab_table"> 
         <thead>
@@ -22,12 +23,6 @@
         </thead>
         <tbody class="reserve_values"></tbody>
       </table>
-      <!--
-      <p>
-          <strong>{{habitatsInReservesCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
-          are protected in the Marine Reserves.
-      </p>
-      -->
     {{/d3IsPresent}}
     {{^d3IsPresent}}
       <table data-paging="10">
@@ -47,22 +42,48 @@
           </tr>
           {{/habitatsInReserves}}
         </tbody>
-        <!--
-        <tfoot>
-          <p>
-            <strong>{{habitatsInReservesCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
-            are protected in the Marine Reserves.
-          </p>
-        </tfoot>
-        -->
       </table>
     {{/d3IsPresent}}
+    {{#d3IsPresent}}
+      <div class="in-report-header"><span>Biogenic Habitats</span><a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></div>
+      <table data-paging="20" class="biogenic_hab_table"> 
+        <thead>
+          <tr>
+            <th class="sorting_col" style="width:250px;"><a class="hab_biogenic_type sort_up" href="#">Habitat Type</a></th>
+            <th><a class="hab_biogenic_new_area sort_down" href="#" >Area (ha)</a></th>
+            <th><a class="hab_biogenic_new_perc sort_down" href="#">Area (%)</a></th>
+          </tr>
+        </thead>
+        <tbody class="biogenic_values"></tbody>
+      </table>
+  {{/d3IsPresent}}
+  {{^d3IsPresent}}
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th style="width:250px;">Biogenic Habitats</th>
+          <th>Area (ha)</th>
+          <th>Area (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#biogenic_habitats}}
+        <tr>
+          <td>{{HAB_TYPE}}</td>
+          <td>{{NEW_SIZE}}</td>
+          <td>{{NEW_PERC}}</td>
+        </tr>
+        {{/biogenic_habitats}}
+      </tbody>
+    </table>
+  {{/d3IsPresent}}
   </div>
 {{/hasReserveData}}
 
 {{#hasTypeTwoData}}
   <div class="reportSection tableContainer">
-    <h4>Habitats Within Your Sketch <a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></h4>
+    <h4>Habitats Within Your Sketch </h4>
+    <div class="in-report-header"><span>Physical Habitats</span> <a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></div>
     {{#d3IsPresent}}
         <table data-paging="20" class="type2_hab_table">
           <thead>
@@ -74,14 +95,6 @@
           </thead>
           <tbody class="type2_values">
           </tbody>
-          <!--
-          <tfoot>
-            <p>
-              <strong>{{habitatsInTypeTwoCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
-              are protected in a Type-2 Protected Area.
-            </p>
-          </tfoot>
-          -->
         </table>
     {{/d3IsPresent}}
     {{^d3IsPresent}}
@@ -102,18 +115,44 @@
           </tr>
           {{/habitatsInTypeTwos}}
         </tbody>
-        <!--
-        <tfoot>
-          <p>
-            <strong>{{habitatsInTypeTwoCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
-            are protected in a Type-2 Protected Area.
-          </p>
-        </tfoot>
-        -->
      </table>
     {{/d3IsPresent}}
+    <div class="in-report-header"><span>Biogenic Habitats</span><a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false"> show layer</a></div>
+    {{#d3IsPresent}}
+    <table data-paging="20" class="biogenic_hab_table"> 
+      <thead>
+        <tr>
+          <th class="sorting_col" style="width:250px;"><a class="hab_biogenic_type sort_up" href="#">Habitat Type</a></th>
+          <th><a class="hab_biogenic_new_area sort_down" href="#" >Area (ha)</a></th>
+          <th><a class="hab_biogenic_new_perc sort_down" href="#">Area (%)</a></th>
+        </tr>
+      </thead>
+      <tbody class="biogenic_values"></tbody>
+    </table>
+  {{/d3IsPresent}}
+  {{^d3IsPresent}}
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th style="width:250px;">Biogenic Habitats</th>
+          <th>Area (ha)</th>
+          <th>Area (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#biogenic_habitats}}
+        <tr>
+          <td>{{HAB_TYPE}}</td>
+          <td>{{NEW_SIZE}}</td>
+          <td>{{NEW_PERC}}</td>
+        </tr>
+        {{/biogenic_habitats}}
+      </tbody>
+    </table>
+  {{/d3IsPresent}}
   </div>
 {{/hasTypeTwoData}}
+
 {{#hasRepresentationData}}
   <div class="reportSection tableContainer">
     <h4>Habitat Representation</h4>

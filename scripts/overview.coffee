@@ -23,6 +23,7 @@ class OverviewTab extends ReportTab
     'HabitatCount'
     'HabitatCountPercent'
     'OverlapWithWarningAreas'
+    'ProposalSize'
   ]
 
 
@@ -31,7 +32,9 @@ class OverviewTab extends ReportTab
     # the monsterous RecordSet json. Checkout the seasketch-reporting-template
     # documentation for more info.
     attr = @model.getAttribute('MPA_TYPE')
-    
+    TOTAL_COASTLINE_LENGTH = 2504.842794
+    TOT_SIZE_SQKM = 14033.551666
+
     if attr == undefined
       isNeitherType = true
     else
@@ -41,7 +44,48 @@ class OverviewTab extends ReportTab
 
     is_water_quality_zone = (scid == WQ_ID)
     HECTARES = @recordSet('TargetSize', 'TargetSize').float('SIZE_IN_HA')
+    total_sizes = @recordSet('ProposalSize', 'SizeTotals').toArray()
+    prop_sizes = @recordSet('ProposalSize', 'Sizes').toArray()
+    mpa_avg_min_dim = @getAverageMinDim(prop_sizes)
+    total_percent = @getTotalAreaPercent(prop_sizes)
+    prop_sizes = @cleanupData(prop_sizes)
 
+    isCollection = @model.isCollection()
+    if isCollection
+      numSketches = @model.getChildren().length
+    else
+      numSketches = 1
+
+    mpa_count = @getMinDimCount(prop_sizes)
+    total_mpa_count = numSketches
+    plural_mpa_count = mpa_count != 1
+
+    
+    if mpa_avg_min_dim < 10
+      mpa_avg_size_guideline = "below"
+    else
+      mpa_avg_size_guideline = "above"
+
+
+    if total_sizes?.length > 0
+      coastline_length = total_sizes[0].COAST
+      coastline_length_percent = (coastline_length/TOTAL_COASTLINE_LENGTH)*100.0
+      if coastline_length_percent > 0 && coastline_length_percent < 1
+        coastline_length_percent = "< 1"
+      else
+        coastline_length_percent = parseFloat(coastline_length_percent).toFixed(1)
+        if coastline_length_percent > 100
+          coastline_length_percent = 100
+      size = total_sizes[0].SIZE_SQKM
+
+      coastline_length = parseFloat(coastline_length).toFixed(1)
+      area_percent = parseFloat((size/TOT_SIZE_SQKM)*100).toFixed(1)
+      if area_percent > 100
+        area_percent = 100.0
+
+      if area_percent < 0.1
+        area_percent = "< 1"
+        
     size_sqkm = Math.round(HECTARES*0.01)
     try
       warningsRS = @recordSet('OverlapWithWarningAreas', 'OverlapWithWarningAreas')
@@ -141,6 +185,10 @@ class OverviewTab extends ReportTab
       hasWarnings: hasWarnings
       is_water_quality_zone: is_water_quality_zone
 
+      prop_sizes: prop_sizes
+      isCollection: isCollection
+      area_percent: area_percent
+      coastline_length_percent: coastline_length_percent
     @$el.html @template.render(context, partials)
     @enableLayerTogglers()
     @drawViz(hc_existing, hc_proposed, hc_combined, hc_total, hc_existing_t2, hc_proposed_t2, hc_combined_t2, hc_total_t2, HAB_PERC_MR_EXISTING, HAB_PERC_MR_NEW, HAB_PERC_T2_EXISTING, HAB_PERC_T2_NEW, isMarineReserve, isType2)
@@ -444,4 +492,60 @@ class OverviewTab extends ReportTab
       .style("left", (d) -> x(d) + 'px')
     
 
+  getTotalAreaPercent: (prop_sizes) =>
+
+    for ps in prop_sizes
+      if ps.NAME == "Percent of Total Area"
+        return ps.SIZE_SQKM
+    return 0.0
+
+  getAverageMinDim: (prop_sizes) =>
+    for ps in prop_sizes
+      if ps.NAME == "Average"
+        return ps.MIN_DIM
+
+  cleanupData: (prop_sizes, isCollection) =>
+    cleaned_props = []
+    num_sketches = prop_sizes?.length
+    for ps in prop_sizes
+      if ps.NAME != "Percent of Total Area"
+        ps.MIN_DIM = parseFloat(ps.MIN_DIM).toFixed(1)
+        ps.SIZE_SQKM = parseFloat(ps.SIZE_SQKM).toFixed(1)
+        if ps.SIZE_SQKM < 0.1
+          ps.SIZE_SQKM = "< 0.1"
+        ps.COAST = Number(ps.COAST).toFixed(1)
+        if ps.COAST == 0 
+          ps.COAST = "--"
+        #don't include average for singe sketch
+        if num_sketches == 3 
+          if ps.NAME != "Average"
+            cleaned_props.push(ps)
+        else
+          cleaned_props.push(ps)
+      if ps.NAME == "Average"
+        ps.CSS_CLASS = "is_avg"
+      else
+        ps.CSS_CLASS = "not_avg"
+
+    return cleaned_props
+
+  getMinDimCount: (prop_sizes) =>
+    num_meet_criteria = 0
+    total_min_size = 0
+
+    for ps in prop_sizes
+      if ps.NAME != "Average" && ps.MIN_DIM > 5 
+        num_meet_criteria+=1
+
+    return num_meet_criteria
+
+  addCommas: (num_str) =>
+    num_str += ''
+    x = num_str.split('.')
+    x1 = x[0]
+    x2 = if x.length > 1 then '.' + x[1] else ''
+    rgx = /(\d+)(\d{3})/
+    while rgx.test(x1)
+      x1 = x1.replace(rgx, '$1' + ',' + '$2')
+    return x1 + x2
 module.exports = OverviewTab

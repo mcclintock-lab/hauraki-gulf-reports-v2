@@ -205,74 +205,6 @@
     </div>
   {{/hasProtectionSensitiveAreas}}
   
-  <!--
-  {{#hasProtectionProtectedMammals}}
-  <div class="reportSection tableContainer">
-    <h4>Marine Mammals</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-        <th>Top 10 Species Present</th>
-        <th>Number of Sighting Events</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#protectionProtectedMammals}}
-        <tr>
-          <td>{{Name}}</td>
-          <td>{{Count}}</td>
-        </tr>
-        {{/protectionProtectedMammals}}
-      </tbody>
-    </table>
-  </div>
-  {{/hasProtectionProtectedMammals}}
-
-  {{#hasProtectionSeabirdBreedingSites}}
-  <div class="reportSection tableContainer">
-    <h4>Seabirds</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Number of Breeding Sites</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#protectionSeabirdBreedingSites}}
-        <tr>
-          <td>{{Name}}</td>
-          <td>{{Count}}</td>
-        </tr>
-        {{/protectionSeabirdBreedingSites}}
-      </tbody>
-    </table>
-  </div>
-  {{/hasProtectionSeabirdBreedingSites}}
-
-
-  {{#hasProtectionShorebirdSites}}
-  <div class="reportSection tableContainer">
-    <h4>Shorebird Sites</h4>
-    <table data-paging="10">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Number of Shorebird Sites</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#protectionShorebirdSites}}
-        <tr>
-          <td>{{Name}}</td>
-          <td>{{Count}}</td>
-        </tr>
-        {{/protectionShorebirdSites}}
-      </tbody>
-    </table>
-  </div>
-  {{/hasProtectionShorebirdSites}}
-  -->
   {{^is_env_zone}}
   <div class="reportSection" class="tableContainer">
     <h4>Ecosystem Services</h4>
@@ -372,6 +304,41 @@
   </div>
 
 {{/is_env_zone}}
+<div class="reportSection tableContainer">
+  <h4>Biogenic Habitats<a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></h4>
+  {{#d3IsPresent}}
+    <table data-paging="20" class="biogenic_hab_table"> 
+      <thead>
+        <tr>
+          <th class="sorting_col" style="width:250px;"><a class="hab_biogenic_type sort_up" href="#">Habitat Type</a></th>
+          <th><a  class="hab_biogenic_new_area sort_down" href="#" >Area (ha)</a></th>
+          <th><a class="hab_biogenic_new_perc sort_down" href="#">Area (%)</a></th>
+        </tr>
+      </thead>
+      <tbody class="biogenic_values"></tbody>
+    </table>
+  {{/d3IsPresent}}
+  {{^d3IsPresent}}
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th style="width:250px;">Biogenic Habitats</th>
+          <th>Area (ha)</th>
+          <th>Area (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#biogenic_habitats}}
+        <tr>
+          <td>{{HAB_TYPE}}</td>
+          <td>{{NEW_SIZE}}</td>
+          <td>{{NEW_PERC}}</td>
+        </tr>
+        {{/biogenic_habitats}}
+      </tbody>
+    </table>
+  {{/d3IsPresent}}
+</div>
 
 <div class="reportSection">
   <h4>Catchments <a href="#" data-toggle-node="54c94b76e2b49a023b001749" data-visible="false">show layer</a></h4>
@@ -467,7 +434,41 @@
       </table>
     {{/d3IsPresent}}
   </div>
-
+  <div class="reportSection tableContainer">
+    <h4>Biogenic Habitats<a href="#" data-toggle-node="52d5a2089c2d81051200072f" data-visible="false">show layer</a></h4>
+    {{#d3IsPresent}}
+      <table data-paging="20" class="biogenic_hab_table"> 
+        <thead>
+          <tr>
+            <th class="sorting_col" style="width:250px;"><a class="hab_biogenic_type sort_up" href="#">Habitat Type</a></th>
+            <th><a  class="hab_biogenic_new_area sort_down" href="#" >Area (ha)</a></th>
+            <th><a class="hab_biogenic_new_perc sort_down" href="#">Area (%)</a></th>
+          </tr>
+        </thead>
+        <tbody class="biogenic_values"></tbody>
+      </table>
+    {{/d3IsPresent}}
+    {{^d3IsPresent}}
+      <table data-paging="10">
+        <thead>
+          <tr>
+            <th style="width:250px;">Biogenic Habitats</th>
+            <th>Area (ha)</th>
+            <th>Area (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#biogenic_habitats}}
+          <tr>
+            <td>{{HAB_TYPE}}</td>
+            <td>{{NEW_SIZE}}</td>
+            <td>{{NEW_PERC}}</td>
+          </tr>
+          {{/biogenic_habitats}}
+        </tbody>
+      </table>
+    {{/d3IsPresent}}
+  </div>
 
   {{#hasAquacultureSensitiveAreas}}
    <div class="reportSection tableContainer">

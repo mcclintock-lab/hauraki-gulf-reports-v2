@@ -46,6 +46,7 @@ class AquacultureHabitatTab extends ReportTab
     
     try
       aquacultureHabitats = @recordSet('HabitatComprehensiveness', 'AquacultureHabitatComprehensiveness').toArray()
+      biogenic_habitats = @recordSet('HabitatComprehensiveness', 'BiogenicHabitats').toArray()
       console.log(aquacultureHabitats)
       aquacultureHabitats = _.sortBy aquacultureHabitats, (row) -> row.HAB_TYPE
       habitatsInAquacultureZones = aquacultureHabitats?.length
@@ -96,6 +97,8 @@ class AquacultureHabitatTab extends ReportTab
       habitatsCount: 46
       d3IsPresent: d3IsPresent
 
+      biogenic_habitats: biogenic_habitats
+
     # @template is /templates/overview.mustache
     @$el.html @template.render(context, partials)
 
@@ -104,7 +107,21 @@ class AquacultureHabitatTab extends ReportTab
     @$('.aquaculture-chosen').change () =>
       _.defer @renderAquacultureEcosystemServices
     @setupAquacultureHabitatSorting(aquacultureHabitats)
+    @setupBiogenicHabitatSorting(biogenic_habitats)
     @enableTablePaging()
+
+  setupBiogenicHabitatSorting: (habitats) =>
+    tbodyName = '.biogenic_values'
+    tableName = '.biogenic_hab_table'
+
+    @$('.hab_biogenic_type').click (event) =>
+      @renderSort('hab_biogenic_type', tableName, habitats, event, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
+    @$('.hab_biogenic_new_area').click (event) =>
+      @renderSort('hab_biogenic_new_area',  tableName, habitats, event, "NEW_SIZE", tbodyName, true, @getHabitatRowString)
+    @$('.hab_biogenic_new_perc').click (event) =>
+      @renderSort('hab_biogenic_new_perc',  tableName, habitats, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
+
+    @renderSort('hab_biogenic_type', tableName, habitats, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
 
   renderAquacultureEcosystemServices: () =>
     name = @$('.aquaculture-chosen').val()

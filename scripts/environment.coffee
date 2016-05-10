@@ -24,8 +24,10 @@ class EnvironmentTab extends ReportTab
     isCollection = @model.isCollection()
     try
       habitats = @recordSet('HabitatComprehensiveness', 'HabitatComprehensiveness').toArray()
+      biogenic_habitats = @recordSet('HabitatComprehensiveness', 'BiogenicHabitats').toArray()
     catch error
       console.log("no habs...", error)
+
     #sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
     #commented out for now
@@ -41,11 +43,11 @@ class EnvironmentTab extends ReportTab
       row.MPA_TYPE is 'MPA1' 
     habitatsInTypeTwos = _.filter habitats, (row) ->
       row.MPA_TYPE is 'MPA2' 
-    representationData = _.filter habitats, (row) ->
-      row.MPA_TYPE is 'ALL_TYPES' 
+    #representationData = _.filter habitats, (row) ->
+    #  row.MPA_TYPE is 'ALL_TYPES' 
 
     #representationData = _.sortBy representationData, (row) -> row.HAB_TYPE
-    representationData = []
+    #representationData = []
     protectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals').toArray()
     protectedMammals = _.sortBy protectedMammals, (row) -> parseInt(row.Count)
     protectedMammals.reverse()
@@ -122,9 +124,8 @@ class EnvironmentTab extends ReportTab
       habitatsInTypeTwoCount: habitatsInTypeTwoCount
       habitatsInTypeTwos: habitatsInTypeTwos
 
-      representationData:representationData
-      hasRepresentationData:representationData?.length > 0
-      representedCount:representationData?.length
+      hasRepresentationData:false
+      
 
       adjacentProtectedAreas: near_terrestrial_protected 
 
@@ -152,6 +153,7 @@ class EnvironmentTab extends ReportTab
       is_env_zone: is_env_zone
       d3IsPresent: d3IsPresent
       catchmentPercents: catchmentPercents
+      biogenic_habitats: biogenic_habitats
 
     @$el.html @template.render(context, templates)
     @enableLayerTogglers()
@@ -164,6 +166,8 @@ class EnvironmentTab extends ReportTab
     @setupType2HabitatSorting(habitatsInTypeTwos)
     #@setupHabitatRepresentationSorting(representationData)
     #@setupSensitiveHabitatSorting(sensitiveAreas)
+    @setupBiogenicHabitatSorting(biogenic_habitats)
+
     @enableTablePaging()
    
 
@@ -238,6 +242,19 @@ class EnvironmentTab extends ReportTab
 
     @renderSort('hab_type2_type', tableName, type2Habitats, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
 
+
+  setupBiogenicHabitatSorting: (habitats) =>
+    tbodyName = '.biogenic_values'
+    tableName = '.biogenic_hab_table'
+
+    @$('.hab_biogenic_type').click (event) =>
+      @renderSort('hab_biogenic_type', tableName, habitats, event, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
+    @$('.hab_biogenic_new_area').click (event) =>
+      @renderSort('hab_biogenic_new_area',  tableName, habitats, event, "NEW_SIZE", tbodyName, true, @getHabitatRowString)
+    @$('.hab_biogenic_new_perc').click (event) =>
+      @renderSort('hab_biogenic_new_perc',  tableName, habitats, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
+
+    @renderSort('hab_biogenic_type', tableName, habitats, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
 
   #do the sorting - should be table independent
   #skip any that are less than 0.00

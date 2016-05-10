@@ -29,7 +29,13 @@ class ArrayEnvironmentTab extends ReportTab
     protectionZones = @getChildren PROTECTION_ID
     hasProtectionClasses = protectionZones?.length > 0
     catchmentPercents =  @recordSet('Catchment', 'Catchment').toArray()
+    try
+      biogenic_habitats = @recordSet('HabitatComprehensiveness', 'BiogenicHabitats').toArray()
 
+    catch e
+      console.log("no biogenic habitats found")
+      biogenic_habitats = []
+    
     if hasProtectionClasses
       try
         #if its all aquaculture, this will be empty
@@ -106,16 +112,7 @@ class ArrayEnvironmentTab extends ReportTab
         hasProtectionShorebirdSites = false
 
     if hasAquacultureClasses
-      """
-      try
-        aquacultureSensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas',AQUACULTURE_ID).toArray()
 
-        aquacultureSensitiveAreas = _.sortBy aquacultureSensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
-        hasAquacultureSensitiveAreas = aquacultureSensitiveAreas?.length > 0
-        aquacultureSensitiveAreas.reverse()
-      catch e
-        hasAquacultureSensitiveAreas = false
-      """
       aquacultureSensitiveAreas = []
       #hide them for now
       hasAquacultureSensitiveAreas = false
@@ -223,6 +220,8 @@ class ArrayEnvironmentTab extends ReportTab
       proximityToProtectedAreas: proximityToProtectedAreas
       isCloseToProtectedAreas: isCloseToProtectedAreas
 
+      biogenic_habitats: biogenic_habitats
+
       #IE8/9 can't do d3 stuff
       d3IsPresent: d3IsPresent
       catchmentPercents: catchmentPercents
@@ -245,8 +244,23 @@ class ArrayEnvironmentTab extends ReportTab
     @setupHabitatRepresentationSorting(representationData)
     #@setupSensitiveHabitatSorting(protectionSensitiveAreas, 'prot')
     #@setupSensitiveHabitatSorting(aquacultureSensitiveAreas, 'aq')
+    @setupBiogenicHabitatSorting(biogenic_habitats)
     @setupAquacultureHabitatSorting(aquacultureHabitats)
     @enableTablePaging()
+
+
+  setupBiogenicHabitatSorting: (habitats) =>
+    tbodyName = '.biogenic_values'
+    tableName = '.biogenic_hab_table'
+
+    @$('.hab_biogenic_type').click (event) =>
+      @renderSort('hab_biogenic_type', tableName, habitats, event, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
+    @$('.hab_biogenic_new_area').click (event) =>
+      @renderSort('hab_biogenic_new_area',  tableName, habitats, event, "NEW_SIZE", tbodyName, true, @getHabitatRowString)
+    @$('.hab_biogenic_new_perc').click (event) =>
+      @renderSort('hab_biogenic_new_perc',  tableName, habitats, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
+
+    @renderSort('hab_biogenic_type', tableName, habitats, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
 
   renderProtectionEcosystemServices: () =>
     name = @$('.protection-chosen').val()
