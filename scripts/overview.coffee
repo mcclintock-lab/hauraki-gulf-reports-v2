@@ -508,24 +508,25 @@ class OverviewTab extends ReportTab
     cleaned_props = []
     num_sketches = prop_sizes?.length
     for ps in prop_sizes
-      if ps.NAME != "Percent of Total Area"
-        ps.MIN_DIM = parseFloat(ps.MIN_DIM).toFixed(1)
-        ps.SIZE_SQKM = parseFloat(ps.SIZE_SQKM).toFixed(1)
-        if ps.SIZE_SQKM < 0.1
-          ps.SIZE_SQKM = "< 0.1"
-        ps.COAST = Number(ps.COAST).toFixed(1)
-        if ps.COAST == 0 
-          ps.COAST = "--"
-        #don't include average for singe sketch
-        if num_sketches == 3 
-          if ps.NAME != "Average"
+      if ps.NAME != "Average" and num_sketches != 1
+        if ps.NAME != "Percent of Total Area"
+          ps.MIN_DIM = parseFloat(ps.MIN_DIM).toFixed(1)
+          ps.SIZE_SQKM = parseFloat(ps.SIZE_SQKM).toFixed(1)
+          if ps.SIZE_SQKM < 0.1
+            ps.SIZE_SQKM = "< 0.1"
+          ps.COAST = Number(ps.COAST).toFixed(1)
+          if ps.COAST == 0 
+            ps.COAST = "--"
+          #don't include average for singe sketch
+          if num_sketches == 3 
+            if ps.NAME != "Average"
+              cleaned_props.push(ps)
+          else
             cleaned_props.push(ps)
+        if ps.NAME == "Average"
+          ps.CSS_CLASS = "is_avg"
         else
-          cleaned_props.push(ps)
-      if ps.NAME == "Average"
-        ps.CSS_CLASS = "is_avg"
-      else
-        ps.CSS_CLASS = "not_avg"
+          ps.CSS_CLASS = "not_avg"
 
     return cleaned_props
 

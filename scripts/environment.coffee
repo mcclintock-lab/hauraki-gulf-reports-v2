@@ -28,6 +28,7 @@ class EnvironmentTab extends ReportTab
     catch error
       console.log("no habs...", error)
 
+    
     #sensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas').toArray()
 
     #commented out for now
@@ -169,7 +170,7 @@ class EnvironmentTab extends ReportTab
     @setupBiogenicHabitatSorting(biogenic_habitats)
 
     @enableTablePaging()
-   
+
 
   renderEcosystemServices: () =>
     name = @$('.chosen').val()

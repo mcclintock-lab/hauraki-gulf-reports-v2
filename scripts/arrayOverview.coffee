@@ -24,15 +24,63 @@ class ArrayOverviewTab extends ReportTab
     'AquacultureSize'
     'ProximityToExistingAquaculture'
     'OverlapWithWarningAreas'
+    'ProposalSize'
   ]
 
   render: () ->
     # The @recordSet method contains some useful means to get data out of 
     # the monsterous RecordSet json. Checkout the seasketch-reporting-template
     # documentation for more info.
-    
+    protectionSketches = @recordSet('TargetSize', 'TargetSize', PROTECTION_ID).toArray()
     try
-      protectionSketches = @recordSet('TargetSize', 'TargetSize', PROTECTION_ID).toArray()
+      
+      #all sizes info
+      TOTAL_COASTLINE_LENGTH = 2504.842794
+      TOT_SIZE_SQKM = 14033.551666
+
+      total_sizes = @recordSet('ProposalSize', 'SizeTotals').toArray()
+      prop_sizes = @recordSet('ProposalSize', 'Sizes').toArray()
+      mpa_avg_min_dim = @getAverageMinDim(prop_sizes)
+      total_percent = @getTotalAreaPercent(prop_sizes)
+      prop_sizes = @cleanupData(prop_sizes)
+      mpa_count = @getMinDimCount(prop_sizes)
+
+      total_mpa_count = numSketches
+      plural_mpa_count = mpa_count != 1
+      isCollection = @model.isCollection()
+      if isCollection
+        numSketches = @model.getChildren().length
+      else
+        numSketches = 1
+    
+      if mpa_avg_min_dim < 10
+        mpa_avg_size_guideline = "below"
+      else
+        mpa_avg_size_guideline = "above"
+
+
+      if total_sizes?.length > 0
+        coastline_length = total_sizes[0].COAST
+        coastline_length_percent = (coastline_length/TOTAL_COASTLINE_LENGTH)*100.0
+        if coastline_length_percent > 0 && coastline_length_percent < 1
+          coastline_length_percent = "< 1"
+        else
+          coastline_length_percent = parseFloat(coastline_length_percent).toFixed(1)
+          if coastline_length_percent > 100
+            coastline_length_percent = 100
+        size = total_sizes[0].SIZE_SQKM
+
+        coastline_length = parseFloat(coastline_length).toFixed(1)
+        area_percent = parseFloat((size/TOT_SIZE_SQKM)*100).toFixed(1)
+        if area_percent > 100
+          area_percent = 100.0
+
+        if area_percent < 0.1
+          area_percent = "< 1"
+    catch error
+      console.log("something went wrong getting proposal sizes: ", error)
+
+    try
       hasMultipleProtectionSketches = false
       hasProtection = protectionSketches.length
       children = @model.getChildren()
@@ -186,6 +234,12 @@ class ArrayOverviewTab extends ReportTab
       hasMarineReserves: hasMarineReserves
       hasType2MPAs: hasType2MPAs
       hasBothPMZTypes: hasBothPMZTypes
+
+      prop_sizes: prop_sizes
+      isCollection: true
+      area_percent: area_percent
+      coastline_length_percent: coastline_length_percent
+
 
     @$el.html @template.render(context, partials)
     @enableLayerTogglers()
@@ -500,4 +554,54 @@ class ArrayOverviewTab extends ReportTab
       .attr("class", "max_label")
       .text((d) -> "30%")
       .style("left", (d) -> x(d) + 'px')
+
+
+
+
+  getTotalAreaPercent: (prop_sizes) =>
+
+    for ps in prop_sizes
+      if ps.NAME == "Percent of Total Area"
+        return ps.SIZE_SQKM
+    return 0.0
+
+  getAverageMinDim: (prop_sizes) =>
+    for ps in prop_sizes
+      if ps.NAME == "Average"
+        return ps.MIN_DIM
+
+  cleanupData: (prop_sizes, isCollection) =>
+    cleaned_props = []
+    num_sketches = prop_sizes?.length
+    for ps in prop_sizes
+      if ps.NAME != "Percent of Total Area"
+        if ps.NAME == "Average" and num_sketches == 2
+          continue
+        else
+          ps.MIN_DIM = parseFloat(ps.MIN_DIM).toFixed(1)
+          ps.SIZE_SQKM = parseFloat(ps.SIZE_SQKM).toFixed(1)
+          if ps.SIZE_SQKM < 0.1
+            ps.SIZE_SQKM = "< 0.1"
+          ps.COAST = Number(ps.COAST).toFixed(1)
+          if ps.COAST == 0 
+            ps.COAST = "--"
+          
+          cleaned_props.push(ps)
+
+      if ps.NAME == "Average"
+        ps.CSS_CLASS = "is_avg"
+      else
+        ps.CSS_CLASS = "not_avg"
+
+    return cleaned_props
+
+  getMinDimCount: (prop_sizes) =>
+    num_meet_criteria = 0
+    total_min_size = 0
+
+    for ps in prop_sizes
+      if ps.NAME != "Average" && ps.MIN_DIM > 5 
+        num_meet_criteria+=1
+
+    return num_meet_criteria
 module.exports = ArrayOverviewTab

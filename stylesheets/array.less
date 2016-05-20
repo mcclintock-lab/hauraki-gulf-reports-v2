@@ -1,7 +1,17 @@
 @import '../node_modules/seasketch-reporting-api/stylesheets/common.less';
 
 .arrayOverview {
-
+  .rule-of-thumb {
+      &:before {
+        font-family:'fontello';
+        color:'#8C001A';
+        content:"\6b";
+      }
+      &:after {
+        content:' Rule of Thumb:';
+        font-style:italic;
+      }
+    }
   .viz > div.range {
     height:15px;
     float:left;

@@ -12,12 +12,13 @@ for key, val of _partials
 ids = require './ids.coffee'
 for key, value of ids
   window[key] = value
+
 class ArrayEnvironmentTab extends ReportTab
   name: 'Environment'
   className: 'arrayEnvironment'
   timeout: 120000
   template: templates.arrayHabitat
-  dependencies: ['HabitatComprehensiveness', 'Catchment', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies', 'ProximityToExistingProtectedAreas']
+  dependencies: ['ZonationToolbox', 'HabitatComprehensiveness', 'Catchment', 'EcosystemServices', 'SensitiveAreas', 'ProtectedAndThreatenedSpecies', 'ProximityToExistingProtectedAreas']
   UP: "up"
   DOWN: "down"
 
@@ -29,6 +30,17 @@ class ArrayEnvironmentTab extends ReportTab
     protectionZones = @getChildren PROTECTION_ID
     hasProtectionClasses = protectionZones?.length > 0
     catchmentPercents =  @recordSet('Catchment', 'Catchment').toArray()
+    try
+      zb = @recordSet('ZonationToolbox', 'Biodiversity').toArray()
+      
+      zonation_biodiversity = @parseZonation zb
+
+      zh = @recordSet('ZonationToolbox', 'Habitats').toArray()
+      
+      zonation_habitats = @parseZonation zh
+    catch e
+      console.log("error parsing zonation data: ", e)
+    
     try
       biogenic_habitats = @recordSet('HabitatComprehensiveness', 'BiogenicHabitats').toArray()
 
@@ -228,6 +240,9 @@ class ArrayEnvironmentTab extends ReportTab
       new_ecosystem_services: new_ecosystem_services
       is_env_zone: is_env_zone
 
+      zonation_biodiversity: zonation_biodiversity
+      zonation_habitats: zonation_habitats
+
     @$el.html @template.render(context, templates)
     @enableLayerTogglers()
     @$('.protection-chosen').chosen({disable_search_threshold: 10, width:'400px'})
@@ -247,6 +262,25 @@ class ArrayEnvironmentTab extends ReportTab
     @setupBiogenicHabitatSorting(biogenic_habitats)
     @setupAquacultureHabitatSorting(aquacultureHabitats)
     @enableTablePaging()
+
+  parseZonation: (data) =>
+    parsed_data = [ 
+                    {"label":"0 - 50% (Low)", "MPA1":"--", "MPA2":"--"},
+                    {"label":"50 - 70%", "MPA1":"--", "MPA2":"--"},
+                    {"label":"70 - 80%", "MPA1":"--", "MPA2":"--"},
+                    {"label":"80 - 90%", "MPA1":"--", "MPA2":"--"},
+                    {"label":"90 - 100% (High)", "MPA1":"--", "MPA2":"--"}
+                  ]
+
+    for d in data
+      
+      if d.MPA_TYPE == "MPA1"
+        parsed_data[parseInt(d.Level)-1].MPA1 = parseFloat(d.Percent).toFixed(1)
+      else if d.MPA_TYPE == "MPA2"
+        parsed_data[parseInt(d.Level)-1].MPA2 = parseFloat(d.Percent).toFixed(1)
+      else
+        console.log("skipping type 3")
+    return parsed_data
 
 
   setupBiogenicHabitatSorting: (habitats) =>

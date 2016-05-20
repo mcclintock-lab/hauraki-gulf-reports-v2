@@ -18,7 +18,38 @@
     </table>
   </div>
 {{/anyAttributes}}
+<div class="reportSection size">
+  <h4>Sizes</h4>
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Area </br>(sq. km.)</th>
+          <th style="width:100px;">Width (km)<sup>*</sup></th>
+          <th style="width:100px;">Coastline Length (km)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#prop_sizes}}
+        <tr class={{CSS_CLASS}}>
+          <td>{{NAME}}</td>
+          <td>{{SIZE_SQKM}}</td>
+          <td>{{MIN_DIM}}</td>
+          <td>{{COAST}}</td>
+        </tr>
+        {{/prop_sizes}}
+      </tbody>
+    </table>
+  <p class="large">
+    This combined area within the network accounts for <strong>{{area_percent}}%</strong> of the Hauraki Gulf area, and <strong>{{coastline_length_percent}}%</strong> of the Hauraki Gulf coastline.
+  </p>
+  <p>
+    <i><sup>*</sup>Rule of thumb: Square or circular shapes of MPAs help maintain the integrity of the protected area as  they limit adult spillover and facilitate compliance.
+    </i>
+  </p>
+</div>
 {{#hasProtection}}
+  <!--
   <div class="reportSection size">
     <h4>Size</h4>
         <p class="large" style="margin-left:10px;">
@@ -34,6 +65,7 @@
           {{/hasAquaculture}}
         </p>
   </div>
+  -->
   {{#hasWarnings}}
     <div class="reportSection size">
       <h4>Warning <a href="#" data-toggle-node="52d5afebc03e516417000321" data-visible="false">show layer</a></h4>

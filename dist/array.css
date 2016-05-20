@@ -362,6 +362,15 @@
 .reportView .reportSection.tableContainer p {
   padding: 10px;
 }
+.arrayOverview .rule-of-thumb:before {
+  font-family: 'fontello';
+  color: '#8C001A';
+  content: "\6b";
+}
+.arrayOverview .rule-of-thumb:after {
+  content: ' Rule of Thumb:';
+  font-style: italic;
+}
 .arrayOverview .viz > div.range {
   height: 15px;
   float: left;
