@@ -61,8 +61,9 @@
 
 
   <div class="reportSection tableContainer">
-    <h4>Habitats Protected in Marine Reserves <a href="#" data-toggle-node="56ca675be9ef50195f6bd9f6" data-visible="false">show layer</a></h4>
+    <h4>Habitats Protected in Marine Reserves</h4>
     {{#d3IsPresent}}
+      <div class="in-report-header"><span>Physical Habitats</span><a href="#" data-toggle-node="56ca675be9ef50195f6bd9f6" data-visible="false">show layer</a></div>
       <table data-paging="10" class="reserve_hab_table"> 
         <thead>
           <tr>
@@ -79,7 +80,6 @@
           are protected by existing Marine Reserves and/or your collection.
       </p>
     {{/d3IsPresent}}
-    
     {{^d3IsPresent}}
       <table data-paging="10">
         <thead>
@@ -108,14 +108,57 @@
 
       </table>
       <p>
-        <strong>{{habitatsInReservesCount}}</strong> of <strong>{{habitatsCount}}</strong> habitats
+        <strong>{{habitatsInReservesCount}}</strong> of <strong>{{habitatsCount}}</strong> physical habitats
         are protected by existing Marine Reserves and/or your collection.
       </p>
     {{/d3IsPresent}}
+    {{#d3IsPresent}}
+      <div class="in-report-header"><span>Biogenic Habitats</span><a href="#" data-toggle-node="54c84d5fe2b49a023bffed1c" data-visible="false">show layer</a></div>
+      <table data-paging="20" class="reserve_biogenic_hab_table"> 
+        <thead>
+          <tr>
+            <th class="sorting_col" style="width:250px;"><a class="hab_reserve_biogenic_type sort_up" href="#">Habitat Type</a></th>
+            <th><a class="hab_reserve_biogenic_new_area sort_down" href="#" >Area (ha)</a></th>
+            <th><a class="hab_reserve_biogenic_new_perc sort_down" href="#">Area (%)</a></th>
+          </tr>
+        </thead>
+        <tbody class="reserve_biogenic_values"></tbody>
+      </table>
+  {{/d3IsPresent}}
+  {{^d3IsPresent}}
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th style="width:250px;">Biogenic Habitats</th>
+          <th>Area (ha)</th>
+          <th>Area (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#biogenicHabitatsInReserves}}
+        <tr>
+          <td>{{HAB_TYPE}}</td>
+          <td>{{NEW_SIZE}}</td>
+          <td>{{NEW_PERC}}</td>
+        </tr>
+        {{/biogenicHabitatsInReserves}}
+        {{^hasBiogenicReserveData}}
+          <tr>
+            <td colspan="4" style='text-align:center;'>None</td>
+          </tr>
+        {{/hasBiogenicReserveData}}
+      </tbody>
+    </table>
+  {{/d3IsPresent}}
+    <p>
+      <strong>{{biogenicHabitatsInReservesCount}}</strong> of <strong>{{biogenicHabitatsCount}}</strong> biogenic habitats
+      are protected by existing Marine Reserves and/or your collection.
+    </p>
   </div>
 
   <div class="reportSection tableContainer">
-    <h4>Habitats Protected in Type-2 Protected Areas <a href="#" data-toggle-node="56ca675be9ef50195f6bd9f6" data-visible="false">show layer</a></h4>
+    <h4>Habitats Protected in Type-2 Protected Areas </h4>
+    <div class="in-report-header"><span>Physical Habitats</span><a href="#" data-toggle-node="56ca675be9ef50195f6bd9f6" data-visible="false">show layer</a></div>
     {{#d3IsPresent}}
         <table data-paging="10" class="type2_hab_table">
           <thead>
@@ -164,6 +207,48 @@
           are protected in by existing Type-2 Protected Areas and/or your collection.
         </p>
     {{/d3IsPresent}}
+    {{#d3IsPresent}}
+      <div class="in-report-header"><span>Biogenic Habitats</span><a href="#" data-toggle-node="54c84d5fe2b49a023bffed1c" data-visible="false">show layer</a></div>
+      <table data-paging="20" class="type2_biogenic_hab_table"> 
+        <thead>
+          <tr>
+            <th class="sorting_col" style="width:250px;"><a class="hab_type2_biogenic_type sort_up" href="#">Habitat Type</a></th>
+            <th><a class="hab_type2_biogenic_new_area sort_down" href="#" >Area (ha)</a></th>
+            <th><a class="hab_type2_biogenic_new_perc sort_down" href="#">Area (%)</a></th>
+          </tr>
+        </thead>
+        <tbody class="type2_biogenic_values"></tbody>
+      </table>
+  {{/d3IsPresent}}
+  {{^d3IsPresent}}
+    <table data-paging="10">
+      <thead>
+        <tr>
+          <th style="width:250px;">Biogenic Habitats</th>
+          <th>Area (ha)</th>
+          <th>Area (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#biogenicHabitatsInTypeTwos}}
+        <tr>
+          <td>{{HAB_TYPE}}</td>
+          <td>{{NEW_SIZE}}</td>
+          <td>{{NEW_PERC}}</td>
+        </tr>
+        {{/biogenicHabitatsInTypeTwos}}
+        {{^hasBiogenicTypeTwoData}}
+          <tr>
+            <td colspan="4" style='text-align:center;'>None</td>
+          </tr>
+        {{/hasBiogenicTypeTwoData}}
+      </tbody>
+    </table>
+  {{/d3IsPresent}}
+      <p>
+        <strong>{{biogenicHabitatsInTypeTwoCount}}</strong> of <strong>{{biogenicHabitatsCount}}</strong> biogenic habitats
+        are protected in by existing Type-2 Protected Areas and/or your collection.
+      </p>
   </div>
 
   {{#hasRepresentationData}}
@@ -356,6 +441,7 @@
   </div>
 
 {{/is_env_zone}}
+<!---
 <div class="reportSection tableContainer">
   <h4>Biogenic Habitats<a href="#" data-toggle-node="54c84d5fe2b49a023bffed1c" data-visible="false">show layer</a></h4>
   {{#d3IsPresent}}
@@ -391,6 +477,7 @@
     </table>
   {{/d3IsPresent}}
 </div>
+--->
 
 <div class="reportSection">
   <h4>Catchments <a href="#" data-toggle-node="54c94b76e2b49a023b001749" data-visible="false">show layer</a></h4>

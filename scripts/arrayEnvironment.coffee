@@ -30,19 +30,28 @@ class ArrayEnvironmentTab extends ReportTab
     protectionZones = @getChildren PROTECTION_ID
     hasProtectionClasses = protectionZones?.length > 0
     catchmentPercents =  @recordSet('Catchment', 'Catchment').toArray()
-    try
-      zb = @recordSet('ZonationToolbox', 'Biodiversity').toArray()
-      
-      zonation_biodiversity = @parseZonation zb
 
+    try
+      zb = @recordSet('ZonationToolbox', 'Biodiversity').toArray()  
+      zonation_biodiversity = @parseZonation zb
       zh = @recordSet('ZonationToolbox', 'Habitats').toArray()
-      
       zonation_habitats = @parseZonation zh
     catch e
       console.log("error parsing zonation data: ", e)
     
     try
       biogenic_habitats = @recordSet('HabitatComprehensiveness', 'BiogenicHabitats').toArray()
+      biogenicHabitatsInReserves = _.filter biogenic_habitats, (row) -> row.MPA_TYPE is 'MPA1' 
+      hasBiogenicReserveData = biogenicHabitatsInReserves?.length > 0
+      biogenicHabitatsInReservesCount = biogenicHabitatsInReserves?.length
+      if hasBiogenicReserveData
+        biogenicHabitatsInReserves = _.sortBy biogenicHabitatsInReserves, (row) -> row.HAB_TYPE
+
+      biogenicHabitatsInTypeTwos = _.filter biogenic_habitats, (row) -> row.MPA_TYPE is 'MPA2' 
+      biogenicHabitatsInTypeTwoCount = biogenicHabitatsInTypeTwos?.length
+      hasBiogenicTypeTwoData = biogenicHabitatsInTypeTwos.length > 0
+      if hasBiogenicTypeTwoData
+        biogenicHabitatsInTypeTwos = _.sortBy biogenicHabitatsInTypeTwos, (row) -> row.HAB_TYPE
 
     catch e
       console.log("no biogenic habitats found")
@@ -61,17 +70,15 @@ class ArrayEnvironmentTab extends ReportTab
 
         habitatsInTypeTwos = _.filter habitats, (row) -> row.MPA_TYPE is 'MPA2' 
         habitatsInTypeTwoCount = habitatsInTypeTwos?.length
-
+        hasTypeTwoData = habitatsInTypeTwos.length > 0
+        if hasTypeTwoData
+          habitatsInTypeTwos = _.sortBy habitatsInTypeTwos, (row) -> row.HAB_TYPE
         
+
         representationData = _.filter habitats, (row) -> row.MPA_TYPE is 'ALL_TYPES' 
         hasRepresentationData = representationData?.length > 0
         representedCount = representationData?.length
         representationData = _.sortBy representationData, (row) -> row.HAB_TYPE
-
-        hasTypeTwoData = habitatsInTypeTwos.length > 0
-
-        if hasTypeTwoData
-          habitatsInTypeTwos = _.sortBy habitatsInTypeTwos, (row) -> row.HAB_TYPE
 
 
       catch error
@@ -93,12 +100,6 @@ class ArrayEnvironmentTab extends ReportTab
         
       hasProtectionSensitiveAreas = false
       protectionSensitiveAreas = []
-      """
-      protectionSensitiveAreas = @recordSet('SensitiveAreas', 'SensitiveAreas', PROTECTION_ID).toArray()
-      protectionSensitiveAreas = _.sortBy protectionSensitiveAreas, (row) -> parseFloat(row.PERC_AREA)
-      hasProtectionSensitiveAreas = hasProtectionSensitiveAreas?.length > 0
-      protectionSensitiveAreas.reverse()
-      """
 
       try
         protectionProtectedMammals = @recordSet('ProtectedAndThreatenedSpecies', 'Mammals', PROTECTION_ID).toArray()
@@ -150,7 +151,6 @@ class ArrayEnvironmentTab extends ReportTab
       catch error
         hasAquacultureShorebirdSites = false
 
-
       try
         aquacultureEcosystemProductivity = @recordSet('EcosystemServices', 'EcosystemProductivity', AQUACULTURE_ID).toArray()
         aquacultureNutrientRecycling = @recordSet('EcosystemServices', 'NutrientRecycling',AQUACULTURE_ID).toArray()
@@ -185,6 +185,8 @@ class ArrayEnvironmentTab extends ReportTab
 
       #protection only      
       habitatsCount: 47
+      biogenicHabitatsCount: 9
+
       hasReserveData: hasReserveData
       habitatsInReserves: habitatsInReserves
       habitatsInReservesCount: habitatsInReservesCount
@@ -232,7 +234,13 @@ class ArrayEnvironmentTab extends ReportTab
       proximityToProtectedAreas: proximityToProtectedAreas
       isCloseToProtectedAreas: isCloseToProtectedAreas
 
-      biogenic_habitats: biogenic_habitats
+      hasBiogenicReserveData: hasBiogenicReserveData
+      biogenicHabitatsInReserves: biogenicHabitatsInReserves
+      biogenicHabitatsInReservesCount: biogenicHabitatsInReservesCount
+
+      hasBiogenicTypeTwoData: hasBiogenicTypeTwoData
+      biogenicHabitatsInTypeTwoCount: biogenicHabitatsInTypeTwoCount
+      biogenicHabitatsInTypeTwos: biogenicHabitatsInTypeTwos
 
       #IE8/9 can't do d3 stuff
       d3IsPresent: d3IsPresent
@@ -259,7 +267,8 @@ class ArrayEnvironmentTab extends ReportTab
     @setupHabitatRepresentationSorting(representationData)
     #@setupSensitiveHabitatSorting(protectionSensitiveAreas, 'prot')
     #@setupSensitiveHabitatSorting(aquacultureSensitiveAreas, 'aq')
-    @setupBiogenicHabitatSorting(biogenic_habitats)
+    @setupBiogenicReserveHabitatSorting(biogenicHabitatsInReserves)
+    @setupBiogenicType2HabitatSorting(biogenicHabitatsInTypeTwos)
     @setupAquacultureHabitatSorting(aquacultureHabitats)
     @enableTablePaging()
 
@@ -283,18 +292,32 @@ class ArrayEnvironmentTab extends ReportTab
     return parsed_data
 
 
-  setupBiogenicHabitatSorting: (habitats) =>
-    tbodyName = '.biogenic_values'
-    tableName = '.biogenic_hab_table'
+  setupBiogenicReserveHabitatSorting: (habitats) =>
+    tbodyName = '.reserve_biogenic_values'
+    tableName = '.reserve_biogenic_hab_table'
+    @$('.hab_reserve_biogenic_type').click (event) =>
+      @renderSort('hab_reserve_biogenic_type', tableName, habitats, event, "HAB_TYPE", tbodyName, false, @getBiogenicHabitatRowString)
+    @$('.hab_reserve_biogenic_new_area').click (event) =>
+      @renderSort('hab_reserve_biogenic_new_area',  tableName, habitats, event, "NEW_SIZE", tbodyName, true, @getBiogenicHabitatRowString)
+    @$('.hab_reserve_biogenic_new_perc').click (event) =>
+      @renderSort('hab_reserve_biogenic_new_perc',  tableName, habitats, event, "NEW_PERC", tbodyName, true, @getBiogenicHabitatRowString)
 
-    @$('.hab_biogenic_type').click (event) =>
-      @renderSort('hab_biogenic_type', tableName, habitats, event, "HAB_TYPE", tbodyName, false, @getBiogenicHabitatRowString)
-    @$('.hab_biogenic_new_area').click (event) =>
-      @renderSort('hab_biogenic_new_area',  tableName, habitats, event, "NEW_SIZE", tbodyName, true, @getBiogenicHabitatRowString)
-    @$('.hab_biogenic_new_perc').click (event) =>
-      @renderSort('hab_biogenic_new_perc',  tableName, habitats, event, "NEW_PERC", tbodyName, true, @getBiogenicHabitatRowString)
+    @renderSort('hab_reserve_biogenic_type', tableName, habitats, undefined, "HAB_TYPE", tbodyName, false, @getBiogenicHabitatRowString)
 
-    @renderSort('hab_biogenic_type', tableName, habitats, undefined, "HAB_TYPE", tbodyName, false, @getBiogenicHabitatRowString)
+  setupBiogenicType2HabitatSorting: (habitats) =>
+    tbodyName = '.type2_biogenic_values'
+    tableName = '.type2_ biogenic_hab_table'
+
+    @$('.hab_type2_biogenic_type').click (event) =>
+      @renderSort('hab_tyep2_biogenic_type', tableName, habitats, event, "HAB_TYPE", tbodyName, false, @getBiogenicHabitatRowString)
+    @$('.hab_type2_biogenic_new_area').click (event) =>
+      @renderSort('hab_type2_biogenic_new_area',  tableName, habitats, event, "NEW_SIZE", tbodyName, true, @getBiogenicHabitatRowString)
+    @$('.hab_type2_biogenic_new_perc').click (event) =>
+      @renderSort('hab_type2_biogenic_new_perc',  tableName, habitats, event, "NEW_PERC", tbodyName, true, @getBiogenicHabitatRowString)
+
+    @renderSort('hab_type2_biogenic_type', tableName, habitats, undefined, "HAB_TYPE", tbodyName, false, @getBiogenicHabitatRowString)
+
+
 
   renderProtectionEcosystemServices: () =>
     name = @$('.protection-chosen').val()
