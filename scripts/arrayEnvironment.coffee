@@ -288,13 +288,13 @@ class ArrayEnvironmentTab extends ReportTab
     tableName = '.biogenic_hab_table'
 
     @$('.hab_biogenic_type').click (event) =>
-      @renderSort('hab_biogenic_type', tableName, habitats, event, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
+      @renderSort('hab_biogenic_type', tableName, habitats, event, "HAB_TYPE", tbodyName, false, @getBiogenicHabitatRowString)
     @$('.hab_biogenic_new_area').click (event) =>
-      @renderSort('hab_biogenic_new_area',  tableName, habitats, event, "NEW_SIZE", tbodyName, true, @getHabitatRowString)
+      @renderSort('hab_biogenic_new_area',  tableName, habitats, event, "NEW_SIZE", tbodyName, true, @getBiogenicHabitatRowString)
     @$('.hab_biogenic_new_perc').click (event) =>
-      @renderSort('hab_biogenic_new_perc',  tableName, habitats, event, "NEW_PERC", tbodyName, true, @getHabitatRowString)
+      @renderSort('hab_biogenic_new_perc',  tableName, habitats, event, "NEW_PERC", tbodyName, true, @getBiogenicHabitatRowString)
 
-    @renderSort('hab_biogenic_type', tableName, habitats, undefined, "HAB_TYPE", tbodyName, false, @getHabitatRowString)
+    @renderSort('hab_biogenic_type', tableName, habitats, undefined, "HAB_TYPE", tbodyName, false, @getBiogenicHabitatRowString)
 
   renderProtectionEcosystemServices: () =>
     name = @$('.protection-chosen').val()
@@ -335,12 +335,6 @@ class ArrayEnvironmentTab extends ReportTab
     @$('.hab_aquaculture_type').click (event) =>
       @renderSort('hab_aquaculture_type', tableName, pdata, event, "HAB_TYPE", tbodyName, false, habitatFunction)
 
-    """
-    @$('.hab_aquaculture_existing').click (event) =>
-      @renderSort('hab_aquaculture_existing',  tableName, pdata, event, "EX_SIZE", tbodyName, true, habitatFunction)
-    @$('.hab_aquaculture_existing_perc').click (event) =>
-      @renderSort('hab_aquaculture_existing_perc',  tableName, pdata, event, "EX_PERC", tbodyName, true, habitatFunction)      
-    """
     @$('.hab_aquaculture_new').click (event) =>
       @renderSort('hab_aquaculture_new',tableName, pdata, event, "NEW_SIZE", tbodyName, true, habitatFunction)
     @$('.hab_aquaculture_new_perc').click (event) =>
@@ -458,23 +452,21 @@ class ArrayEnvironmentTab extends ReportTab
   #table row for habitat representation
   getAquacultureHabitatRowString: (d) =>
     return ["HAB_TYPE", "NEW_SIZE", "NEW_PERC"]
-    #return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.NEW_SIZE+"</td>"+"<td>"+d.NEW_PERC+"</td>"
 
   #table row for habitat representation
   getSensitiveAreaString: (d) =>
     return ["SA_NAME", "SA_TYPE", "CLPD_AREA", "PERC_AREA"]
-    #return "<td>"+d.SA_NAME+"</td>"+"<td>"+d.SA_TYPE+"</td>"+"<td>"+d.CLPD_AREA+"</td>"+"<td>"+d.PERC_AREA+"</td>"
-  #table row for habitat representation
 
   getHabitatRepString: (d) =>
     return ["HAB_TYPE", "CB_PERC", "REP_COUNT", "NEW_SIZE"]
-    #return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.CB_PERC+"</td>"+"<td>"+d.REP_COUNT+"</td>"+"<td>"+d.NEW_SIZE+"</td>"
 
   #table row for habitat representation
   getHabitatRowString: (d) =>
     return ["HAB_TYPE", "EX_PERC", "NEW_PERC", "CB_PERC"]
-    #return "<td>"+d.HAB_TYPE+"</td>"+"<td>"+d.EX_PERC+"</td>"+"<td>"+d.NEW_PERC+"</td>"+"<td>"+d.CB_PERC+"</td>"
 
+  #table row for habitat representation
+  getBiogenicHabitatRowString: (d) =>
+    return ["HAB_TYPE", "NEW_SIZE", "NEW_PERC"]
   setSortingColor: (event, tableName) =>
     sortingClass = "sorting_col"
     if event
